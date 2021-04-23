@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import Header from './RegisterHeader'
+import axios from 'axios'
 
 function Register(props){
     const[state, setState] = useState({
@@ -9,6 +10,8 @@ function Register(props){
         phonenumber: "",
     })
 
+    const[registeredMessage, setRegisteredMessage] = useState('');
+
     function handleChange (event) {
         setState({
             ...state,
@@ -16,11 +19,21 @@ function Register(props){
         }); 
     }
 
-    function handleSubmit (event){
-        {console.log(state.name)}
-        {console.log(state.email)}
-        {console.log(state.password)}
-        {console.log(state.phonenumber)}
+    async function handleSubmit (event){
+        event.preventDefault();
+
+        await axios.post('http://localhost:8080/api/register_user', {
+            name: state.name,
+            email: state.email,
+            password: state.password,
+            phone: state.phonenumber
+        
+        })
+        .then(res => {
+            if(res.status === 200){
+                setRegisteredMessage("User has been registered!");
+            }
+        })
     }
 
     return (
@@ -30,8 +43,9 @@ function Register(props){
             <div className="card col-12 col-lg-4 mt-2">
             <a class="h5">
                     Enter your details:
-                </a>
+            </a>
             <form>
+                {registeredMessage && <div className="registeredMessage"> {registeredMessage} </div>}
                 <label>
                     Name:
                     <br />
