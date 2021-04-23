@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  height: 100vh;
+  background-color: #282c34;
 }
 
 .App-logo {
@@ -26,6 +28,37 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.card {
+  margin: 0 auto; 
+  float: none; 
+  margin-top: 1%; 
+  margin-bottom: 1%; 
+  padding: 1%;
+  text-align: left;
+}
+
+.registerButton {
+	background-color:#4dc76e;
+	border-radius:15px;
+	border:1px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:20px;
+	font-weight:bold;
+	padding:7px 15px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #43733c;
+}
+.registerButton:hover {
+	background-color:#4e9e23;
+}
+.registerButton:active {
+	position:relative;
+	top:1px;
 }
 
 @keyframes App-logo-spin {
