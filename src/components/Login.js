@@ -30,9 +30,9 @@ function Login(props){
         })
         .then(res => {
             console.log(res);
-           // if(res.status === 200){
-//                setRegisteredMessage("User has been registered!");
-     //       }
+            if(res.status === 200){
+                setRegisteredMessage("User has been registered!");
+            }
         })
     }
    
