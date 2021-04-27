@@ -9,8 +9,6 @@ function Login(props){
         email: "",
         password: "",
     })
-    
-    const[registeredMessage, setRegisteredMessage] = useState('');
 
     function handleChange (event) {
         setState({
@@ -50,7 +48,6 @@ function Login(props){
                     Sports were meant to be played together. You are just one step away!
                 </a>
             <form>
-                {registeredMessage && <div className="registeredMessage"> {registeredMessage} </div>}
                 <label>
                     <br />
                     <input id="email"  placeholder="email" value={state.email} onChange={handleChange} />
