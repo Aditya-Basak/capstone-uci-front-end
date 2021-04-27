@@ -1,7 +1,6 @@
 import React,{useState} from 'react'
 import Header from './RegisterHeader'
 import axios from 'axios'
-import {Alert} from 'react-alert';
 import {Link} from 'react-router-dom';
 
 function Login(props){
@@ -24,16 +23,21 @@ function Login(props){
         event.preventDefault();
 
         await axios.get('http://localhost:8080/api/login_user', {
+            params: {
             email: state.email,
             password: state.password
-        
-        })
-        .then(res => {
-            console.log(res);
-            if(res.status === 200){
-                setRegisteredMessage("User has been registered!");
             }
         })
+        .then(res => {
+            console.log(res.status);
+            if(res.status === 200){
+                window.location = "/dashboard";
+            }
+        })
+        .catch(error => {
+            alert("Wrong username/password.");
+            window.location = "/";
+        });
     }
    
 
