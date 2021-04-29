@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import Header from './RegisterHeader'
+import moment from 'moment'
 import axios from 'axios'
 
 function CreateEvent(props){
@@ -20,27 +21,49 @@ function CreateEvent(props){
         setState({
             ...state,
             [event.target.id]: event.target.value
-        }); 
+        });
+      //  console.log(event.target.value); 
     }
 
     async function handleSubmit (event){
-        event.preventDefault();
-
-        await axios.post('http://localhost:8080/api/create_event', {
-            name: state.name,
-            type: state.type,
-            description: state.description,
-            location: state.location,
-            date: state.date,
-            time: state.time,
-            limit: state.limit,
-            visibility: state.visibility
-        })
-        .then(res => {
-            if(res.status === 200){
-                setCreatedMessage("Event has been created!");
-            }
-        })
+       // event.preventDefault();
+        
+        console.log(state.name);
+        console.log(state.type);
+        console.log(state.description);
+        console.log(state.location);
+        console.log(state.date);
+        console.log(state.time);
+        console.log(state.limit);
+        console.log(state.visibility);
+        
+        if(state.name == "" || 
+            state.type == "" ||
+            state.description == "" ||
+            state.location == "" ||
+            state.date == "" ||
+            state.time == "" ||
+            state.limit == "" ||
+            state.visibility == "" )
+                alert("All the fields are REQUIRED.");
+        
+        else{
+            await axios.post('http://localhost:8080/api/create_event', {
+                name: state.name,
+                type: state.type,
+                description: state.description,
+                location: state.location,
+                date: state.date,
+                time: state.time,
+                limit: state.limit,
+                visibility: state.visibility
+            })
+            .then(res => {
+                if(res.status === 200){
+                    setCreatedMessage("Event has been created!");
+                }
+            })
+        }
     }
 
     return (
@@ -56,13 +79,18 @@ function CreateEvent(props){
                 <label>
                     Event Name:
                     <br />
-                    <input id="name"  placeholder="Enter event name" value={state.name} onChange={handleChange} />
+                    <input id="name"  placeholder="Enter event name" value={state.name} onChange={handleChange} required />
                 </label>
                 <br />
                 <label>
-                    Event Type:
-                    <br />
-                    <input id="type"  placeholder="Enter type" value={state.type} onChange={handleChange} />
+                    Event Type:&nbsp;&nbsp;
+                    <select id="type" value={state.type} onChange={handleChange}>
+                    <option disabled selected value="">Select</option>
+                    <option value="soccer">Soccer</option>
+                    <option value="basketball">Basketball</option>
+                    <option value="football">Football</option>
+                    <option value="cricket">Cricket</option>
+                    </select>
                 </label>
                 <br />
                 <label>
@@ -80,25 +108,26 @@ function CreateEvent(props){
                 <label>
                     Date:
                     <br />
-                    <input id="date"  placeholder="Enter date" value={state.date} onChange={handleChange} />
+                    <input id="date"  type= "date" min={moment().format("YYYY-MM-DD")} value={state.date} onChange={handleChange} />
                 </label>
                 <br />
                 <label>
                     Time:
                     <br />
-                    <input id="time"  placeholder="Enter time" value={state.time} onChange={handleChange} />
+                    <input id="time"  type= "time" value={state.time} onChange={handleChange} />
                 </label>
                 <br />
                 <label>
                     Attendees Limit:
                     <br />
-                    <input id="limit" placeholder="Enter number of attendees allowed" value={state.limit} onChange={handleChange} />
+                    <input id="limit" type="number" placeholder="No of slots" min="1" value={state.limit} onChange={handleChange} />
                 </label>
                 <br />
                 <label>
                     Visibility:
-                    <br />
-                    <input id="visibility"  placeholder="Visibility Type" value={state.visibility} onChange={handleChange} />
+                    <br/>
+                    <input id = "visibility" type = "radio" name="secrecy" value="public" onChange={handleChange}/> Public&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input id = "visibility" type = "radio" name="secrecy" value="private" onChange={handleChange}/> Private
                 </label>
                 <br />
             </form>
