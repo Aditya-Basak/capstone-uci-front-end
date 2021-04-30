@@ -32,8 +32,8 @@ function CreateEvent(props){
         console.log(state.type);
         console.log(state.description);
         console.log(state.location);
-        console.log(state.date);
-        console.log(state.time);
+        console.log(new Date(state.date.split("-")).getTime() / 1000);
+        console.log(new Date(state.time.split(":")).getTime() / 1000);
         console.log(state.limit);
         console.log(state.visibility);
         
@@ -53,8 +53,8 @@ function CreateEvent(props){
                 type: state.type,
                 description: state.description,
                 location: state.location,
-                date: state.date,
-                time: state.time,
+                date: new Date(state.date.split("-")).getTime() / 1000,
+                time: new Date(state.time.split(":")).getTime() / 1000,
                 limit: state.limit,
                 visibility: state.visibility
             })
