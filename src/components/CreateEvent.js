@@ -6,13 +6,13 @@ import axios from 'axios'
 function CreateEvent(props){
     const[state, setState] = useState({
         name: "",
-        type: "",
+        event_type: "",
         description: "",
         location: "",
-        date: "",
-        time: "",
+        date_field: "",
+        time_field: "",
         limit: "",
-        visibility: "",
+        scope: "",
     })
 
     const[createdMessage, setCreatedMessage] = useState('');
@@ -29,40 +29,43 @@ function CreateEvent(props){
        // event.preventDefault();
         
         console.log(state.name);
-        console.log(state.type);
+        console.log(state.event_type);
         console.log(state.description);
         console.log(state.location);
-        console.log(new Date(state.date.split("-")).getTime() / 1000);
-        console.log(new Date(state.time.split(":")).getTime() / 1000);
+        console.log(state.date_field+"T"+state.time_field)
+        console.log(new Date(state.date_field+"T"+state.time_field).getTime());
         console.log(state.limit);
-        console.log(state.visibility);
+        console.log(state.scope);
         
         if(state.name == "" || 
-            state.type == "" ||
+            state.event_type == "" ||
             state.description == "" ||
             state.location == "" ||
-            state.date == "" ||
+            state.date_field == "" ||
             state.time == "" ||
             state.limit == "" ||
-            state.visibility == "" )
+            state.scope == "" )
                 alert("All the fields are REQUIRED.");
         
         else{
             await axios.post('http://localhost:8080/api/create_event', {
                 name: state.name,
-                type: state.type,
+                event_type: state.event_type,
                 description: state.description,
                 location: state.location,
-                date: new Date(state.date.split("-")).getTime() / 1000,
-                time: new Date(state.time.split(":")).getTime() / 1000,
-                limit: state.limit,
-                visibility: state.visibility
+                time: new Date(state.date_field+"T"+state.time_field).getTime(),
+                limit: Number(state.limit),
+                scope: state.scope
             })
             .then(res => {
                 if(res.status === 200){
                     setCreatedMessage("Event has been created!");
                 }
             })
+            .catch(error => {
+                alert("Something went wrong. Retry creating.");
+                //window.location = "/createEvent";
+            });
         }
     }
 
@@ -84,7 +87,7 @@ function CreateEvent(props){
                 <br />
                 <label>
                     Event Type:&nbsp;&nbsp;
-                    <select id="type" value={state.type} onChange={handleChange}>
+                    <select id="event_type" value={state.event_type} onChange={handleChange}>
                     <option disabled selected value="">Select</option>
                     <option value="soccer">Soccer</option>
                     <option value="basketball">Basketball</option>
@@ -108,13 +111,13 @@ function CreateEvent(props){
                 <label>
                     Date:
                     <br />
-                    <input id="date"  type= "date" min={moment().format("YYYY-MM-DD")} value={state.date} onChange={handleChange} />
+                    <input id="date_field"  type= "date" min={moment().format("YYYY-MM-DD")} value={state.date_field} onChange={handleChange} />
                 </label>
                 <br />
                 <label>
                     Time:
                     <br />
-                    <input id="time"  type= "time" value={state.time} onChange={handleChange} />
+                    <input id="time_field"  type= "time" value={state.time_field} onChange={handleChange} />
                 </label>
                 <br />
                 <label>
@@ -124,10 +127,10 @@ function CreateEvent(props){
                 </label>
                 <br />
                 <label>
-                    Visibility:
+                    scope:
                     <br/>
-                    <input id = "visibility" type = "radio" name="secrecy" value="public" onChange={handleChange}/> Public&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input id = "visibility" type = "radio" name="secrecy" value="private" onChange={handleChange}/> Private
+                    <input id = "scope" type = "radio" name="secrecy" value="public" onChange={handleChange}/> Public&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input id = "scope" type = "radio" name="secrecy" value="private" onChange={handleChange}/> Private
                 </label>
                 <br />
             </form>
