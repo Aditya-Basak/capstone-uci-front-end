@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Header from './RegisterHeader'
 import moment from 'moment'
 import axios from 'axios'
@@ -6,7 +6,6 @@ import axios from 'axios'
 function EditEvent(props){
     
     const[state, setState] = useState({
-        data:"",
         name: "",
         event_type: "",
         description: "",
@@ -17,18 +16,16 @@ function EditEvent(props){
         scope: "",
     })
      
-    // axios.get("http://localhost:8080/api/get_event",{
-    //     params: {
-    //         user_id: 9,
-    //         event_id: 22
-    //     }
-    // })
-    //    .then((res) => {
-    //        console.log(res.data);
-    //        setState({
-    //         data: res.data
-    //        });
-    //    })
+    useEffect(async () => {
+        const result = await axios.get("http://localhost:8080/api/get_event",{
+            params: {
+                user_id: 9,
+                event_id: 22
+            }
+        });
+        setState(result.data);
+        console.log(result.data);
+    },[]);
 
     const[edittedMessage, setEdittedMessage] = useState('');
 
@@ -63,7 +60,7 @@ function EditEvent(props){
                 alert("All the fields are REQUIRED.");
         
         else{
-            await axios.put('http://localhost:8080/api/edit_event?user_id=9&event_id=22',  {
+            await axios.put('http://localhost:8080/api/edit_event', {
                 name: state.name,
                 event_type: state.event_type,
                 description: state.description,
@@ -71,7 +68,13 @@ function EditEvent(props){
                 time: new Date(state.date_field+"T"+state.time_field).getTime(),
                 limit: parseInt(state.limit),
                 scope: state.scope
-            },{user_id: parseInt(9)})
+            },
+            {
+                params:{
+                    user_id: 9,
+                    event_id: 22
+                }
+            })
             .then(res => {
                 console.log(res);
                 if(res.status === 200){
@@ -79,13 +82,13 @@ function EditEvent(props){
                 }
             })
             .catch(error => {
-                alert("Something went wrong. Retry creating.");
-                window.location = "/createEvent";
+                alert("Something went wrong. Retry modifying.\n"+error);
+                window.location = "/editEvent";
             });
         }
     }
-
     return (
+        
         <div>
             <Header />
 
@@ -151,7 +154,7 @@ function EditEvent(props){
                 <br />
             </form>
             </div>
-            <button onClick={handleSubmit} className="registerButton"> Create </button>
+            <button onClick={handleSubmit} className="registerButton"> Modify </button>
          </div>
 
     )
