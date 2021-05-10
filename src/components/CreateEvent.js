@@ -48,7 +48,7 @@ function CreateEvent(props){
                 alert("All the fields are REQUIRED.");
         
         else{
-            await axios.post('http://localhost:8080/api/create_event?user_id=9',  {
+            await axios.post('http://localhost:8080/api/create_event', {
                 name: state.name,
                 event_type: state.event_type,
                 description: state.description,
@@ -56,7 +56,10 @@ function CreateEvent(props){
                 time: new Date(state.date_field+"T"+state.time_field).getTime(),
                 limit: parseInt(state.limit),
                 scope: state.scope
-            },{user_id: parseInt(9)})
+            },
+            {
+                params: {user_id: 9}, 
+            })
             .then(res => {
                 console.log(res);
                 if(res.status === 200){
@@ -64,7 +67,7 @@ function CreateEvent(props){
                 }
             })
             .catch(error => {
-                alert("Something went wrong. Retry creating.");
+                alert("Something went wrong. Retry creating.\n"+error);
                 window.location = "/createEvent";
             });
         }
