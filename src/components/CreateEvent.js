@@ -48,23 +48,24 @@ function CreateEvent(props){
                 alert("All the fields are REQUIRED.");
         
         else{
-            await axios.post('http://localhost:8080/api/create_event', {
+            await axios.post('http://localhost:8080/api/create_event?user_id=9',  {
                 name: state.name,
                 event_type: state.event_type,
                 description: state.description,
                 location: state.location,
                 time: new Date(state.date_field+"T"+state.time_field).getTime(),
-                limit: Number(state.limit),
+                limit: parseInt(state.limit),
                 scope: state.scope
-            })
+            },{user_id: parseInt(9)})
             .then(res => {
+                console.log(res);
                 if(res.status === 200){
                     setCreatedMessage("Event has been created!");
                 }
             })
             .catch(error => {
                 alert("Something went wrong. Retry creating.");
-                //window.location = "/createEvent";
+                window.location = "/createEvent";
             });
         }
     }
@@ -89,7 +90,7 @@ function CreateEvent(props){
                     Event Type:&nbsp;&nbsp;
                     <select id="event_type" value={state.event_type} onChange={handleChange}>
                     <option disabled selected value="">Select</option>
-                    <option value="soccer">Soccer</option>
+                    <option value="Soccer">Soccer</option>
                     <option value="basketball">Basketball</option>
                     <option value="football">Football</option>
                     <option value="cricket">Cricket</option>
@@ -127,7 +128,7 @@ function CreateEvent(props){
                 </label>
                 <br />
                 <label>
-                    scope:
+                    Scope:
                     <br/>
                     <input id = "scope" type = "radio" name="secrecy" value="public" onChange={handleChange}/> Public&nbsp;&nbsp;&nbsp;&nbsp;
                     <input id = "scope" type = "radio" name="secrecy" value="private" onChange={handleChange}/> Private
