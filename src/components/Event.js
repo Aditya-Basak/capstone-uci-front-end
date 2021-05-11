@@ -136,6 +136,8 @@ function Event(props){
                 </div>
             </div>
             {showJoin && <button onClick={handleSubmit} className="joinEventButton"> Join Event </button>}
+            <br/>
+            <br/>
             {showEdit && <button  onClick={redirect} className="editEventButton"> Edit Event </button>}
             </div>
         )

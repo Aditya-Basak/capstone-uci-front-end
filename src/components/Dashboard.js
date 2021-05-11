@@ -114,12 +114,16 @@ function Dashboard(props){
 
                     <div/>
                 </div>
-         </div>
+                </div>
             <Link to="/" style={{ textDecoration: "none" }}>
                 <button color="link" className="registerButton"> Logout </button>
             </Link>
-        </div>
-
+            <br/>
+            <br/>
+            <Link to="/createEvent" style={{ textDecoration: "none" }}>
+                <button color="link" className="registerButton">Create New Event</button>
+            </Link>
+         </div>
     )
 }
 
