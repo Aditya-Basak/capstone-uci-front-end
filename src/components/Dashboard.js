@@ -9,12 +9,16 @@ function Dashboard(props){
     const[eventsHosted, setEventsHosted] = useState([])
     const[eventsjoined, setEventsJoined] = useState([])
 
+    const[state, setState] = useState({
+        user_id: 24
+    })
+
     useEffect(() => {
         const fetchData = async () => {
 
         await axios.get('http://localhost:8080/api/get_user_events', {
             params:{
-                user_id: 24
+                user_id: state.user_id
             }
         })
         .then((response) => {
@@ -32,7 +36,7 @@ function Dashboard(props){
         const hostedEventsResults = hostedEvents.map((item) => {
             return axios.get('http://localhost:8080/api/get_event', {
                 params:{
-                    user_id: 24,
+                    user_id: state.user_id,
                     event_id: item
                 }
             })
@@ -52,7 +56,7 @@ function Dashboard(props){
         const joinedEventsResults = joinedEvents.map((item) => {
             return axios.get('http://localhost:8080/api/get_event', {
                 params:{
-                    user_id: 24,
+                    user_id: state.user_id,
                     event_id: item
                 }
             })
@@ -85,7 +89,8 @@ function Dashboard(props){
                             <li class="list-group-item" key={item.id}>
                                 <Link to={{pathname: '/event',
                                     dashboardProps: {
-                                    event_id: item.id
+                                    event_id: item.id,
+                                    user_id: state.user_id
                                 }}}>
                                     {item.name}
                                 </Link>

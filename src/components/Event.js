@@ -1,14 +1,25 @@
 import React, {useState, useEffect} from 'react'
 import Header from './RegisterHeader'
+import { useHistory } from "react-router-dom";
 import axios from 'axios'
 
 
 function Event(props){
+
     const[state, setState] = useState({
         event_id: props.location.dashboardProps.event_id,
-        user_id: 16
+        user_id: props.location.dashboardProps.user_id
     })
 
+    let history = useHistory();
+    const redirect = () => {
+        history.push({
+          pathname:  '/editEvent',
+          event_id: state.event_id,
+          user_id: state.user_id
+        })
+    }
+    
     const[joinedMessage, setJoinedMessage] = useState('');
 
     const[eventState, setEventState] = useState({
@@ -22,6 +33,7 @@ function Event(props){
         attendees: []
     })
     const[showJoin, setShowJoin] = useState(false)
+    const[showEdit, setShowEdit] = useState(false)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -38,6 +50,10 @@ function Event(props){
             {if(response.data.host.id != state.user_id && response.data.limit>0 && !response.data.attendees.some(item => item.id === state.user_id)){
                 setShowJoin(true)
             }}
+
+            if(response.data.host.id === state.user_id){
+                setShowEdit(true)
+            }
             setEventState({
                 name: response.data.name,
                 description: response.data.description,
@@ -55,7 +71,7 @@ function Event(props){
         }
 
         fetchData();
-    }, [showJoin]);
+    }, [showJoin, showEdit]);
 
     async function handleSubmit (event){
         console.log("joining")
@@ -120,7 +136,7 @@ function Event(props){
                 </div>
             </div>
             {showJoin && <button onClick={handleSubmit} className="joinEventButton"> Join Event </button>}
-            <button  className="editEventButton"> Edit Event </button>
+            {showEdit && <button  onClick={redirect} className="editEventButton"> Edit Event </button>}
             </div>
         )
 

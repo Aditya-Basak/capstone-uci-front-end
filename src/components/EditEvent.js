@@ -4,6 +4,11 @@ import moment from 'moment'
 import axios from 'axios'
 
 function EditEvent(props){
+
+    const[editState, setEditState] = useState({
+        event_id: props.location.event_id,
+        user_id: props.location.user_id
+    })
     
     const[state, setState] = useState({
         name: "",
@@ -20,8 +25,8 @@ function EditEvent(props){
     useEffect(async () => {
         const result = await axios.get("http://localhost:8080/api/get_event",{
             params: {
-                user_id: 9,
-                event_id: 22
+                user_id: editState.user_id,
+                event_id: editState.event_id
             }
         });
 
@@ -72,7 +77,7 @@ function EditEvent(props){
                 scope:result.data.scope});
     },[]);
 
-    const[edittedMessage, setEdittedMessage] = useState('');
+    const[editedMessage, setEditedMessage] = useState('');
 
     function handleChange (event) {
         setState({
@@ -116,14 +121,14 @@ function EditEvent(props){
             },
             {
                 params:{
-                    user_id: 9,
-                    event_id: 22
+                    user_id: editState.user_id,
+                    event_id: editState.event_id
                 }
             })
             .then(res => {
                 console.log(res);
                 if(res.status === 200){
-                    setEdittedMessage("Event has been editted!");
+                    setEditedMessage("Event has been edited!");
                 }
             })
             .catch(error => {
@@ -142,7 +147,7 @@ function EditEvent(props){
                     Enter event details:
             </a>
             <form>
-                {edittedMessage && <div className="edittedMessage"> {edittedMessage} </div>}
+                {editedMessage && <div className="editedMessage"> {editedMessage} </div>}
                 <label>
                     Event Name:
                     <br />
