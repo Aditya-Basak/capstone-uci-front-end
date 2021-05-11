@@ -61,8 +61,65 @@
 	top:1px;
 }
 
+
+.joinEventButton {
+	background-color:#4dc76e;
+	border-radius:15px;
+	border:1px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:20px;
+	font-weight:bold;
+	padding:7px 15px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #43733c;
+  margin-bottom: 20%;
+  margin-left: 5%; 
+}
+.joinEventButton:hover {
+	background-color:#4e9e23;
+}
+.joinEventButton:active {
+	position:relative;
+	top:1px;
+}
+
+
+.editEventButton {
+	background-color:#c7b14d;
+	border-radius:15px;
+	border:1px solid #c7b14d;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:20px;
+	font-weight:bold;
+	padding:7px 15px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #73593c;
+  margin-bottom: 20%;
+  margin-right: 5%; 
+}
+.editEventButton:hover {
+	background-color:#73593c;
+}
+.editEventButton:active {
+	position:relative;
+	top:1px;
+}
+
+
 .registeredMessage{
   color: green;
+}
+
+.eventTitle{
+  color: white;
+  text-align: left;
+  margin-left: 2%; 
 }
 
 @keyframes App-logo-spin {
