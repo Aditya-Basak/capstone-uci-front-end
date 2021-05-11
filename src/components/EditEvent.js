@@ -10,6 +10,7 @@ function EditEvent(props){
         event_type: "",
         description: "",
         location: "",
+        time: 0,
         date_field: "",
         time_field: "",
         limit: "",
@@ -23,8 +24,52 @@ function EditEvent(props){
                 event_id: 22
             }
         });
-        setState(result.data);
-        console.log(result.data);
+
+        var date = new Date(result.data.time);
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        if(month < 10)
+        {
+            if(day < 10)
+                var d_field = year  + "-0" + month + "-0" + day;
+            else
+            var d_field = year  + "-0" + month + "-" + day;
+        }
+        else
+        {
+            if(day < 10)
+                var d_field = year  + "-" + month + "-0" + day;
+            else
+                var d_field = year  + "-" + month + "-" + day;
+        }
+
+        if(hours < 10)
+        {
+            if(minutes < 10)
+                var t_field = "0"+hours  + ":0" + minutes;
+            else
+                var t_field = "0"+hours  + ":" + minutes;
+        }
+        else
+        {
+            if(minutes < 10)
+                var t_field = hours  + ":0" + minutes;
+            else
+                var t_field = hours + ":" + minutes;
+        }
+        
+        
+        setState({name: result.data.name,
+                event_type: result.data.event_type,
+                description: result.data.description,
+                location: result.data.location,
+                limit: result.data.limit,
+                date_field: d_field,
+                time_field: t_field,
+                scope:result.data.scope});
     },[]);
 
     const[edittedMessage, setEdittedMessage] = useState('');
@@ -148,8 +193,8 @@ function EditEvent(props){
                 <label>
                     Scope:
                     <br/>
-                    <input id = "scope" type = "radio" name="secrecy" value="public" onChange={handleChange}/> Public&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input id = "scope" type = "radio" name="secrecy" value="private" onChange={handleChange}/> Private
+                    <input id = "scope" type = "radio" name="secrecy" value="public" checked={state.scope ===  "public"} onChange={handleChange}/> Public&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input id = "scope" type = "radio" name="secrecy" value="private" checked={state.scope ===  "private"} onChange={handleChange}/> Private
                 </label>
                 <br />
             </form>
