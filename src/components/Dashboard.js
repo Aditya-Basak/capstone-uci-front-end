@@ -12,6 +12,11 @@ function Dashboard(props){
             <Link to="/" style={{ textDecoration: "none" }}>
                 <button color="link" className="registerButton"> Logout </button>
             </Link>
+            <br/>
+            <br/>
+            <Link to="/createEvent" style={{ textDecoration: "none" }}>
+                <button color="link" className="registerButton">Create New Event</button>
+            </Link>
          </div>
 
     )
