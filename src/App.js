@@ -3,6 +3,8 @@ import Register from './components/Register'
 import Login from './components/Login'
 import Dashboard from './components/Dashboard'
 import CreateEvent from './components/CreateEvent'
+import EditEvent from './components/EditEvent'
+
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 function App() {
@@ -14,6 +16,7 @@ function App() {
           <Route path="/register" component={Register} />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/createEvent" component={CreateEvent} />
+          <Route path="/editEvent" component={EditEvent} />
         </Switch>
       </div>
     </BrowserRouter>
