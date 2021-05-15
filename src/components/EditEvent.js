@@ -117,7 +117,7 @@ function EditEvent(props){
             {
                 params:{
                     user_id: 9,
-                    event_id: 22
+                    event_id: 33
                 }
             })
             .then(res => {
