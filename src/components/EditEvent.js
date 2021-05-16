@@ -2,8 +2,11 @@ import React, {useEffect, useState} from 'react'
 import Header from './RegisterHeader'
 import moment from 'moment'
 import axios from 'axios'
+import { useHistory } from "react-router-dom";
 
 function EditEvent(props){
+
+    let history = useHistory();
     
     const[state, setState] = useState({
         name: "",
@@ -20,8 +23,8 @@ function EditEvent(props){
     useEffect(async () => {
         const result = await axios.get("http://localhost:8080/api/get_event",{
             params: {
-                user_id: 9,
-                event_id: 22
+                user_id: props.location.user_id,
+                event_id: props.location.event_id
             }
         });
 
@@ -72,7 +75,7 @@ function EditEvent(props){
                 scope:result.data.scope});
     },[]);
 
-    const[edittedMessage, setEdittedMessage] = useState('');
+    const[editedMessage, setEditedMessage] = useState('');
 
     function handleChange (event) {
         setState({
@@ -116,14 +119,21 @@ function EditEvent(props){
             },
             {
                 params:{
-                    user_id: 9,
-                    event_id: 33
+                    user_id: props.location.user_id,
+                    event_id: props.location.event_id
                 }
             })
             .then(res => {
                 console.log(res);
                 if(res.status === 200){
-                    setEdittedMessage("Event has been editted!");
+                    setEditedMessage("Event has been edited!");
+                    history.push({
+                        pathname:  '/event',
+                        componentProps: {
+                          event_id: props.location.event_id,
+                          user_id: props.location.user_id
+                        }
+                    })
                 }
             })
             .catch(error => {
@@ -142,7 +152,7 @@ function EditEvent(props){
                     Enter event details:
             </a>
             <form>
-                {edittedMessage && <div className="edittedMessage"> {edittedMessage} </div>}
+                {editedMessage && <div className="editedMessage"> {editedMessage} </div>}
                 <label>
                     Event Name:
                     <br />
