@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import Header from './RegisterHeader'
 import axios from 'axios'
+import { useHistory } from "react-router-dom";
 import {Link} from 'react-router-dom';
 
 function Login(props){
@@ -9,6 +10,8 @@ function Login(props){
         email: "",
         password: "",
     })
+
+    let history = useHistory();
 
     function handleChange (event) {
         setState({
@@ -27,9 +30,11 @@ function Login(props){
             }
         })
         .then(res => {
-            console.log(res.status);
             if(res.status === 200){
-                window.location = "/dashboard";
+                history.push({
+                    pathname:  '/dashboard',
+                    user_id: res.data.id
+                  })
             }
         })
         .catch(error => {

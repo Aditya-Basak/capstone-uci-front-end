@@ -2,13 +2,11 @@ import React, {useEffect, useState} from 'react'
 import Header from './RegisterHeader'
 import moment from 'moment'
 import axios from 'axios'
+import { useHistory } from "react-router-dom";
 
 function EditEvent(props){
 
-    const[editState, setEditState] = useState({
-        event_id: props.location.event_id,
-        user_id: props.location.user_id
-    })
+    let history = useHistory();
     
     const[state, setState] = useState({
         name: "",
@@ -25,8 +23,8 @@ function EditEvent(props){
     useEffect(async () => {
         const result = await axios.get("http://localhost:8080/api/get_event",{
             params: {
-                user_id: editState.user_id,
-                event_id: editState.event_id
+                user_id: props.location.user_id,
+                event_id: props.location.event_id
             }
         });
 
@@ -121,14 +119,21 @@ function EditEvent(props){
             },
             {
                 params:{
-                    user_id: editState.user_id,
-                    event_id: editState.event_id
+                    user_id: props.location.user_id,
+                    event_id: props.location.event_id
                 }
             })
             .then(res => {
                 console.log(res);
                 if(res.status === 200){
                     setEditedMessage("Event has been edited!");
+                    history.push({
+                        pathname:  '/event',
+                        componentProps: {
+                          event_id: props.location.event_id,
+                          user_id: props.location.user_id
+                        }
+                    })
                 }
             })
             .catch(error => {

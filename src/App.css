@@ -75,8 +75,6 @@
 	padding:7px 15px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #43733c;
-  margin-bottom: 20%;
-  margin-left: 5%; 
 }
 .joinEventButton:hover {
 	background-color:#4e9e23;
@@ -100,8 +98,6 @@
 	padding:7px 15px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #73593c;
-  margin-bottom: 20%;
-  margin-right: 5%; 
 }
 .editEventButton:hover {
 	background-color:#73593c;
@@ -116,6 +112,21 @@
   color: green;
 }
 
+.backButton{
+	background-color:#6ea5a7;
+	border-radius:15px;
+	border:1px solid #4d63c7;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:20px;
+	font-weight:bold;
+	padding:7px 15px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #3c4d73;
+
+}
 .eventTitle{
   color: white;
   text-align: left;

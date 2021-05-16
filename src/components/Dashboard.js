@@ -6,77 +6,26 @@ import axios from 'axios'
 function Dashboard(props){
     const[hostedEvents, setHostedEvents] = useState([])
     const[joinedEvents, setJoinedEvents] = useState([])
-    const[eventsHosted, setEventsHosted] = useState([])
-    const[eventsjoined, setEventsJoined] = useState([])
-
-    const[state, setState] = useState({
-        user_id: 24
-    })
 
     useEffect(() => {
         const fetchData = async () => {
 
         await axios.get('http://localhost:8080/api/get_user_events', {
             params:{
-                user_id: state.user_id
+                user_id: props.location.user_id
             }
         })
         .then((response) => {
-            setHostedEvents(response.data.hosted);
-            setJoinedEvents(response.data.joined);
+            setHostedEvents(response.data.upcomingEvents.hosted);
+            setJoinedEvents(response.data.upcomingEvents.joined);
         })
         .catch((err) => {
             console.log(err);
         }) 
-        console.log(hostedEvents)
-        console.log(joinedEvents)
-        
-
-        const tempHostedEvents= [];
-        const hostedEventsResults = hostedEvents.map((item) => {
-            return axios.get('http://localhost:8080/api/get_event', {
-                params:{
-                    user_id: state.user_id,
-                    event_id: item
-                }
-            })
-        })
-        Promise.all(hostedEventsResults).then(data => {
-            data.map((item) =>{
-                tempHostedEvents.push(item.data)
-            })
-
-            setEventsHosted(tempHostedEvents)
-        })
-        console.log("hosted events:")
-        console.log(eventsHosted)
-
-
-        const tempJoinedEvents= [];
-        const joinedEventsResults = joinedEvents.map((item) => {
-            return axios.get('http://localhost:8080/api/get_event', {
-                params:{
-                    user_id: state.user_id,
-                    event_id: item
-                }
-            })
-        })
-        
-        Promise.all(joinedEventsResults).then(data => {
-            data.map((item) =>{
-                tempJoinedEvents.push(item.data)
-            })
-
-            setEventsJoined(tempJoinedEvents)
-        })
-        console.log("joined events:")
-        console.log(eventsjoined)
-        
     };
-
         fetchData();
 
-    }, [hostedEvents, joinedEvents])
+    }, [])
 
     return (
         <div>
@@ -84,13 +33,13 @@ function Dashboard(props){
             <br/>
             <div className="card">
                 <div className="card-body">
-                    {eventsHosted && eventsHosted.map((item) => (
+                    {hostedEvents && hostedEvents.map((item) => (
                         <ul className="list-group">
                             <li class="list-group-item" key={item.id}>
                                 <Link to={{pathname: '/event',
-                                    dashboardProps: {
+                                    componentProps: {
                                     event_id: item.id,
-                                    user_id: state.user_id
+                                    user_id: props.location.user_id
                                 }}}>
                                     {item.name}
                                 </Link>
@@ -98,13 +47,13 @@ function Dashboard(props){
                         </ul>
                         ))}
 
-
-                    {eventsjoined && eventsjoined.map((item) => (
+                    {joinedEvents && joinedEvents.map((item) => (
                         <ul className="list-group">
                             <li class="list-group-item" key={item.id}>
                                 <Link to={{pathname: '/event',
-                                    dashboardProps: {
-                                    event_id: item.id
+                                    componentProps: {
+                                    event_id: item.id,
+                                    user_id: props.location.user_id
                                 }}}>
                                     {item.name}
                                 </Link>
@@ -120,7 +69,10 @@ function Dashboard(props){
             </Link>
             <br/>
             <br/>
-            <Link to="/createEvent" style={{ textDecoration: "none" }}>
+            <Link to={{pathname: '/createEvent',
+                                    componentProps: {
+                                    user_id: props.location.user_id
+                                }}} style={{ textDecoration: "none" }}>
                 <button color="link" className="registerButton">Create New Event</button>
             </Link>
          </div>

@@ -2,8 +2,11 @@ import React, {useState} from 'react'
 import Header from './RegisterHeader'
 import moment from 'moment'
 import axios from 'axios'
+import { useHistory } from "react-router-dom";
 
 function CreateEvent(props){
+    let history = useHistory();
+
     const[state, setState] = useState({
         name: "",
         event_type: "",
@@ -58,12 +61,16 @@ function CreateEvent(props){
                 scope: state.scope
             },
             {
-                params: {user_id: 9}, 
+                params: {user_id: props.location.componentProps.user_id}, 
             })
             .then(res => {
                 console.log(res);
                 if(res.status === 200){
                     setCreatedMessage("Event has been created!");
+                    history.push({
+                        pathname:  '/dashboard',
+                        user_id: props.location.componentProps.user_id
+                    })
                 }
             })
             .catch(error => {
