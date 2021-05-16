@@ -5,6 +5,7 @@ import Dashboard from './components/Dashboard'
 import Event from './components/Event'
 import CreateEvent from './components/CreateEvent'
 import EditEvent from './components/EditEvent'
+import EditUser from './components/EditUser'
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/event" component={Event} />
           <Route path="/createEvent" component={CreateEvent} />
           <Route path="/editEvent" component={EditEvent} />
+          <Route path="/editUser" component={EditUser} />
         </Switch>
       </div>
     </BrowserRouter>
