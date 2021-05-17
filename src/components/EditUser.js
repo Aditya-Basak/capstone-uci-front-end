@@ -15,7 +15,7 @@ function EditUser(props){
         name: "",
         email: "",
         password: "",
-        phone_number: "",
+        phone: "",
     })
      
     useEffect(async () => {
@@ -25,10 +25,10 @@ function EditUser(props){
             }
         });
         
-        setState({name: result.data.name,
-                  email: result.data.email,
-                  password: result.data.password,
-                  phone_number: result.data.phone_number,});
+        setState({name: result.data.account_details.name,
+                  email: result.data.account_details.email,
+                  password: result.data.account_details.password,
+                  phone: result.data.account_details.phone,});
     },[]);
 
     const[phEditMsg, setPhEditMsg] = useState('');
@@ -49,10 +49,11 @@ function EditUser(props){
                 alert("New Password cannot be empty.");
         
         else{
-            await axios.put('http://localhost:8080/api/edit_user_profile', {
+
+            await axios.put('http://localhost:8080/api/edit_user', {
                 name: state.name,
                 password: state.password,
-                phone_number: state.phone_number,
+                phone: state.phone,
             },
             {
                 params:{
@@ -62,6 +63,7 @@ function EditUser(props){
             .then(res => {
                 if(res.status === 200){
                     setPwdEditMsg("Password successfully changed.");
+                    setPhEditMsg("");
                 }
             })
             .catch(error => {
@@ -74,14 +76,29 @@ function EditUser(props){
     async function handlePhSubmit (event){
         event.preventDefault();
       
-       if(state.phone_number == "")
+       var valid = true;
+       var i;
+       for(i = 0; i < state.phone.length; i++)
+       {
+           var x = state.phone.charCodeAt(i);
+           if(i == 0 && x  == 48)
+                valid = false;
+            else if(x < 48 || x > 57)
+                valid = false;
+
+        }
+          
+       if(state.phone == "")
                alert("New Phone Number cannot be empty.");
-       
+       else if(state.phone.length != 10)
+                alert("Phone Number should be numeric, 10 digits, and without any special characters.");
+        else if(valid == false)
+                alert("Phone Number cannot begin with zero or have special characters.");
        else{
-           await axios.put('http://localhost:8080/api/edit_user_profile', {
+           await axios.put('http://localhost:8080/api/edit_user', {
                name: state.name,
                password: state.password,
-               phone_number: state.phone_number,
+               phone: state.phone,
            },
            {
                params:{
@@ -90,7 +107,8 @@ function EditUser(props){
            })
            .then(res => {
                if(res.status === 200){
-                   setPhEditMsg("Password successfully changed.");
+                   setPhEditMsg("Phone Number successfully changed.");
+                   setPwdEditMsg("");
                }
            })
            .catch(error => {
@@ -109,7 +127,6 @@ function EditUser(props){
                 {phEditMsg && <div className="editedMessage"> {phEditMsg} </div>}
                 {pwdEditMsg && <div className="editedMessage"> {pwdEditMsg} </div>}
                 <div>
-                    <h4>Placeholder</h4>
                     <h4>{state.name}</h4>
                 </div>
                 <br />
@@ -127,7 +144,7 @@ function EditUser(props){
                 <br />
                 <div className="phone-container">
                     Phone Number:&nbsp;&nbsp;
-                    <input id="phone_number"  placeholder="New Number" value={state.phone_number} onChange={handleChange} />&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input id="phone"  placeholder="New Number" value={state.phone} onChange={handleChange} />&nbsp;&nbsp;&nbsp;&nbsp;
                     <button onClick={handlePhSubmit} className="editButton"> Edit </button>
                 </div>
             
