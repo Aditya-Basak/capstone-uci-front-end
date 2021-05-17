@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Header from './RegisterHeader'
 import {Link} from 'react-router-dom';
 import axios from 'axios'
+import { PinDropSharp } from '@material-ui/icons';
 
 function Dashboard(props){
     const[hostedEvents, setHostedEvents] = useState([])
@@ -9,7 +10,7 @@ function Dashboard(props){
 
     useEffect(() => {
         const fetchData = async () => {
-
+        var x = props.location.user_id
         await axios.get('http://localhost:8080/api/get_user_events', {
             params:{
                 user_id: props.location.user_id
@@ -29,7 +30,7 @@ function Dashboard(props){
 
     return (
         <div>
-            <Header/>
+            <Header user_id= {props.location.user_id}/>
             <br/>
             <div className="card">
                 <div className="card-body">
