@@ -31,6 +31,8 @@ function EditUser(props){
     },[]);
 
     const[editedMessage, setEditedMessage] = useState('');
+    const[phEditMsg, setPhEditMsg] = useState('');
+    const[pwdEditMsg, setPwdEditMsg] = useState('');
     const[isRevealPwd, setIsRevealPwd] = useState(false);
 
     function handleChange (event) {
@@ -87,6 +89,8 @@ function EditUser(props){
 
             <div className="card col-12 col-lg-4 mt-2">
                 {editedMessage && <div className="editedMessage"> {editedMessage} </div>}
+                {phEditMsg && <div className="editedMessage"> {phEditMsg} </div>}
+                {pwdEditMsg && <div className="editedMessage"> {pwdEditMsg} </div>}
                 <div>
                     <h4>{state.name}</h4>
                 </div>
@@ -100,13 +104,13 @@ function EditUser(props){
                     Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <input id="location"  type={isRevealPwd ? "text":"password"} placeholder="Password" value={state.location} onChange={handleChange} />&nbsp;&nbsp;&nbsp;&nbsp;
                     <img title={isRevealPwd ? "Hide Password":"Show Password"} src={isRevealPwd? hidePwdImg: showPwdImg} onClick={() => setIsRevealPwd(prevState  =>  !prevState)}/>
-                    <button onClick={handleSubmit} className="editButton"> Edit </button>
+                    <button onClick={handleSubmit} className="editButton"> Edit TODO:pwdEditMsg  </button>  
                 </div>
                 <br />
                 <div className="phone-container">
                     Phone Number:&nbsp;&nbsp;
                     <input id="location"  placeholder="Event Location" value={state.location} onChange={handleChange} />&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button onClick={handleSubmit} className="editButton"> Edit </button>
+                    <button onClick={handleSubmit} className="editButton"> Edit TODO:phEditMsg </button>
                 </div>
             
             </div>

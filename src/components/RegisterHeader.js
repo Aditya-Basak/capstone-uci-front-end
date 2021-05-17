@@ -8,9 +8,11 @@ class RegisterHeader extends React.Component{
                 <a class="h3" href="/">
                     SportsCon
                 </a>
+                <div class='userProfile'>
                 <a class="h3" href="/editUser">
-                &nbsp;&nbsp;&nbsp;&nbsp;User Profile
+                User Profile
                 </a>
+                </div>
             </nav>
 
         );

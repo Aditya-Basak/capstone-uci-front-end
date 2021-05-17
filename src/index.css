@@ -31,3 +31,8 @@ code {
   right: 80px;
   top: 5px;
 }
+
+.userProfile {
+  position: absolute;
+  right: 50px;
+}
