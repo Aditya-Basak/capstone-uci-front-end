@@ -13,24 +13,24 @@ function EditUser(props){
     
     const[state, setState] = useState({
         name: "",
-        description: "",
-        location: "",
+        email: "",
+        password: "",
+        phone_number: "",
     })
      
     useEffect(async () => {
-        const result = await axios.get("http://localhost:8080/api/get_event",{
+        const result = await axios.get("http://localhost:8080/api/get_user_profile",{
             params: {
-                user_id: 18,
-                event_id: 38
+                user_id: 18
             }
         });
         
         setState({name: result.data.name,
-                description: result.data.description,
-                location: result.data.location,});
+                  email: result.data.email,
+                  password: result.data.password,
+                  phone_number: result.data.phone_number,});
     },[]);
 
-    const[editedMessage, setEditedMessage] = useState('');
     const[phEditMsg, setPhEditMsg] = useState('');
     const[pwdEditMsg, setPwdEditMsg] = useState('');
     const[isRevealPwd, setIsRevealPwd] = useState(false);
@@ -40,40 +40,28 @@ function EditUser(props){
             ...state,
             [event.target.id]: event.target.value
         });
-      //  console.log(event.target.value); 
     }
 
-    async function handleSubmit (event){
+    async function handlePwdSubmit (event){
          event.preventDefault();
     
-        
-        if(state.name == "" || 
-            state.description == "" ||
-            state.location == "")
-                alert("All the fields are REQUIRED.");
+        if(state.password == "")
+                alert("New Password cannot be empty.");
         
         else{
-            await axios.put('http://localhost:8080/api/edit_event', {
+            await axios.put('http://localhost:8080/api/edit_user_profile', {
                 name: state.name,
-                description: state.description,
-                location: state.location,
+                password: state.password,
+                phone_number: state.phone_number,
             },
             {
                 params:{
-                    user_id: 18,
-                    event_id: 38
+                    user_id: 18
                 }
             })
             .then(res => {
                 if(res.status === 200){
-                    setEditedMessage("Event has been edited!");
-                    history.push({
-                        pathname:  '/event',
-                        componentProps: {
-                          event_id: props.location.event_id,
-                          user_id: props.location.user_id
-                        }
-                    })
+                    setPwdEditMsg("Password successfully changed.");
                 }
             })
             .catch(error => {
@@ -82,39 +70,73 @@ function EditUser(props){
             });
         }
     }
+
+    async function handlePhSubmit (event){
+        event.preventDefault();
+      
+       if(state.phone_number == "")
+               alert("New Phone Number cannot be empty.");
+       
+       else{
+           await axios.put('http://localhost:8080/api/edit_user_profile', {
+               name: state.name,
+               password: state.password,
+               phone_number: state.phone_number,
+           },
+           {
+               params:{
+                   user_id: 18
+               }
+           })
+           .then(res => {
+               if(res.status === 200){
+                   setPhEditMsg("Password successfully changed.");
+               }
+           })
+           .catch(error => {
+               alert("Something went wrong. Retry modifying.\n"+error);
+               window.location = "/editUser";
+           });
+       }
+   }
+    
     return (
         
         <div>
             <Header />
 
             <div className="card col-12 col-lg-4 mt-2">
-                {editedMessage && <div className="editedMessage"> {editedMessage} </div>}
                 {phEditMsg && <div className="editedMessage"> {phEditMsg} </div>}
                 {pwdEditMsg && <div className="editedMessage"> {pwdEditMsg} </div>}
                 <div>
+                    <h4>Placeholder</h4>
                     <h4>{state.name}</h4>
                 </div>
                 <br />
                 <div className="email-container">
                     Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input id="description" placeholder="Event description" value={state.description} onChange={handleChange} disabled />
+                    <input id="email" value={state.email} onChange={handleChange} disabled />
                 </div>
                 <br />
                 <div className="pwd-container">
                     Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input id="location"  type={isRevealPwd ? "text":"password"} placeholder="Password" value={state.location} onChange={handleChange} />&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input id="password"  type={isRevealPwd ? "text":"password"} placeholder="New Password" value={state.password} onChange={handleChange} />&nbsp;&nbsp;&nbsp;&nbsp;
                     <img title={isRevealPwd ? "Hide Password":"Show Password"} src={isRevealPwd? hidePwdImg: showPwdImg} onClick={() => setIsRevealPwd(prevState  =>  !prevState)}/>
-                    <button onClick={handleSubmit} className="editButton"> Edit TODO:pwdEditMsg  </button>  
+                    <button onClick={handlePwdSubmit} className="editButton"> Edit </button>  
                 </div>
                 <br />
                 <div className="phone-container">
                     Phone Number:&nbsp;&nbsp;
-                    <input id="location"  placeholder="Event Location" value={state.location} onChange={handleChange} />&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button onClick={handleSubmit} className="editButton"> Edit TODO:phEditMsg </button>
+                    <input id="phone_number"  placeholder="New Number" value={state.phone_number} onChange={handleChange} />&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button onClick={handlePhSubmit} className="editButton"> Edit </button>
                 </div>
             
             </div>
-            <button onClick={handleSubmit} className="registerButton"> Modify </button>
+            <div className ="card col-12 col-lg-4 mt-2">
+                <h4 className='center'>Ratings and Testimonials</h4>
+                <div>Ratings</div>
+                <div>Testimonials</div>
+            </div>
          </div>
 
     )

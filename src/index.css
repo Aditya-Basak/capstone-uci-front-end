@@ -19,7 +19,6 @@ code {
 }
  
 .pwd-container input {
-  
   font-size: 15px;
 }
  
@@ -32,7 +31,17 @@ code {
   top: 5px;
 }
 
-.userProfile {
+.app-icon {
+  position: absolute;
+  left: 50px;
+}
+
+.user-profile {
   position: absolute;
   right: 50px;
 }
+
+.center {
+  text-align: center;
+}
+
