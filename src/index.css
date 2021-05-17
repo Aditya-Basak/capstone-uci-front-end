@@ -13,6 +13,15 @@ code {
     monospace;
 }
 
+.email-container {
+  position: relative;
+  width: 371px;
+}
+ 
+.email-container input {
+  font-size: 15px;
+}
+
 .pwd-container {
   position: relative;
   width: 371px;
@@ -31,6 +40,33 @@ code {
   top: 5px;
 }
 
+.pwd-container-login img {
+  cursor: pointer;
+  position: absolute;
+  
+  width: 20px;
+  right: 265px;
+  top: 198px;
+}
+
+.pwd-container-register img {
+  cursor: pointer;
+  position: absolute;
+  
+  width: 20px;
+  right: 265px;
+  top: 198px;
+}
+
+.phone-container {
+  position: relative;
+  width: 371px;
+}
+ 
+.phone-container input {
+  font-size: 15px;
+}
+
 .app-icon {
   position: absolute;
   left: 50px;
@@ -43,5 +79,9 @@ code {
 
 .center {
   text-align: center;
+}
+
+.center-div {
+  margin: 0 auto;
 }
 
