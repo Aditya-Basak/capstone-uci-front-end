@@ -12,3 +12,22 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.pwd-container {
+  position: relative;
+  width: 371px;
+}
+ 
+.pwd-container input {
+  
+  font-size: 15px;
+}
+ 
+.pwd-container img {
+  cursor: pointer;
+  position: absolute;
+  
+  width: 20px;
+  right: 80px;
+  top: 5px;
+}

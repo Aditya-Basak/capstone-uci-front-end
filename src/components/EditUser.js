@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState,useRef} from 'react'
 import Header from './RegisterHeader'
-import moment from 'moment'
 import axios from 'axios'
 import { useHistory } from "react-router-dom";
-import {useForm} from "react-hook-form";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
+import showPwdImg from '../show-password.svg';
+import hidePwdImg from '../hide-password.svg';
+
+
 
 function EditUser(props){
 
@@ -12,14 +13,8 @@ function EditUser(props){
     
     const[state, setState] = useState({
         name: "",
-        event_type: "",
         description: "",
         location: "",
-        time: 0,
-        date_field: "",
-        time_field: "",
-        limit: "",
-        scope: "",
     })
      
     useEffect(async () => {
@@ -29,55 +24,14 @@ function EditUser(props){
                 event_id: 38
             }
         });
-
-        var date = new Date(result.data.time);
-        var year = date.getFullYear();
-        var month = date.getMonth() + 1;
-        var day = date.getDate();
-        var hours = date.getHours();
-        var minutes = date.getMinutes();
-        if(month < 10)
-        {
-            if(day < 10)
-                var d_field = year  + "-0" + month + "-0" + day;
-            else
-            var d_field = year  + "-0" + month + "-" + day;
-        }
-        else
-        {
-            if(day < 10)
-                var d_field = year  + "-" + month + "-0" + day;
-            else
-                var d_field = year  + "-" + month + "-" + day;
-        }
-
-        if(hours < 10)
-        {
-            if(minutes < 10)
-                var t_field = "0"+hours  + ":0" + minutes;
-            else
-                var t_field = "0"+hours  + ":" + minutes;
-        }
-        else
-        {
-            if(minutes < 10)
-                var t_field = hours  + ":0" + minutes;
-            else
-                var t_field = hours + ":" + minutes;
-        }
-        
         
         setState({name: result.data.name,
-                event_type: result.data.event_type,
                 description: result.data.description,
-                location: result.data.location,
-                limit: result.data.limit,
-                date_field: d_field,
-                time_field: t_field,
-                scope:result.data.scope});
+                location: result.data.location,});
     },[]);
 
     const[editedMessage, setEditedMessage] = useState('');
+    const[isRevealPwd, setIsRevealPwd] = useState(false);
 
     function handleChange (event) {
         setState({
@@ -88,45 +42,27 @@ function EditUser(props){
     }
 
     async function handleSubmit (event){
-       // event.preventDefault();
-        
-        console.log(state.name);
-        console.log(state.event_type);
-        console.log(state.description);
-        console.log(state.location);
-        console.log(state.date_field+"T"+state.time_field)
-        console.log(new Date(state.date_field+"T"+state.time_field).getTime());
-        console.log(state.limit);
-        console.log(state.scope);
+         event.preventDefault();
+    
         
         if(state.name == "" || 
-            state.event_type == "" ||
             state.description == "" ||
-            state.location == "" ||
-            state.date_field == "" ||
-            state.time == "" ||
-            state.limit == "" ||
-            state.scope == "" )
+            state.location == "")
                 alert("All the fields are REQUIRED.");
         
         else{
             await axios.put('http://localhost:8080/api/edit_event', {
                 name: state.name,
-                event_type: state.event_type,
                 description: state.description,
                 location: state.location,
-                time: new Date(state.date_field+"T"+state.time_field).getTime(),
-                limit: parseInt(state.limit),
-                scope: state.scope
             },
             {
                 params:{
-                    user_id: props.location.user_id,
-                    event_id: props.location.event_id
+                    user_id: 18,
+                    event_id: 38
                 }
             })
             .then(res => {
-                console.log(res);
                 if(res.status === 200){
                     setEditedMessage("Event has been edited!");
                     history.push({
@@ -150,30 +86,29 @@ function EditUser(props){
             <Header />
 
             <div className="card col-12 col-lg-4 mt-2">
-            <form>
                 {editedMessage && <div className="editedMessage"> {editedMessage} </div>}
-                <label>
+                <div>
                     <h4>{state.name}</h4>
-                </label>
+                </div>
                 <br />
-                <label>
+                <div className="email-container">
                     Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <input id="description" placeholder="Event description" value={state.description} onChange={handleChange} disabled />
-                </label>
+                </div>
                 <br />
-
-                <label>
+                <div className="pwd-container">
                     Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input id="location"  type="password" placeholder="Password" value={state.location} onChange={handleChange} />&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input id="location"  type={isRevealPwd ? "text":"password"} placeholder="Password" value={state.location} onChange={handleChange} />&nbsp;&nbsp;&nbsp;&nbsp;
+                    <img title={isRevealPwd ? "Hide Password":"Show Password"} src={isRevealPwd? hidePwdImg: showPwdImg} onClick={() => setIsRevealPwd(prevState  =>  !prevState)}/>
                     <button onClick={handleSubmit} className="editButton"> Edit </button>
-                </label>
+                </div>
                 <br />
-                <label>
+                <div className="phone-container">
                     Phone Number:&nbsp;&nbsp;
                     <input id="location"  placeholder="Event Location" value={state.location} onChange={handleChange} />&nbsp;&nbsp;&nbsp;&nbsp;
                     <button onClick={handleSubmit} className="editButton"> Edit </button>
-                </label>
-            </form>
+                </div>
+            
             </div>
             <button onClick={handleSubmit} className="registerButton"> Modify </button>
          </div>
