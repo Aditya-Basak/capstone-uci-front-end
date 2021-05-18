@@ -64,7 +64,7 @@ function EditUser(props){
             },
             {
                 params:{
-                    user_id: 18
+                    user_id: props.location.componentProps.user_id
                 }
             })
             .then(res => {
@@ -109,7 +109,7 @@ function EditUser(props){
            },
            {
                params:{
-                   user_id: 18
+                   user_id: props.location.componentProps.user_id
                }
            })
            .then(res => {
