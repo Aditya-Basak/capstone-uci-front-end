@@ -18,12 +18,8 @@
     "react-alert": "^7.0.2",
     "react-bootstrap": "^1.6.0",
     "react-dom": "^17.0.2",
-<<<<<<< HEAD
     "react-hook-form": "^7.6.0",
-||||||| 05850bc
-=======
     "react-rating-stars-component": "^2.2.0",
->>>>>>> 80c70ea46a2d66ae41d3e1e4fde52b1dec106620
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
     "web-vitals": "^1.1.1"
