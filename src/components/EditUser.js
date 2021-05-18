@@ -17,7 +17,7 @@ function EditUser(props){
         password: "",
         phone: "",
     })
-    console.log(props.location.componentProps.user_id); 
+    
     useEffect(async () => {
         const result = await axios.get("http://localhost:8080/api/get_user_profile",{
             params: {
@@ -34,6 +34,13 @@ function EditUser(props){
     const[phEditMsg, setPhEditMsg] = useState('');
     const[pwdEditMsg, setPwdEditMsg] = useState('');
     const[isRevealPwd, setIsRevealPwd] = useState(false);
+
+    const backToDashboard = () => {
+        history.push({
+            pathname:  '/dashboard',
+            user_id: props.location.componentProps.user_id
+        })
+    }
 
     function handleChange (event) {
         setState({
@@ -149,6 +156,7 @@ function EditUser(props){
                 </div>
             
             </div>
+            {<button onClick={backToDashboard} className="backButton" > Go Back </button>}
             <div className ="card col-12 col-lg-4 mt-2">
                 <h4 className='center'>Ratings and Testimonials</h4>
                 <div>Ratings</div>
