@@ -100,7 +100,7 @@ function Event(props){
 
         return (
             <div>
-            <Header/>
+            <Header user_id= {state.user_id}/>
             <br/>
             {joinedMessage && <div className="registeredMessage"> {joinedMessage} </div>}
             <h2 className="eventTitle" >{eventState.name}</h2>

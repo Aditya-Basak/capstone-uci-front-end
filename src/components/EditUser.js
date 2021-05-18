@@ -17,11 +17,11 @@ function EditUser(props){
         password: "",
         phone: "",
     })
-     
+    console.log(props.location.componentProps.user_id); 
     useEffect(async () => {
         const result = await axios.get("http://localhost:8080/api/get_user_profile",{
             params: {
-                user_id: 18
+                user_id: props.location.componentProps.user_id
             }
         });
         
@@ -121,7 +121,7 @@ function EditUser(props){
     return (
         
         <div>
-            <Header />
+            <Header user_id= {props.location.componentProps.user_id}/>
 
             <div className="card col-12 col-lg-4 mt-2">
                 {phEditMsg && <div className="editedMessage"> {phEditMsg} </div>}

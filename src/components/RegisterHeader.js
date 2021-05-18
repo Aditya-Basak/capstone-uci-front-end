@@ -6,8 +6,9 @@ function RegisterHeader(props){
 
     const[state, setState] = useState({
         name: "",
+        user_id: props.user_id,
     })
-
+    
     useEffect(async () => {
         const result = await axios.get("http://localhost:8080/api/get_user_profile",{
             params: {
@@ -15,7 +16,8 @@ function RegisterHeader(props){
             }
         });
         
-        setState({name: result.data.account_details.name,});
+        setState({name: result.data.account_details.name,
+                    user_id: result.data.account_details.user_id,});
     },[]);
         return(
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -23,9 +25,12 @@ function RegisterHeader(props){
                         SportsCon
                     </a>
                 <div class='user-profile'>
-                    <a class="h3" href="/editUser">
-                        {state.name}
-                    </a>
+                    <Link to={{pathname: '/editUser',
+                                    componentProps: {
+                                        user_id: props.user_id
+                                    }}} style={{ textDecoration: "none" }}>
+                        <h4>{state.name}</h4>
+                        </Link>
                 </div>
             </nav>
 
