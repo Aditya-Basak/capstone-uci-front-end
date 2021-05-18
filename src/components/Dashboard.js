@@ -66,7 +66,7 @@ function Dashboard(props){
                 <div className="card-body">
                     {upcomingHostedEvents && upcomingHostedEvents.map((item) => (
                         <ul className="list-group">
-                            <li class="list-group-item" key={item.id}>
+                            <li class="list-group-item d-flex justify-content-between align-items-center" key={item.id} >
                                 <Link to={{pathname: '/event',
                                     componentProps: {
                                     event_id: item.id,
@@ -74,13 +74,14 @@ function Dashboard(props){
                                 }}}>
                                     {item.name}
                                 </Link>
+                                <span class="badge badge-primary badge-pill">Hosting</span>
                             </li>
                         </ul>
                         ))}
 
                     {upcomingJoinedEvents && upcomingJoinedEvents.map((item) => (
                         <ul className="list-group">
-                            <li class="list-group-item" key={item.id}>
+                            <li class="list-group-item d-flex justify-content-between align-items-center" key={item.id} >
                                 <Link to={{pathname: '/event',
                                     componentProps: {
                                     event_id: item.id,
@@ -88,6 +89,7 @@ function Dashboard(props){
                                 }}}>
                                     {item.name}
                                 </Link>
+                                <span class="badge badge-primary badge-pill">Attending</span>
                             </li>
                         </ul>
                         ))}
@@ -102,28 +104,30 @@ function Dashboard(props){
             <div className="card-body">
                 {pastHostedEvents && pastHostedEvents.map((item) => (
                     <ul className="list-group">
-                        <li class="list-group-item" key={item.id}>
-                            <Link to={{pathname: '/event',
+                        <li class="list-group-item d-flex justify-content-between align-items-center" key={item.id} >
+                            <Link to={{pathname: '/pastEvent',
                                 componentProps: {
                                 event_id: item.id,
                                 user_id: props.location.user_id
                             }}}>
                                 {item.name}
                             </Link>
+                            <span class="badge badge-primary badge-pill">Hosted</span>
                         </li>
                     </ul>
                     ))}
 
                 {pastJoinedEvents && pastJoinedEvents.map((item) => (
                     <ul className="list-group">
-                        <li class="list-group-item" key={item.id}>
-                            <Link to={{pathname: '/event',
+                        <li class="list-group-item d-flex justify-content-between align-items-center" key={item.id} >
+                            <Link to={{pathname: '/pastEvent',
                                 componentProps: {
                                 event_id: item.id,
                                 user_id: props.location.user_id
                             }}}>
                                 {item.name}
                             </Link>
+                            <span class="badge badge-primary badge-pill">Attended</span>
                         </li>
                     </ul>
                     ))}
