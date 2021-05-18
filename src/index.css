@@ -40,6 +40,7 @@ code {
   top: 5px;
 }
 
+
 .pwd-container-login img {
   cursor: pointer;
   position: absolute;
@@ -49,13 +50,17 @@ code {
   top: 203px;
 }
 
+.pwd-container-register {
+  position: relative;
+  width: 371px;
+}
 .pwd-container-register img {
   cursor: pointer;
   position: absolute;
   
   width: 20px;
-  right: 449px;
-  top: 313px;
+  right: 195px;
+  top: 30px;
 }
 
 .phone-container {
