@@ -3,10 +3,15 @@ import Header from './RegisterHeader'
 import {Link} from 'react-router-dom';
 import axios from 'axios'
 import { PinDropSharp } from '@material-ui/icons';
+import {Nav} from 'react-bootstrap'
 
 function Dashboard(props){
-    const[hostedEvents, setHostedEvents] = useState([])
-    const[joinedEvents, setJoinedEvents] = useState([])
+    const[upcomingHostedEvents, setUpcomingHostedEvents] = useState([])
+    const[upcomingJoinedEvents, setUpcomingJoinedEvents] = useState([])
+    const[pastHostedEvents, setPastHostedEvents] = useState([])
+    const[pastJoinedEvents, setPastJoinedEvents] = useState([])
+    const[showUpcoming, setShowUpcoming] = useState(false);
+    const[showPast, setShowPast] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -17,8 +22,10 @@ function Dashboard(props){
             }
         })
         .then((response) => {
-            setHostedEvents(response.data.upcomingEvents.hosted);
-            setJoinedEvents(response.data.upcomingEvents.joined);
+            setUpcomingHostedEvents(response.data.upcomingEvents.hosted);
+            setUpcomingJoinedEvents(response.data.upcomingEvents.joined);
+            setPastHostedEvents(response.data.pastEvents.hosted);
+            setPastJoinedEvents(response.data.pastEvents.joined);
         })
         .catch((err) => {
             console.log(err);
@@ -28,15 +35,39 @@ function Dashboard(props){
 
     }, [])
 
+    function handlePastSelect () {
+        setShowPast(true);
+        setShowUpcoming(false);
+    }
+
+    function handleUpcomingSelect () {
+        setShowPast(false);
+        setShowUpcoming(true);
+    }
+
     return (
         <div>
             <Header user_id= {props.location.user_id}/>
             <br/>
+            <Nav variant="pills" defaultActiveKey="link-2">
+                <Nav.Item>
+                <Nav.Link eventKey="link-1" > Events Near You</Nav.Link>
+                
+                </Nav.Item>
+                <Nav.Item>
+                <Nav.Link eventKey="link-2" onSelect={handlePastSelect}>Past Events</Nav.Link>
+                </Nav.Item>
+
+                <Nav.Item>
+                <Nav.Link eventKey="link-3" onSelect={handleUpcomingSelect}>Upcoming Events</Nav.Link>
+                </Nav.Item>
+            </Nav>
+            {showUpcoming &&
             <div className="card">
                 <div className="card-body">
-                    {hostedEvents && hostedEvents.map((item) => (
+                    {upcomingHostedEvents && upcomingHostedEvents.map((item) => (
                         <ul className="list-group">
-                            <li class="list-group-item" key={item.id}>
+                            <li class="list-group-item d-flex justify-content-between align-items-center" key={item.id} >
                                 <Link to={{pathname: '/event',
                                     componentProps: {
                                     event_id: item.id,
@@ -44,13 +75,14 @@ function Dashboard(props){
                                 }}}>
                                     {item.name}
                                 </Link>
+                                <span class="badge badge-primary badge-pill">Hosting</span>
                             </li>
                         </ul>
                         ))}
 
-                    {joinedEvents && joinedEvents.map((item) => (
+                    {upcomingJoinedEvents && upcomingJoinedEvents.map((item) => (
                         <ul className="list-group">
-                            <li class="list-group-item" key={item.id}>
+                            <li class="list-group-item d-flex justify-content-between align-items-center" key={item.id} >
                                 <Link to={{pathname: '/event',
                                     componentProps: {
                                     event_id: item.id,
@@ -58,6 +90,7 @@ function Dashboard(props){
                                 }}}>
                                     {item.name}
                                 </Link>
+                                <span class="badge badge-primary badge-pill">Attending</span>
                             </li>
                         </ul>
                         ))}
@@ -65,6 +98,44 @@ function Dashboard(props){
                     <div/>
                 </div>
                 </div>
+                }
+
+            {showPast &&
+            <div className="card">
+            <div className="card-body">
+                {pastHostedEvents && pastHostedEvents.map((item) => (
+                    <ul className="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center" key={item.id} >
+                            <Link to={{pathname: '/pastEvent',
+                                componentProps: {
+                                event_id: item.id,
+                                user_id: props.location.user_id
+                            }}}>
+                                {item.name}
+                            </Link>
+                            <span class="badge badge-primary badge-pill">Hosted</span>
+                        </li>
+                    </ul>
+                    ))}
+
+                {pastJoinedEvents && pastJoinedEvents.map((item) => (
+                    <ul className="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center" key={item.id} >
+                            <Link to={{pathname: '/pastEvent',
+                                componentProps: {
+                                event_id: item.id,
+                                user_id: props.location.user_id
+                            }}}>
+                                {item.name}
+                            </Link>
+                            <span class="badge badge-primary badge-pill">Attended</span>
+                        </li>
+                    </ul>
+                    ))}
+                <div/>
+            </div>
+            </div>
+            }
             <Link to="/" style={{ textDecoration: "none" }}>
                 <button color="link" className="registerButton"> Logout </button>
             </Link>
