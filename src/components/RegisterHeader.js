@@ -25,7 +25,7 @@ function RegisterHeader(props){
                         SportsCon
                     </a>
                 <div class='user-profile'>
-                    <Link to={{pathname: '/editUser',
+                    <Link to={{pathname: '/userProfile',
                                     componentProps: {
                                         user_id: props.user_id
                                     }}} style={{ textDecoration: "none" }}>

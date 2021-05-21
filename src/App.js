@@ -6,7 +6,7 @@ import Event from './components/Event'
 import PastEvent from './components/PastEvent'
 import CreateEvent from './components/CreateEvent'
 import EditEvent from './components/EditEvent'
-import EditUser from './components/EditUser'
+import UserProfile from './components/UserProfile'
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -22,7 +22,7 @@ function App() {
           <Route path="/pastEvent" component={PastEvent} />
           <Route path="/createEvent" component={CreateEvent} />
           <Route path="/editEvent" component={EditEvent} />
-          <Route path="/editUser" component={EditUser} />
+          <Route path="/userProfile" component={UserProfile} />
         </Switch>
       </div>
     </BrowserRouter>

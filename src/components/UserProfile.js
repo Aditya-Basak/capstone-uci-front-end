@@ -7,7 +7,7 @@ import hidePwdImg from '../hide-password.svg';
 
 
 
-function EditUser(props){
+function UserProfile(props){
 
     let history = useHistory();
     
@@ -167,4 +167,4 @@ function EditUser(props){
     )
 }
 
-export default EditUser 
+export default UserProfile
