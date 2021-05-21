@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useHistory } from "react-router-dom";
 import showPwdImg from '../show-password.svg';
 import hidePwdImg from '../hide-password.svg';
+import ReactStars from "react-rating-stars-component";
 
 
 
@@ -16,6 +17,10 @@ function UserProfile(props){
         email: "",
         password: "",
         phone: "",
+        reviews: [],
+        social_rating: null,
+        total_social_ratings: null,
+        event_ratings: []
     })
     
     useEffect(async () => {
@@ -28,7 +33,11 @@ function UserProfile(props){
         setState({name: result.data.account_details.name,
                   email: result.data.account_details.email,
                   password: result.data.account_details.password,
-                  phone: result.data.account_details.phone,});
+                  phone: result.data.account_details.phone,
+                  reviews: result.data.reviews,
+                  social_rating: result.data.social_rating,
+                  total_social_ratings: result.data.total_social_ratings,
+                  event_ratings: result.data.event_ratings});
     },[]);
 
     const[phEditMsg, setPhEditMsg] = useState('');
@@ -159,8 +168,53 @@ function UserProfile(props){
             {<button onClick={backToDashboard} className="backButton" > Go Back </button>}
             <div className ="card col-12 col-lg-4 mt-2">
                 <h4 className='center'>Ratings and Testimonials</h4>
-                <div>Ratings</div>
-                <div>Testimonials</div>
+                <br></br>
+                <h4>Ratings:</h4>
+                <div>
+                <h5>Social Rating ({state.total_social_ratings}):</h5>
+                    {state.social_rating &&
+                <ReactStars
+                        count={5}
+                        size={25}
+                        value={state.social_rating}
+                        edit={false}
+                        emptyIcon={<i className="far fa-star"></i>}
+                        halfIcon={<i className="fa fa-star-half-alt"></i>}
+                        fullIcon={<i className="fa fa-star"></i>}
+                        activeColor="#ffd700"
+                />
+                    }
+                </div>
+                 <br></br>
+                 {state.event_ratings.map((item) => (
+                    (
+                        <div>
+                    <h5>{item.event_key} Rating ({item.total_ratings}):</h5>
+                    
+                    <ReactStars
+                        count={5}
+                        size={25}
+                        value={item.rating}
+                        edit={false}
+                        emptyIcon={<i className="far fa-star"></i>}
+                        halfIcon={<i className="fa fa-star-half-alt"></i>}
+                        fullIcon={<i className="fa fa-star"></i>}
+                        activeColor="#ffd700"
+                />
+                <br></br>
+                 </div>
+                    )
+                 ))}
+
+                 <br></br>
+                <h4>Testimonials:</h4>
+                {state.reviews && state.reviews.map((item) => (
+                    <ul className="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center" key={item.id} >
+                                "{item}"
+                        </li>
+                    </ul>
+                    ))}
             </div>
          </div>
 
