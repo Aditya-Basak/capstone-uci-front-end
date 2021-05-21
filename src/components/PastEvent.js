@@ -127,7 +127,7 @@ function PastEvent(props){
 
     return (
         <div>
-        <Header/>
+        <Header user_id= { props.location.componentProps.user_id}/>
         <br/>
         <div className={"pastEvent"}>
         
