@@ -1,8 +1,9 @@
 import React,{useState} from 'react'
-import Header from './RegisterHeader'
 import axios from 'axios'
 import { useHistory } from "react-router-dom";
 import {Link} from 'react-router-dom';
+import showPwdImg from '../show-password.svg';
+import hidePwdImg from '../hide-password.svg';
 
 function Login(props){
 
@@ -10,6 +11,8 @@ function Login(props){
         email: "",
         password: "",
     })
+
+    const[isRevealPwd, setIsRevealPwd] = useState(false);
 
     let history = useHistory();
 
@@ -47,21 +50,23 @@ function Login(props){
 
     return (
         <div>
-            <Header/>
+            <div><br/><br/></div>
             <div className="card col-12 col-lg-4 mt-2">
-            <a class="h5">
-                    Sports were meant to be played together. You are just one step away!
+
+                <div><h1 class="center">SportsCon</h1></div>
+            <a class="h6 center" >
+                    Sports were meant to be played together. <br/>You are just one step away!
                 </a>
             <form>
-                <label>
-                    <br />
-                    <input id="email"  placeholder="email" value={state.email} onChange={handleChange} />
-                </label>
+                <div className="email-container">
+                    <br/>
+                    <input id="email" placeholder="Email" value={state.email} onChange={handleChange} />
+                </div>
                 <br />
-                <label>
-                    <br />
-                    <input type="password" id="password" placeholder="Password" value={state.password} onChange={handleChange} />
-                </label>
+                <div className="pwd-container-login">
+                    <input id="password"  type={isRevealPwd ? "text":"password"} placeholder="Password" value={state.password} onChange={handleChange} />
+                    <img title={isRevealPwd ? "Hide Password":"Show Password"} src={isRevealPwd? hidePwdImg: showPwdImg} onClick={() => setIsRevealPwd(prevState  =>  !prevState)}/>
+                </div>
                 <br />
             </form>
             </div>

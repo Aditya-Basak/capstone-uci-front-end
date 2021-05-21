@@ -12,3 +12,81 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.email-container {
+  position: relative;
+  width: 371px;
+}
+ 
+.email-container input {
+  font-size: 15px;
+}
+
+.pwd-container {
+  position: relative;
+  width: 371px;
+}
+ 
+.pwd-container input {
+  font-size: 15px;
+}
+ 
+.pwd-container img {
+  cursor: pointer;
+  position: absolute;
+  
+  width: 20px;
+  right: 80px;
+  top: 5px;
+}
+
+
+.pwd-container-login img {
+  cursor: pointer;
+  position: absolute;
+  
+  width: 20px;
+  right: 449px;
+  top: 203px;
+}
+
+.pwd-container-register {
+  position: relative;
+  width: 371px;
+}
+.pwd-container-register img {
+  cursor: pointer;
+  position: absolute;
+  
+  width: 20px;
+  right: 195px;
+  top: 30px;
+}
+
+.phone-container {
+  position: relative;
+  width: 371px;
+}
+ 
+.phone-container input {
+  font-size: 15px;
+}
+
+.app-icon {
+  position: absolute;
+  left: 50px;
+}
+
+.user-profile {
+  position: absolute;
+  right: 50px;
+}
+
+.center {
+  text-align: center;
+}
+
+.center-div {
+  margin: 0 auto;
+}
+

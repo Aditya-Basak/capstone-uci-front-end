@@ -145,7 +145,7 @@ function EditEvent(props){
     return (
         
         <div>
-            <Header />
+            <Header user_id= {props.location.user_id}/>
 
             <div className="card col-12 col-lg-4 mt-2">
             <a class="h5">
