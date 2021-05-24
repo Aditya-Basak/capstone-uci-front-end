@@ -4,6 +4,9 @@ import { useHistory } from "react-router-dom";
 import {Link} from 'react-router-dom';
 import showPwdImg from '../show-password.svg';
 import hidePwdImg from '../hide-password.svg';
+import app_logo from '../SportsCon_Light_Transparent.png'
+import {Button, Container, Row, Col, Form} from 'react-bootstrap';
+import background from './assets/background.png'
 
 function Login(props){
 
@@ -49,35 +52,55 @@ function Login(props){
 
 
     return (
+        <div
+        class="bg_image"
+        style={{
+          backgroundImage: 'url('+background+')',
+          backgroundSize: "cover",
+          height: "100vh",
+        }}
+      >
+        <Container fluid>
+        <br></br>
+            <br></br>
         <div>
-            <div><br/><br/></div>
-            <div className="card col-12 col-lg-4 mt-2">
-
-                <div><h1 class="center">SportsCon</h1></div>
-            <a class="h6 center" >
-                    Sports were meant to be played together. <br/>You are just one step away!
+            <div class="experiment-body-login">
+            <div class="logo">
+                <a href="/">
+                    <img class="fit-logo-login"  src={app_logo}/>
                 </a>
-            <form>
-                <div className="email-container">
-                    <br/>
-                    <input id="email" placeholder="Email" value={state.email} onChange={handleChange} />
-                </div>
-                <br />
-                <div className="pwd-container-login">
-                    <input id="password"  type={isRevealPwd ? "text":"password"} placeholder="Password" value={state.password} onChange={handleChange} />
-                    <img title={isRevealPwd ? "Hide Password":"Show Password"} src={isRevealPwd? hidePwdImg: showPwdImg} onClick={() => setIsRevealPwd(prevState  =>  !prevState)}/>
-                </div>
-                <br />
-            </form>
+            </div>
+
+            <a class="h4 center" >
+                    Sports are meant to be played together. <br/>You are just one step away!
+            </a>
+            <br></br>
+            <br></br>
+            <br></br>
+            <Form>
+                <Form.Group as={Row} controlId="formHorizontalName">
+                    <Col sm={4}>
+                    <Form.Control className={"login-centering"} size="lg" id="email"  placeholder="Enter email" value={state.email} onChange={handleChange} />
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} controlId="formHorizontalEmail">
+                    <Col sm={4}>
+                    <Form.Control className={"login-centering"} size="lg" id="password" type={isRevealPwd ? "text":"password"} placeholder="Enter password" value={state.password} onChange={handleChange} />
+                    <img class ="pwd-image" title={isRevealPwd ? "Hide Password":"Show Password"} src={isRevealPwd? hidePwdImg: showPwdImg} onClick={() => setIsRevealPwd(prevState  =>  !prevState)} fluid/>
+                    </Col>
+                </Form.Group>
+                <Button variant="success"  size='lg' id="myBtn" onClick={handleSubmit} className="registerButton"> Login </Button>
+            </Form>
+            <br></br>
+            <Link to="/register" style={{ textDecoration: "none" }}>
+                <Button variant="success"  size='lg' id="myBtn" className="registerButton"> Register Now </Button>
+            </Link>
+            <br></br>
+            <br></br>
             </div>
             
-            <button onClick={handleSubmit} className="registerButton"> Login </button>
-            <br />
-            <br />
-
-            <Link to="/register" style={{ textDecoration: "none" }}>
-                <button color="link" className="registerButton"> Register Now </button>
-            </Link>
+         </div>
+         </Container>
          </div>
 
     )
