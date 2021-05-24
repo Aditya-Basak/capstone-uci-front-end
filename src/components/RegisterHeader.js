@@ -1,6 +1,8 @@
 import React, {useEffect, useState, useRef} from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom';
+import app_logo from '../SportsCon_Light_Transparent.png'
+import {Nav, Navbar, Row, Col} from 'react-bootstrap';
 
 function RegisterHeader(props){
 
@@ -20,20 +22,43 @@ function RegisterHeader(props){
                     user_id: result.data.account_details.user_id,});
     },[]);
         return(
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <a class="h3" href="/">
-                        SportsCon
-                    </a>
-                <div class='user-profile'>
+            <Navbar bg="dark" variant="dark">
+                <Navbar.Brand href="/">
+                    <img 
+                    src={app_logo}
+                    width="120"
+                    height="30"
+                    className="d-inline-block align-top"
+                    />                
+                </Navbar.Brand>
+                
+                <Navbar.Toggle aria-controls="basic-nav-bar"/>
+                    <Navbar.Collapse className="justify-content-end">
+                        <Row>
+                            <Col>
+                                <Nav.Link href="#">Events</Nav.Link>
+                            </Col>
+                            <Col>
+                                <Nav.Link href="#">Groups</Nav.Link>
+                            </Col>
+                            <Col>
+                                <Nav.Link href="#">Leaderboard</Nav.Link>
+                            </Col>
+                        </Row>
+                    </Navbar.Collapse>
+                <Navbar.Collapse className="justify-content-end">
+                <Navbar.Text>
+                    Welcome,&nbsp;  
                     <Link to={{pathname: '/userProfile',
                                     componentProps: {
                                         user_id: props.user_id
                                     }}} style={{ textDecoration: "none" }}>
-                        <h4>{state.name}</h4>
+                        {state.name}
                         </Link>
-                </div>
-            </nav>
-
+                        &nbsp;&nbsp;
+                </Navbar.Text>
+                </Navbar.Collapse>
+            </Navbar>
         );
 }
 

@@ -3,6 +3,7 @@ import Header from './RegisterHeader'
 import moment from 'moment'
 import axios from 'axios'
 import { useHistory } from "react-router-dom";
+import {Button, Container, Row, Col, Form} from 'react-bootstrap';
 
 function CreateEvent(props){
     let history = useHistory();
@@ -67,6 +68,7 @@ function CreateEvent(props){
                 console.log(res);
                 if(res.status === 200){
                     setCreatedMessage("Event has been created!");
+                    alert("Event successfully created.");
                     history.push({
                         pathname:  '/dashboard',
                         user_id: props.location.componentProps.user_id
@@ -81,73 +83,92 @@ function CreateEvent(props){
     }
 
     return (
-        <div>
-            <Header />
+        <Container fluid>
+            <div>
+                <Header user_id= {props.location.user_id}/>
 
-            <div className="card col-12 col-lg-4 mt-2">
-            <a class="h5">
-                    Enter event details:
-            </a>
-            <form>
-                {createdMessage && <div className="createdMessage"> {createdMessage} </div>}
-                <label>
-                    Event Name:
+                <div class="experiment-body">
+                    <h2>
+                        Enter event details:
+                    </h2>
                     <br />
-                    <input id="name"  placeholder="Enter event name" value={state.name} onChange={handleChange} required />
-                </label>
-                <br />
-                <label>
-                    Event Type:&nbsp;&nbsp;
-                    <select id="event_type" value={state.event_type} onChange={handleChange}>
-                    <option disabled selected value="">Select</option>
-                    <option value="Soccer">Soccer</option>
-                    <option value="basketball">Basketball</option>
-                    <option value="football">Football</option>
-                    <option value="cricket">Cricket</option>
-                    </select>
-                </label>
-                <br />
-                <label>
-                    Description:
+                <Form>
+                    {createdMessage && <div className="createdMessage"> {createdMessage} </div>}
+                    <Form.Group as={Row} controlId="formHorizontalName">
+                    <Form.Label column sm={2}>Event Name:</Form.Label>
+                        <Col sm={6}>
+                            <Form.Control size="lg"  input id="name"  placeholder="Tell us what your event will be called." value={state.name} onChange={handleChange} required />
+                        </Col>
+                    </Form.Group>
                     <br />
-                    <input id="description" placeholder="Event description" value={state.description} onChange={handleChange} />
-                </label>
-                <br />
-                <label>
-                    Location:
+
+                    <Form.Group as={Row}    controlId="formHorizontalName">
+                    <Form.Label column sm={2}>Event Type:</Form.Label>
+                        <Col sm={6}>
+                            <Form.Control as="select" size="lg" id="event_type" value={state.event_type} onChange={handleChange}>
+                                <option hidden value>Select an Option.</option>
+                                
+                                <option value="Soccer">Soccer</option>
+                                <option value="basketball">Basketball</option>
+                                <option value="football">Football</option>
+                                <option value="cricket">Cricket</option>
+                            </Form.Control>
+                        </Col>
+                    </Form.Group>
                     <br />
-                    <input id="location"  placeholder="Event Location" value={state.location} onChange={handleChange} />
-                </label>
-                <br />
-                <label>
-                    Date:
+
+                    <Form.Group as={Row} controlId="formHorizontalName">
+                    <Form.Label column sm={2}>Description:</Form.Label>
+                        <Col sm={6}>
+                            <Form.Control as="textarea" size="lg" id="description" placeholder="A short description of your event." value={state.description} onChange={handleChange} />
+                        </Col>
+                    </Form.Group>
                     <br />
-                    <input id="date_field"  type= "date" min={moment().format("YYYY-MM-DD")} value={state.date_field} onChange={handleChange} />
-                </label>
-                <br />
-                <label>
-                    Time:
+
+                    <Form.Group as={Row} controlId="formHorizontalName">
+                    <Form.Label column sm={2}>Location:</Form.Label>
+                        <Col sm={6}>
+                            <Form.Control size="lg" input id="location"  placeholder="Where are you planning to host it?" value={state.location} onChange={handleChange} />
+                        </Col>
+                    </Form.Group>
                     <br />
-                    <input id="time_field"  type= "time" value={state.time_field} onChange={handleChange} />
-                </label>
-                <br />
-                <label>
-                    Attendees Limit:
+
+                    <Form.Group as={Row} controlId="formHorizontalName">
+                    <Form.Label column sm={2}>Date:</Form.Label>
+                        <Col sm={2}>
+                            <Form.Control size="lg" input id="date_field"  type= "date" min={moment().format("YYYY-MM-DD")} value={state.date_field} onChange={handleChange} />
+                        </Col>
+                        <Form.Label column sm={2}>Time:</Form.Label>
+                        <Col sm={2}>
+                            <Form.Control size="lg" input id="time_field"  type= "time" value={state.time_field} onChange={handleChange} />
+                        </Col>
+                    </Form.Group>
                     <br />
-                    <input id="limit" type="number" placeholder="No of slots" min="1" value={state.limit} onChange={handleChange} />
-                </label>
-                <br />
-                <label>
-                    Scope:
-                    <br/>
-                    <input id = "scope" type = "radio" name="secrecy" value="public" onChange={handleChange}/> Public&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input id = "scope" type = "radio" name="secrecy" value="private" onChange={handleChange}/> Private
-                </label>
-                <br />
-            </form>
+
+                    <Form.Group as={Row} controlId="formHorizontalName">
+                    <Form.Label column sm={2}>Attendees Limit:</Form.Label>
+                        <Col sm={6}>
+                        <Form.Control size="lg" id="limit" type="number" placeholder="Number of slots your event has." min="1" value={state.limit} onChange={handleChange} />
+                        </Col>
+                    </Form.Group>
+                    <br />
+
+                    <fieldset>
+                    <Form.Group as={Row} controlId="formHorizontalName">
+                    <Form.Label as="legend" column sm={2}>Scope:</Form.Label>
+                        <Col sm={3}>
+                            <Form.Check id = "scope" type = "radio" name="secrecy" label="Public" value="public" onChange={handleChange}/>
+                        </Col>
+                        <Col sm={3}>
+                            <Form.Check id = "scope" type = "radio" name="secrecy" label="Private" value="private" onChange={handleChange}/>
+                        </Col>
+                    </Form.Group>
+                    </fieldset>
+                </Form>
+                </div>
+                <Button variant="success"  size='lg' onClick={handleSubmit} className="registerButton"> Create </Button>
             </div>
-            <button onClick={handleSubmit} className="registerButton"> Create </button>
-         </div>
+         </Container>
 
     )
 }

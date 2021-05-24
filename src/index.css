@@ -116,6 +116,7 @@ code {
   display: block;
 }
 .experiment-body {
+  align-items: center;
   background-color: #2a3d53;
   margin: 40px;
   margin-top: 0px;
@@ -131,3 +132,9 @@ code {
   color :aqua;
 }
 
+.experiment-body h5 {
+  text-align: left;
+  padding-left: 30px;
+  padding-top: 10px;
+  color :aqua;
+}
