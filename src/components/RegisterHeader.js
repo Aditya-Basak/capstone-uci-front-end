@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef} from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom';
 import app_logo from '../SportsCon_Light_Transparent.png'
-import {Nav, Navbar, Row, Col} from 'react-bootstrap';
+import {Nav, Navbar, NavDropdown, Row, Col} from 'react-bootstrap';
 
 function RegisterHeader(props){
 
@@ -21,8 +21,13 @@ function RegisterHeader(props){
         setState({name: result.data.account_details.name,
                     user_id: result.data.account_details.user_id,});
     },[]);
+
+    async function handleLogout (event){
+        alert("You have been successfully logged out.");
+        window.location.href ="/";
+    }
         return(
-            <Navbar bg="dark" variant="dark">
+            <Navbar className="color-nav" variant="dark">
                 <Navbar.Brand href="/">
                     <img 
                     src={app_logo}
@@ -57,6 +62,9 @@ function RegisterHeader(props){
                         </Link>
                         &nbsp;&nbsp;
                 </Navbar.Text>
+                    <NavDropdown title=" More Actions" id="navbarScrollingDropdown">
+                    <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+                    </NavDropdown>
                 </Navbar.Collapse>
             </Navbar>
         );

@@ -85,7 +85,7 @@ function CreateEvent(props){
     return (
         <Container fluid>
             <div>
-                <Header user_id= {props.location.user_id}/>
+                <Header user_id= {props.location.componentProps.user_id}/>
 
                 <div class="experiment-body">
                     <h2>
