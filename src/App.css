@@ -97,6 +97,9 @@
 	top:1px;
 }
 
+.login-centering{
+	margin-left: 110%;
+}
 
 .editEventButton {
 	background-color:#c7b14d;
