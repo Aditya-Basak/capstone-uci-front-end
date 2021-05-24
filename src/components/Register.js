@@ -2,6 +2,8 @@ import React, {useState} from 'react'
 import axios from 'axios'
 import showPwdImg from '../show-password.svg';
 import hidePwdImg from '../hide-password.svg';
+import app_logo from '../SportsCon_Light_Transparent.png'
+import {Button, Container, Row, Col, Form} from 'react-bootstrap';
 function Register(props){
     const[state, setState] = useState({
         name: "",
@@ -75,46 +77,54 @@ function Register(props){
     }
 
     return (
+        <Container fluid>
         <div>
-            <div><br/><br/></div>
-            <div className="card col-12 col-lg-4 mt-2">
-            <div><h1 class="center">SportsCon</h1></div>
-            <a class="h5 center">
-                    Enter your details to hop on board!<br/><br/>
-            </a>
-            <form>
-                {registeredMessage && <div className="registeredMessage"> {registeredMessage} </div>}
-                <div className="email-container">
-                    Name:
-                    <br />
-                    <input id="name"  placeholder="Enter name" value={state.name} onChange={handleChange} />
-                </div>
-                <br />
-                <div className="email-container">
-                    Email:
-                    <br />
-                    <input id="email" placeholder="Enter email" value={state.email} onChange={handleChange} />
-                </div>
-                <br />
-                <div className="pwd-container-register">
-                    Password:
-                    <br />
-                    <input id="password"  type={isRevealPwd ? "text":"password"} placeholder="Enter Password" value={state.password} onChange={handleChange} />
-                    <img title={isRevealPwd ? "Hide Password":"Show Password"} src={isRevealPwd? hidePwdImg: showPwdImg} onClick={() => setIsRevealPwd(prevState  =>  !prevState)}/>
-                </div>
-                <br />
-                <div className="phone-container">
-                    Phone Number:
-                    <br />
-                    <input id="phonenumber" placeholder="Enter number" value={state.phonenumber} onChange={handleChange} />
-                </div>
-                <br/>
-                <br />
-            </form>
+            <div class="logo">
+                <a href="/">
+                    <img class="fit-logo"  src={app_logo}/>
+                </a>
             </div>
-            <button id="myBtn" onClick={handleSubmit} className="registerButton"> Register </button>
+            
+            <div class="experiment-body">
+            <h2>
+                    Enter your details to hop on board!<br/><br/>
+            </h2>
+            <Form>
+                {registeredMessage && <div className="registeredMessage"> {registeredMessage} </div>}
+                <Form.Group as={Row} controlId="formHorizontalName">
+                    <Form.Label column sm={2}>Name:</Form.Label>
+                    <Col sm={4}>
+                    <Form.Control size="lg" id="name"  placeholder="Enter name" value={state.name} onChange={handleChange} />
+                    </Col>
+                </Form.Group>
+                <br />
+                <Form.Group as={Row} controlId="formHorizontalEmail">
+                    <Form.Label column sm={2}>Email:</Form.Label>
+                    <Col sm={4}>
+                    <Form.Control size="lg" id="email" type="email" placeholder="Enter email" value={state.email} onChange={handleChange} />
+                    </Col>
+                </Form.Group>
+                <br/>
+                <Form.Group as={Row} controlId="formHorizontalEmail">
+                   <Form.Label column sm={2}>Password:</Form.Label>
+                    <Col sm={4}>
+                    <Form.Control size="lg" id="password" type={isRevealPwd ? "text":"password"} placeholder="Enter Password" value={state.password} onChange={handleChange} />
+                    <img class ="pwd-image" title={isRevealPwd ? "Hide Password":"Show Password"} src={isRevealPwd? hidePwdImg: showPwdImg} onClick={() => setIsRevealPwd(prevState  =>  !prevState)} fluid/>
+                    </Col>
+                </Form.Group>
+                
+                <Form.Group as={Row} controlId="formHorizontalNumber">
+                    <Form.Label column sm={2}>Phone Number:</Form.Label>
+                    <Col sm={4}>
+                    <Form.Control size="lg" id="phonenumber" placeholder="Enter Phone" value={state.phonenumber} onChange={handleChange} />
+                    </Col>
+                </Form.Group>
+                <br/>
+            </Form>
+            </div>
+            <Button variant="success"  size='lg' id="myBtn" onClick={handleSubmit} className="registerButton"> Register </Button>{' '}
          </div>
-
+         </Container>
     )
 }
 
