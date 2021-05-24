@@ -83,10 +83,11 @@ function CreateEvent(props){
     }
 
     return (
-        <Container fluid>
+        
             <div>
                 <Header user_id= {props.location.componentProps.user_id}/>
-
+                <Container fluid>
+                    <br/><br/><br/>
                 <div class="experiment-body">
                     <h2>
                         Enter event details:
@@ -100,8 +101,7 @@ function CreateEvent(props){
                             <Form.Control size="lg"  input id="name"  placeholder="Tell us what your event will be called." value={state.name} onChange={handleChange} required />
                         </Col>
                     </Form.Group>
-                    <br />
-
+                    
                     <Form.Group as={Row}    controlId="formHorizontalName">
                     <Form.Label column sm={2}>Event Type:</Form.Label>
                         <Col sm={6}>
@@ -115,24 +115,21 @@ function CreateEvent(props){
                             </Form.Control>
                         </Col>
                     </Form.Group>
-                    <br />
-
+                    
                     <Form.Group as={Row} controlId="formHorizontalName">
                     <Form.Label column sm={2}>Description:</Form.Label>
                         <Col sm={6}>
                             <Form.Control as="textarea" size="lg" id="description" placeholder="A short description of your event." value={state.description} onChange={handleChange} />
                         </Col>
                     </Form.Group>
-                    <br />
-
+                    
                     <Form.Group as={Row} controlId="formHorizontalName">
                     <Form.Label column sm={2}>Location:</Form.Label>
                         <Col sm={6}>
                             <Form.Control size="lg" input id="location"  placeholder="Where are you planning to host it?" value={state.location} onChange={handleChange} />
                         </Col>
                     </Form.Group>
-                    <br />
-
+                    
                     <Form.Group as={Row} controlId="formHorizontalName">
                     <Form.Label column sm={2}>Date:</Form.Label>
                         <Col sm={2}>
@@ -143,16 +140,14 @@ function CreateEvent(props){
                             <Form.Control size="lg" input id="time_field"  type= "time" value={state.time_field} onChange={handleChange} />
                         </Col>
                     </Form.Group>
-                    <br />
-
+                   
                     <Form.Group as={Row} controlId="formHorizontalName">
                     <Form.Label column sm={2}>Attendees Limit:</Form.Label>
                         <Col sm={6}>
                         <Form.Control size="lg" id="limit" type="number" placeholder="Number of slots your event has." min="1" value={state.limit} onChange={handleChange} />
                         </Col>
                     </Form.Group>
-                    <br />
-
+                   
                     <fieldset>
                     <Form.Group as={Row} controlId="formHorizontalName">
                     <Form.Label as="legend" column sm={2}>Scope:</Form.Label>
@@ -167,9 +162,9 @@ function CreateEvent(props){
                 </Form>
                 </div>
                 <Button variant="success"  size='lg' onClick={handleSubmit} className="registerButton"> Create </Button>
-            </div>
+            
          </Container>
-
+         </div>
     )
 }
 
