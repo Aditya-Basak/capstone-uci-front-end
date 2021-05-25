@@ -137,6 +137,37 @@ code {
   font-family: 'Mulish';
 }
 
+.experiment-body-dashboard{
+  margin-left: 55px;
+  margin-right: 55px;
+  align-items: center;
+  background-color: #2a3d53;
+  padding: 20px;
+  font-size: 150%;
+  font-family: 'Mulish';
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+ 
+.custom-color{
+  color: #dfdd7e;
+  font-family: 'Mulish';
+  font-size: 90%;
+}
+.modified-list2{
+	background-color: #0d0c0e;
+	padding-top: 8px;
+  padding-bottom: 8px;
+	padding-left: 55px;
+	padding-right: 30px;
+	font-family: 'Mulish';
+	margin: 10px;
+  margin-left:20px;
+  margin-right:20px;
+	border-radius: 35px;
+	font-size: 100%;
+  }
+
 .experiment-body-login {
   background-color: #2a3d53;
   margin: 450px;
@@ -160,6 +191,38 @@ code {
   color :aqua;
 }
 
+
+.dashboard h1 {
+  text-align: left;
+  padding-left: 55px;
+  padding-top: 10px;
+  color :aqua;
+}
+
+.dashboard-form{
+  margin-left: 40px;
+}
+
+.dashboard-tab{
+  margin-left: 55px;
+  margin-right: 55px;
+}
 .color-nav  {
   background-color:rgb(1, 5, 19);
+}
+
+.btn-custom-dashboard {
+  color: #fff;
+  font-weight: bold;
+  background-color: #412b15;
+  border-color: #000000;
+  width: 20%;
+}
+
+.search-icon{
+  cursor: pointer;
+}
+
+.generic-div {
+  background-color: #2a3d53;
 }
