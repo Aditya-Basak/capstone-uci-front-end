@@ -94,7 +94,7 @@ function Register(props){
                 <Form.Group as={Row} controlId="formHorizontalName">
                     <Form.Label column sm={2}>Name:</Form.Label>
                     <Col sm={4}>
-                    <Form.Control size="lg" id="name"  placeholder="What does everyone call you?" value={state.name} onChange={handleChange} />
+                    <Form.Control size="lg" id="name"  placeholder="Your name." value={state.name} onChange={handleChange} />
                     </Col>
                 </Form.Group>
                 <br />
