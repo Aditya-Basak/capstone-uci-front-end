@@ -7,6 +7,7 @@ import PastEvent from './components/PastEvent'
 import CreateEvent from './components/CreateEvent'
 import EditEvent from './components/EditEvent'
 import UserProfile from './components/UserProfile'
+import Search from './components/Search'
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/createEvent" component={CreateEvent} />
           <Route path="/editEvent" component={EditEvent} />
           <Route path="/userProfile" component={UserProfile} />
+          <Route path="/search" component={Search} />
         </Switch>
       </div>
     </BrowserRouter>
