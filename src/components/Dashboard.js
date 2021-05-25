@@ -2,7 +2,9 @@ import React, {useState, useEffect} from 'react'
 import Header from './RegisterHeader'
 import {Link} from 'react-router-dom';
 import axios from 'axios'
+import { useHistory } from "react-router-dom";
 import { PinDropSharp } from '@material-ui/icons';
+import {Button, Form} from 'react-bootstrap';
 import {Nav} from 'react-bootstrap'
 
 function Dashboard(props){
@@ -12,6 +14,10 @@ function Dashboard(props){
     const[pastJoinedEvents, setPastJoinedEvents] = useState([])
     const[showUpcoming, setShowUpcoming] = useState(false);
     const[showPast, setShowPast] = useState(true);
+    const[searchState, setSearchState] = useState({
+        event_type: "",
+        location: "",
+    })
 
     useEffect(() => {
         const fetchData = async () => {
@@ -34,6 +40,16 @@ function Dashboard(props){
 
     }, [])
 
+    let history = useHistory();
+    const redirect = () => {
+        history.push({
+          pathname:  '/search',
+          user_id: props.location.user_id,
+          event_type: searchState.event_type,
+          location: searchState.location
+        })
+    }
+
     function handlePastSelect () {
         setShowPast(true);
         setShowUpcoming(false);
@@ -43,10 +59,33 @@ function Dashboard(props){
         setShowPast(false);
         setShowUpcoming(true);
     }
+    
+    function handleChange (event) {
+        setSearchState({
+            ...searchState,
+            [event.target.id]: event.target.value
+        }); 
+    }
 
     return (
         <div>
             <Header user_id= {props.location.user_id}/>
+            <br/>
+            <br/>
+
+            <Form>
+            <div class="form-row">
+            <div class="col">
+                <input type="text" class="form-control" id="event_type"  placeholder="Event type" value={searchState.event_type} onChange={handleChange} ></input>
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" id="location"  placeholder="Location" value={searchState.location} onChange={handleChange}></input>
+            </div>
+            <Button variant="success"  size='sm' id="myBtn" onClick={redirect} className="registerButton"> Search </Button>
+            </div>
+            </Form>
+
+            <br/>
             <br/>
             <Nav variant="pills" defaultActiveKey="link-2">
                 <Nav.Item>

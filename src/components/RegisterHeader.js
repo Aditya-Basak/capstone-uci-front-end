@@ -1,6 +1,8 @@
 import React, {useEffect, useState, useRef} from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom';
+import app_logo from '../SportsCon_Light_Transparent.png'
+import {Nav, Navbar, NavDropdown, Row, Col} from 'react-bootstrap';
 
 function RegisterHeader(props){
 
@@ -19,21 +21,42 @@ function RegisterHeader(props){
         setState({name: result.data.account_details.name,
                     user_id: result.data.account_details.user_id,});
     },[]);
+
+    async function handleLogout (event){
+        alert("You have been successfully logged out.");
+        window.location.href ="/";
+    }
         return(
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <a class="h3" href="/">
-                        SportsCon
-                    </a>
-                <div class='user-profile'>
+            <Navbar className="color-nav" variant="dark">
+                <Navbar.Text> &emsp;</Navbar.Text>
+                <Navbar.Brand href="/">
+                    <img 
+                    src={app_logo}
+                    width="120"
+                    height="30"
+                    className="d-inline-block align-top"
+                    />                
+                </Navbar.Brand>
+                
+                <Navbar.Toggle aria-controls="basic-nav-bar"/>
+                    
+                <Navbar.Collapse className="justify-content-end">
+                <Navbar.Text>
+                    Welcome,&ensp;  
                     <Link to={{pathname: '/userProfile',
                                     componentProps: {
                                         user_id: props.user_id
                                     }}} style={{ textDecoration: "none" }}>
-                        <h4>{state.name}</h4>
+                        {state.name}
                         </Link>
-                </div>
-            </nav>
-
+                        &emsp; &emsp;
+                </Navbar.Text>
+                    <NavDropdown title=" More Actions" id="navbarScrollingDropdown">
+                    <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+                    </NavDropdown>
+                    <Navbar.Text> &ensp;</Navbar.Text>
+                </Navbar.Collapse>
+            </Navbar>
         );
 }
 

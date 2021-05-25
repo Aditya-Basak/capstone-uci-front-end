@@ -94,21 +94,21 @@ function Register(props){
                 <Form.Group as={Row} controlId="formHorizontalName">
                     <Form.Label column sm={2}>Name:</Form.Label>
                     <Col sm={4}>
-                    <Form.Control size="lg" id="name"  placeholder="Enter name" value={state.name} onChange={handleChange} />
+                    <Form.Control size="lg" id="name"  placeholder="Your name." value={state.name} onChange={handleChange} />
                     </Col>
                 </Form.Group>
                 <br />
                 <Form.Group as={Row} controlId="formHorizontalEmail">
                     <Form.Label column sm={2}>Email:</Form.Label>
                     <Col sm={4}>
-                    <Form.Control size="lg" id="email" type="email" placeholder="Enter email" value={state.email} onChange={handleChange} />
+                    <Form.Control size="lg" id="email" type="email" placeholder="your_id@example.com" value={state.email} onChange={handleChange} />
                     </Col>
                 </Form.Group>
                 <br/>
                 <Form.Group as={Row} controlId="formHorizontalEmail">
                    <Form.Label column sm={2}>Password:</Form.Label>
                     <Col sm={4}>
-                    <Form.Control size="lg" id="password" type={isRevealPwd ? "text":"password"} placeholder="Enter Password" value={state.password} onChange={handleChange} />
+                    <Form.Control size="lg" id="password" type={isRevealPwd ? "text":"password"} placeholder="Something you can remember!" value={state.password} onChange={handleChange} />
                     <img class ="pwd-image" title={isRevealPwd ? "Hide Password":"Show Password"} src={isRevealPwd? hidePwdImg: showPwdImg} onClick={() => setIsRevealPwd(prevState  =>  !prevState)} fluid/>
                     </Col>
                 </Form.Group>
@@ -116,7 +116,7 @@ function Register(props){
                 <Form.Group as={Row} controlId="formHorizontalNumber">
                     <Form.Label column sm={2}>Phone Number:</Form.Label>
                     <Col sm={4}>
-                    <Form.Control size="lg" id="phonenumber" placeholder="Enter Phone" value={state.phonenumber} onChange={handleChange} />
+                    <Form.Control size="lg" id="phonenumber" placeholder="10 digits. No special characters." value={state.phonenumber} onChange={handleChange} />
                     </Col>
                 </Form.Group>
                 <br/>
