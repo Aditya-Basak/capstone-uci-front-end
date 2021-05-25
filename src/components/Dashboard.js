@@ -3,17 +3,16 @@ import Header from './RegisterHeader'
 import {Link} from 'react-router-dom';
 import axios from 'axios'
 import { useHistory } from "react-router-dom";
-import { PinDropSharp } from '@material-ui/icons';
-import {Button, Form} from 'react-bootstrap';
-import {Nav} from 'react-bootstrap'
+import { Search } from 'react-bootstrap-icons';
+import {Button, Tab, Tabs, Container, Row, Col, Form, ListGroup} from 'react-bootstrap';
 
 function Dashboard(props){
     const[upcomingHostedEvents, setUpcomingHostedEvents] = useState([])
     const[upcomingJoinedEvents, setUpcomingJoinedEvents] = useState([])
     const[pastHostedEvents, setPastHostedEvents] = useState([])
     const[pastJoinedEvents, setPastJoinedEvents] = useState([])
-    const[showUpcoming, setShowUpcoming] = useState(false);
-    const[showPast, setShowPast] = useState(true);
+    const[showUpcoming, setShowUpcoming] = useState(true);
+    const[showPast, setShowPast] = useState(false);
     const[searchState, setSearchState] = useState({
         event_type: "",
         location: "",
@@ -50,14 +49,17 @@ function Dashboard(props){
         })
     }
 
-    function handlePastSelect () {
-        setShowPast(true);
-        setShowUpcoming(false);
-    }
-
-    function handleUpcomingSelect () {
-        setShowPast(false);
-        setShowUpcoming(true);
+    function handleSelect() {
+        if(showPast)
+        {
+            setShowPast(false);
+            setShowUpcoming(true);
+        }
+        else
+        {
+            setShowPast(true);
+            setShowUpcoming(false);
+        }
     }
     
     function handleChange (event) {
@@ -71,120 +73,124 @@ function Dashboard(props){
         <div>
             <Header user_id= {props.location.user_id}/>
             <br/>
-            <br/>
-
-            <Form>
-            <div class="form-row">
-            <div class="col">
-                <input type="text" class="form-control" id="event_type"  placeholder="Event type" value={searchState.event_type} onChange={handleChange} ></input>
-            </div>
-            <div class="col">
-                <input type="text" class="form-control" id="location"  placeholder="Location" value={searchState.location} onChange={handleChange}></input>
-            </div>
-            <Button variant="success"  size='sm' id="myBtn" onClick={redirect} className="registerButton"> Search </Button>
-            </div>
-            </Form>
-
-            <br/>
-            <br/>
-            <Nav variant="pills" defaultActiveKey="link-2">
-                <Nav.Item>
-                <Nav.Link eventKey="link-1" > Events Near You</Nav.Link>
+            
+            <div className="dashboard">
+                <h1>What event interests you today?</h1>
                 
-                </Nav.Item>
-                <Nav.Item>
-                <Nav.Link eventKey="link-2" onSelect={handlePastSelect}>Past Events</Nav.Link>
-                </Nav.Item>
+            </div>
+            <br/>
+            <Container fluid>
+            <div className="dashboard-form">
+            <Form>
+            <Form.Group as={Row}>
+            <Col sm={5}>
+                <Form.Control size="md" id="event_type"  placeholder="Event Keyword(s)" value={searchState.event_type} onChange={handleChange} ></Form.Control>
+            </Col>
+            <Col sm={5}>
+                <Form.Control size="md" id="location"  placeholder="Location" value={searchState.location} onChange={handleChange}></Form.Control>
+            </Col>
+            <Col sm={1}>
+            <Search className="search-icon" color="white" size={30} onClick={redirect}/>
+            </Col>
+            </Form.Group>
+            </Form>
+            <br/>
+            </div>
+            </Container>
+            <div className="dashboard-tab">
+            <Tabs  className="custom-tabs" defaultActiveKey="upcoming" onSelect={handleSelect}>
+                <Tab eventKey="upcoming" title="Upcoming Events">
+                    
+                </Tab>
 
-                <Nav.Item>
-                <Nav.Link eventKey="link-3" onSelect={handleUpcomingSelect}>Upcoming Events</Nav.Link>
-                </Nav.Item>
-            </Nav>
+                <Tab eventKey="past" title="Past Events">
+
+                    
+                </Tab>
+                
+            </Tabs>
+            </div>
             {showUpcoming &&
-            <div className="card">
-                <div className="card-body">
+            <div className="experiment-body-dashboard">
+                <div >
                     {upcomingHostedEvents && upcomingHostedEvents.map((item) => (
-                        <ul className="list-group">
-                            <li class="list-group-item d-flex justify-content-between align-items-center" key={item.id} >
-                                <Link to={{pathname: '/event',
+                        <ListGroup>
+                            <li className="modified-list2 d-flex justify-content-between align-items-center" key={item.id} >
+                                <Link  to={{pathname: '/event',
                                     componentProps: {
                                     event_id: item.id,
                                     user_id: props.location.user_id
-                                }}}>
+                                }}} className="custom-color">
                                     {item.name}
                                 </Link>
-                                <span class="badge badge-primary badge-pill">Hosting</span>
+                                <span className="badge badge-info badge-pill">Hosting</span>
                             </li>
-                        </ul>
+                        </ListGroup>
                         ))}
 
                     {upcomingJoinedEvents && upcomingJoinedEvents.map((item) => (
-                        <ul className="list-group">
-                            <li class="list-group-item d-flex justify-content-between align-items-center" key={item.id} >
+                        <ListGroup>
+                            <li className="modified-list2 d-flex justify-content-between align-items-center" key={item.id} >
                                 <Link to={{pathname: '/event',
                                     componentProps: {
                                     event_id: item.id,
                                     user_id: props.location.user_id
-                                }}}>
+                                }}} className="custom-color">
                                     {item.name}
                                 </Link>
-                                <span class="badge badge-primary badge-pill">Attending</span>
+                                <span class="badge badge-info badge-pill">Attending</span>
                             </li>
-                        </ul>
+                        </ListGroup>
                         ))}
 
                     <div/>
                 </div>
                 </div>
                 }
-
             {showPast &&
-            <div className="card">
-            <div className="card-body">
+            <div className="experiment-body-dashboard">
+            <div>
                 {pastHostedEvents && pastHostedEvents.map((item) => (
-                    <ul className="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center" key={item.id} >
+                    <ListGroup>
+                        <li className="modified-list2 d-flex justify-content-between align-items-center" key={item.id} >
                             <Link to={{pathname: '/pastEvent',
                                 componentProps: {
                                 event_id: item.id,
                                 user_id: props.location.user_id
-                            }}}>
+                            }}} className="custom-color">
                                 {item.name}
                             </Link>
-                            <span class="badge badge-primary badge-pill">Hosted</span>
+                            <span class="badge badge-secondary badge-pill">Hosted</span>
                         </li>
-                    </ul>
+                    </ListGroup>
                     ))}
 
                 {pastJoinedEvents && pastJoinedEvents.map((item) => (
-                    <ul className="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center" key={item.id} >
+                    <ListGroup>
+                        <li className="modified-list2 d-flex justify-content-between align-items-center" key={item.id} >
                             <Link to={{pathname: '/pastEvent',
                                 componentProps: {
                                 event_id: item.id,
                                 user_id: props.location.user_id
-                            }}}>
+                            }}} className="custom-color">
                                 {item.name}
                             </Link>
-                            <span class="badge badge-primary badge-pill">Attended</span>
+                            <span class="badge badge-secondary badge-pill">Attended</span>
                         </li>
-                    </ul>
+                    </ListGroup>
                     ))}
                 <div/>
             </div>
             </div>
             }
-            <Link to="/" style={{ textDecoration: "none" }}>
-                <button color="link" className="registerButton"> Logout </button>
-            </Link>
-            <br/>
             <br/>
             <Link to={{pathname: '/createEvent',
                                     componentProps: {
                                     user_id: props.location.user_id
                                 }}} style={{ textDecoration: "none" }}>
-                <button color="link" className="registerButton">Create New Event</button>
+                <Button variant="custom-dashboard" size="lg">Create New Event</Button>
             </Link>
+            
          </div>
     )
 }

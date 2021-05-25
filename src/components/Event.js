@@ -104,7 +104,7 @@ function Event(props){
             <br/>
             {joinedMessage && <div className="registeredMessage"> {joinedMessage} </div>}
             <h2 className="eventTitle" >{eventState.name}</h2>
-            <div className="card">
+            <div className="generic-div">
                 <div className="card-body">
                     <h3 >Description</h3>
                     {eventState.description}
@@ -113,7 +113,7 @@ function Event(props){
 
             <br/>
             <h4 className="eventTitle">Event Details:</h4>
-            <div className="card">
+            <div className="generic-div">
                 <div className="card-body">
                     <b>Location:</b> {eventState.location}
                     {<br/>}
