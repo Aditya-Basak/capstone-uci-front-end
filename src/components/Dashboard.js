@@ -15,7 +15,7 @@ function Dashboard(props){
     const[showUpcoming, setShowUpcoming] = useState(false);
     const[showPast, setShowPast] = useState(true);
     const[searchState, setSearchState] = useState({
-        event_type: "",
+        event_name: "",
         location: "",
     })
 
@@ -45,7 +45,7 @@ function Dashboard(props){
         history.push({
           pathname:  '/search',
           user_id: props.location.user_id,
-          event_type: searchState.event_type,
+          event_name: searchState.event_name,
           location: searchState.location
         })
     }
@@ -76,7 +76,7 @@ function Dashboard(props){
             <Form>
             <div class="form-row">
             <div class="col">
-                <input type="text" class="form-control" id="event_type"  placeholder="Event type" value={searchState.event_type} onChange={handleChange} ></input>
+                <input type="text" class="form-control" id="event_name"  placeholder="Event keyword(s)" value={searchState.event_type} onChange={handleChange} ></input>
             </div>
             <div class="col">
                 <input type="text" class="form-control" id="location"  placeholder="Location" value={searchState.location} onChange={handleChange}></input>
