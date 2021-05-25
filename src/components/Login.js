@@ -57,7 +57,7 @@ function Login(props){
         style={{
           backgroundImage: 'url('+background+')',
           backgroundSize: "cover",
-          height: "100vh",
+          height: "110vh",
         }}
       >
         <Container fluid>
@@ -91,9 +91,9 @@ function Login(props){
                 </Form.Group>
                 <Button variant="success"  size='lg' id="myBtn" onClick={handleSubmit} className="registerButton"> Login </Button>
             </Form>
-            <br></br>
+            <br/>
             <Link to="/register" style={{ textDecoration: "none" }}>
-                <Button variant="success"  size='lg' id="myBtn" className="registerButton"> Register Now </Button>
+                <Button variant="link"  size='lg' style={{color:"#0dd466"}} id="myBtn"> Register Now </Button>
             </Link>
             <br></br>
             <br></br>
