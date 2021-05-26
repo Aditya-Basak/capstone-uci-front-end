@@ -68,15 +68,21 @@ code {
   padding-bottom: 20px;
 }
 
-.fit-logo-login {
+.fit-logo-login2 {
+  position: relative;
+  float: right;
+  height: auto;
+  width: 50%;
   margin-top: 30px;
   margin-bottom: 10px;
-  margin-left: 350px; 
-  height: 30%;
-  float: left;
-  width: 20%;
+
+  padding-left: 2px;
   padding-top: 10px;
   padding-bottom: 20px;
+}
+
+.login-centering{
+	margin-left: 110%;
 }
 
 .btn-xxl {
@@ -90,6 +96,17 @@ code {
   float:right;
   width: 30px;
   margin-right: 10px;
+  cursor: pointer;
+  bottom:50%;
+}
+
+.pwd-image-login {
+ 
+  position: relative;
+  float:left;
+  height: 30px;
+  width: auto;
+  margin-left: 198%;
   cursor: pointer;
   bottom:50%;
 }
@@ -168,7 +185,9 @@ code {
 	font-size: 100%;
   }
 
-.experiment-body-login {
+.experiment-body-login2 {
+  align-items: center;
+  text-align: center;
   background-color: #2a3d53;
   margin: 450px;
   margin-top: 10px;
