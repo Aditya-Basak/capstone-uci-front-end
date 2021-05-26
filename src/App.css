@@ -1,10 +1,9 @@
 .App {
   text-align: center;
-  height: 100vh;
+  height: 110vh;
   background-color: #0d1722;
   color:#dfdd7e;
   font-weight: bold;
-  
 }
 
 .App-logo {
@@ -17,6 +16,8 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+
+
 
 .App-header {
   background-color: #282c34;
@@ -74,6 +75,13 @@
 	top:1px;
 }
 
+.search_filter_label {
+	color: white;
+	font-weight: bold;
+	font-size: 20px;
+	display: block;
+	float: left;
+}
 
 .joinEventButton {
 	background-color:#4dc76e;
@@ -97,9 +105,7 @@
 	top:1px;
 }
 
-.login-centering{
-	margin-left: 110%;
-}
+
 
 .editEventButton {
 	background-color:#c7b14d;

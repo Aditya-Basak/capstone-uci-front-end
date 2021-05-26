@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import showPwdImg from '../show-password.svg';
 import hidePwdImg from '../hide-password.svg';
 import app_logo from '../SportsCon_Light_Transparent.png'
-import {Button, Container, Row, Col, Form} from 'react-bootstrap';
+import {Button, Container, Image, Row, Col, Form} from 'react-bootstrap';
 import background from './assets/background.png'
 
 function Login(props){
@@ -57,21 +57,25 @@ function Login(props){
         style={{
           backgroundImage: 'url('+background+')',
           backgroundSize: "cover",
-          height: "100vh",
+          height: "110vh",
         }}
       >
-        <Container fluid>
+        
         <br></br>
             <br></br>
-        <div>
-            <div class="experiment-body-login">
-            <div class="logo">
+        
+            <div class="experiment-body-login2">
+            <Form>
+                <Form.Group as={Row}>
+                    <Col sm={9}>
                 <a href="/">
-                    <img class="fit-logo-login"  src={app_logo}/>
+                    <img class="fit-logo-login2"  src={app_logo}/>
                 </a>
-            </div>
+                    </Col>
+                </Form.Group>
+            </Form>
 
-            <a class="h4 center" >
+            <a class="h4" >
                     Sports are meant to be played together. <br/>You are just one step away!
             </a>
             <br></br>
@@ -85,22 +89,22 @@ function Login(props){
                 </Form.Group>
                 <Form.Group as={Row} controlId="formHorizontalEmail">
                     <Col sm={4}>
-                    <Form.Control className={"login-centering"} size="lg" id="password" type={isRevealPwd ? "text":"password"} placeholder="Enter password" value={state.password} onChange={handleChange} />
-                    <img class ="pwd-image" title={isRevealPwd ? "Hide Password":"Show Password"} src={isRevealPwd? hidePwdImg: showPwdImg} onClick={() => setIsRevealPwd(prevState  =>  !prevState)} fluid/>
+                    <Form.Control className={"login-centering"} size="lg" id="password" type={isRevealPwd ? "text":"password"} placeholder="Enter password" value={state.password} onChange={handleChange}/>
+                    <img  class="pwd-image-login" title={isRevealPwd ? "Hide Password":"Show Password"} src={isRevealPwd? hidePwdImg: showPwdImg} onClick={() => setIsRevealPwd(prevState  =>  !prevState)}/>
                     </Col>
                 </Form.Group>
                 <Button variant="success"  size='lg' id="myBtn" onClick={handleSubmit} className="registerButton"> Login </Button>
             </Form>
-            <br></br>
+            <br/>
             <Link to="/register" style={{ textDecoration: "none" }}>
-                <Button variant="success"  size='lg' id="myBtn" className="registerButton"> Register Now </Button>
+                <Button variant="link"  size='lg' style={{color:"#0dd466"}} id="myBtn"> Register Now </Button>
             </Link>
             <br></br>
             <br></br>
             </div>
             
-         </div>
-         </Container>
+         
+         
          </div>
 
     )
