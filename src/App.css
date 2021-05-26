@@ -75,6 +75,13 @@
 	top:1px;
 }
 
+.search_filter_label {
+	color: white;
+	font-weight: bold;
+	font-size: 20px;
+	display: block;
+	float: left;
+}
 
 .joinEventButton {
 	background-color:#4dc76e;
