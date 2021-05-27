@@ -3,6 +3,7 @@ import Header from './RegisterHeader'
 import moment from 'moment'
 import axios from 'axios'
 import { useHistory } from "react-router-dom";
+import {Button, Container, Row, Col, Form} from 'react-bootstrap';
 
 function EditEvent(props){
 
@@ -127,6 +128,7 @@ function EditEvent(props){
                 console.log(res);
                 if(res.status === 200){
                     setEditedMessage("Event has been edited!");
+                    alert("Event successfully modified.");
                     history.push({
                         pathname:  '/event',
                         componentProps: {
@@ -146,70 +148,85 @@ function EditEvent(props){
         
         <div>
             <Header user_id= {props.location.user_id}/>
-
-            <div className="card col-12 col-lg-4 mt-2">
-            <a class="h5">
-                    Enter event details:
-            </a>
-            <form>
+            <Container fluid>
+                    <br/><br/><br/>
+            <div class="experiment-body">
+                    <h2>
+                        Edit event details:
+                    </h2>
+                    <br />
+            <Form>
                 {editedMessage && <div className="editedMessage"> {editedMessage} </div>}
-                <label>
-                    Event Name:
-                    <br />
-                    <input id="name"  placeholder="Enter event name" value={state.name} onChange={handleChange} required />
-                </label>
+                <Form.Group as={Row} controlId="formHorizontalName">
+                <Form.Label column sm={2}>Event Name:</Form.Label>
+                    <Col sm={6}>    
+                    <Form.Control size="lg"  input id="name"  placeholder="Enter new event name." value={state.name} onChange={handleChange} required />
+                    </Col>
+                </Form.Group>
+
+                <Form.Group as={Row}    controlId="formHorizontalName">
+                    <Form.Label column sm={2}>Event Type:</Form.Label>
+                        <Col sm={6}>
+                            <Form.Control as="select" size="lg" id="event_type" value={state.event_type} onChange={handleChange}>
+                                <option hidden value>Select an Option.</option>
+                                
+                                <option value="Soccer">Soccer</option>
+                                <option value="basketball">Basketball</option>
+                                <option value="football">Football</option>
+                                <option value="cricket">Cricket</option>
+                            </Form.Control>
+                        </Col>
+                    </Form.Group>
+            
+                    <Form.Group as={Row} controlId="formHorizontalName">
+                    <Form.Label column sm={2}>Description:</Form.Label>
+                        <Col sm={6}>
+                            <Form.Control as="textarea" size="lg" id="description" placeholder="A short description of your event." value={state.description} onChange={handleChange} />
+                        </Col>
+                    </Form.Group>
+                
+                    <Form.Group as={Row} controlId="formHorizontalName">
+                    <Form.Label column sm={2}>Location:</Form.Label>
+                        <Col sm={6}>
+                            <Form.Control size="lg" input id="location"  placeholder="Where are you planning to host it?" value={state.location} onChange={handleChange} />
+                        </Col>
+                    </Form.Group>
+                
+                    <Form.Group as={Row} controlId="formHorizontalName">
+                    <Form.Label column sm={2}>Date:</Form.Label>
+                        <Col sm={2}>
+                            <Form.Control size="lg" input id="date_field"  type= "date" min={moment().format("YYYY-MM-DD")} value={state.date_field} onChange={handleChange} />
+                        </Col>
+                        <Form.Label column sm={2}>Time:</Form.Label>
+                        <Col sm={2}>
+                            <Form.Control size="lg" input id="time_field"  type= "time" value={state.time_field} onChange={handleChange} />
+                        </Col>
+                    </Form.Group>
+
+                    <Form.Group as={Row} controlId="formHorizontalName">
+                    <Form.Label column sm={2}>Attendees Limit:</Form.Label>
+                        <Col sm={6}>
+                        <Form.Control size="lg" id="limit" type="number" placeholder="Number of slots your event has." min="1" value={state.limit} onChange={handleChange} />
+                        </Col>
+                    </Form.Group>
                 <br />
-                <label>
-                    Event Type:&nbsp;&nbsp;
-                    <select id="event_type" value={state.event_type} onChange={handleChange}>
-                    <option disabled selected value="">Select</option>
-                    <option value="Soccer">Soccer</option>
-                    <option value="basketball">Basketball</option>
-                    <option value="football">Football</option>
-                    <option value="cricket">Cricket</option>
-                    </select>
-                </label>
-                <br />
-                <label>
-                    Description:
-                    <br />
-                    <input id="description" placeholder="Event description" value={state.description} onChange={handleChange} />
-                </label>
-                <br />
-                <label>
-                    Location:
-                    <br />
-                    <input id="location"  placeholder="Event Location" value={state.location} onChange={handleChange} />
-                </label>
-                <br />
-                <label>
-                    Date:
-                    <br />
-                    <input id="date_field"  type= "date" min={moment().format("YYYY-MM-DD")} value={state.date_field} onChange={handleChange} />
-                </label>
-                <br />
-                <label>
-                    Time:
-                    <br />
-                    <input id="time_field"  type= "time" value={state.time_field} onChange={handleChange} />
-                </label>
-                <br />
-                <label>
-                    Attendees Limit:
-                    <br />
-                    <input id="limit" type="number" placeholder="No of slots" min="1" value={state.limit} onChange={handleChange} />
-                </label>
-                <br />
-                <label>
-                    Scope:
-                    <br/>
-                    <input id = "scope" type = "radio" name="secrecy" value="public" checked={state.scope ===  "public"} onChange={handleChange}/> Public&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input id = "scope" type = "radio" name="secrecy" value="private" checked={state.scope ===  "private"} onChange={handleChange}/> Private
-                </label>
-                <br />
-            </form>
+
+                 <fieldset>
+                    <Form.Group as={Row} controlId="formHorizontalName">
+                    <Form.Label as="legend" column sm={2}>Scope:</Form.Label>
+                        <Col sm={3}>
+                            <Form.Check id = "scope" type = "radio" name="secrecy" label="Public"  value="public" checked={state.scope ===  "public"} onChange={handleChange}/>
+                        </Col>
+                        <Col sm={3}>
+                            <Form.Check id = "scope" type = "radio" name="secrecy" label="Private" value="private" checked={state.scope ===  "private"} onChange={handleChange}/>
+                        </Col>
+                    </Form.Group>
+                </fieldset>
+            </Form>
             </div>
-            <button onClick={handleSubmit} className="registerButton"> Modify </button>
+            <Button variant="success"  size='lg' onClick={handleSubmit} className="registerButton"> Modify </Button>
+            
+        </Container>
          </div>
 
     )
