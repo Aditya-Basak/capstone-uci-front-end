@@ -76,7 +76,6 @@ code {
   margin-top: 30px;
   margin-bottom: 10px;
 
-  padding-left: 2px;
   padding-top: 10px;
   padding-bottom: 20px;
 }
@@ -100,6 +99,15 @@ code {
   bottom:50%;
 }
 
+.pwd-image-profile {
+ 
+  position: relative;
+  float:right;
+  width: 30px;
+  margin-right: 10px;
+  cursor: pointer;
+  bottom:45%;
+}
 .pwd-image-login {
  
   position: relative;
@@ -131,6 +139,7 @@ code {
 }
 
 .center {
+  align-items: center;
   text-align: center;
 }
 
@@ -165,14 +174,100 @@ code {
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
 }
+
+.experiment-body-ratings {
+  align-items: center;
+  margin-left: 40px;
+  margin-bottom: 10px;
+  margin-top: 0px;
+  background-color: #2a3d53;
+  padding: 20px;
+  border-radius: 20px;
+  font-size: 150%;
+  font-family: 'Mulish';
+}
+
+.experiment-body-ratings-outer {
+  align-items: left;
+  margin-left: 40px;
+  margin-right: 50px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  background-color: #2a3d53;
+  padding: 18px;
+  border-radius: 20px;
+  font-size: 20px;
+  font-family: 'Mulish';
+}
+
+.experiment-body-ratings-inner {
+  align-items: left;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-bottom: 50px;
+  margin-top: 0px;
+  background-color: #0d1722;
+  padding: 20px;
+  border-radius: 20px;
+  font-size: 100%;
+  font-family: 'Mulish';
+  overflow-y: scroll;
+}
+
+.experiment-body-testimonials {
+  align-items: center;
+  margin-right: 40px;
+  margin-top: 0px;
+  background-color: #2a3d53;
+  padding: 20px;
+  border-radius: 20px;
+  font-size: 150%;
+  font-family: 'Mulish';
+}
+
+.experiment-body-testimonials-inner {
+  align-items: center;
+  height: 34vh;
+  margin-right: 40px;
+  margin-left: 40px;
+  margin-bottom: 50px;
+  margin-top: 40px;
+  background-color: #0d1722;
+  padding: 20px;
+  border-radius: 20px;
+  font-size: 150%;
+  font-family: 'Mulish';
+  overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
  
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #282c34; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #2a3d53; 
+}
+
 .custom-color{
   color: #dfdd7e;
   font-family: 'Mulish';
   font-size: 90%;
 }
 .modified-list2{
-	background-color: #0d0c0e;
+	background-color: #0d1722;
 	padding-top: 8px;
   padding-bottom: 8px;
 	padding-left: 55px;
@@ -184,7 +279,20 @@ code {
 	border-radius: 35px;
 	font-size: 100%;
   }
-
+  .modified-list-testimonials{
+    text-align: left;
+    background-color: #2a3d53;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 35px;
+    padding-right: 35px;
+    font-family: 'Mulish';
+    margin: 10px;
+    margin-left:5px;
+    margin-right:5px;
+    border-radius: 10px;
+    font-size: 60%;
+    }
 .experiment-body-login2 {
   align-items: center;
   text-align: center;
@@ -197,6 +305,27 @@ code {
   font-family: 'Mulish';
 }
 .experiment-body h2 {
+  text-align: left;
+  padding-left: 30px;
+  padding-top: 10px;
+  color :aqua;
+}
+
+.name-div h1 {
+  text-align: left;
+  padding-left: 70px;
+  padding-top: 20px;
+  color :aqua;
+}
+
+.experiment-body-ratings h2 {
+  text-align: left;
+  padding-left: 30px;
+  padding-top: 10px;
+  color :aqua;
+}
+
+.experiment-body-testimonials h2 {
   text-align: left;
   padding-left: 30px;
   padding-top: 10px;
