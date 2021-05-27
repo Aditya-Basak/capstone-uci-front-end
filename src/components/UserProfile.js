@@ -166,7 +166,7 @@ function UserProfile(props){
                     <img class="pwd-image-profile" title={isRevealPwd ? "Hide Password":"Show Password"} src={isRevealPwd? hidePwdImg: showPwdImg} onClick={() => setIsRevealPwd(prevState  =>  !prevState)}/>
                     </Col>
                     <Col sm={1}>
-                    <Button variant="warning" size="md" onClick={handlePwdSubmit} className="editButton"> Edit </Button>  
+                    <Button variant="outline-warning" size="md" onClick={handlePwdSubmit} className="editButton"> Update </Button>  
                     </Col>
                 </Form.Group>
 
@@ -176,7 +176,7 @@ function UserProfile(props){
                     <Form.Control size="lg" id="phone"  placeholder="New Number" value={state.phone} onChange={handleChange} />&nbsp;&nbsp;&nbsp;&nbsp;
                     </Col>
                     <Col sm={1}>
-                    <Button variant="warning" size="md" onClick={handlePhSubmit} className="editButton"> Edit </Button>  
+                    <Button variant="outline-warning" size="md" onClick={handlePhSubmit} className="editButton"> Update </Button>  
                     </Col>
                 </Form.Group>
                 </Form>

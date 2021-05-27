@@ -166,13 +166,16 @@ code {
 .experiment-body-dashboard{
   margin-left: 55px;
   margin-right: 55px;
+  min-height: auto;
+  max-height: 62vh;
   align-items: center;
   background-color: #2a3d53;
   padding: 20px;
   font-size: 150%;
   font-family: 'Mulish';
-  border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  overflow-y: scroll;
 }
 
 .experiment-body-ratings {
@@ -258,7 +261,7 @@ code {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #2a3d53; 
+  background: rgb(1, 5, 19)
 }
 
 .custom-color{
