@@ -273,7 +273,7 @@ function UserProfile(props){
                     
                 </Row>
             </Container>
-            
+            {<button onClick={backToDashboard} className="backButton" > Go Back </button>}
          </div>
          
 
