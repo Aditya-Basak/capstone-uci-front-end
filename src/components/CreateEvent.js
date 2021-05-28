@@ -119,7 +119,7 @@ function CreateEvent(props){
                     <Form.Group as={Row} controlId="formHorizontalName">
                     <Form.Label column sm={2}>Description:</Form.Label>
                         <Col sm={6}>
-                            <Form.Control as="textarea" size="lg" id="description" placeholder="A short description of your event." value={state.description} onChange={handleChange} />
+                            <Form.Control as="textarea" style={{ height: '120px' }} size="lg" id="description" placeholder="A short description of your event." value={state.description} onChange={handleChange} />
                         </Col>
                     </Form.Group>
                     

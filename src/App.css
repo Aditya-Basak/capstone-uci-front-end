@@ -1,6 +1,8 @@
 .App {
   text-align: center;
-  height: 110vh;
+  min-height: 100vh;
+  max-height: auto;
+  
   background-color: #0d1722;
   color:#dfdd7e;
   font-weight: bold;
