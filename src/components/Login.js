@@ -52,7 +52,7 @@ function Login(props){
 
 
     return (
-        <div
+        <div className="login-home"
         class="bg_image"
         style={{
           backgroundImage: 'url('+background+')',

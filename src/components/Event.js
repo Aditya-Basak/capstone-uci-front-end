@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import Header from './RegisterHeader'
 import { useHistory } from "react-router-dom";
-import axios from 'axios'
+import axios from 'axios';
+import {Button, Container, Row, Col, Form, ListGroup} from 'react-bootstrap';
+
 
 
 function Event(props){
@@ -41,6 +43,7 @@ function Event(props){
     })
     const[showJoin, setShowJoin] = useState(false)
     const[showEdit, setShowEdit] = useState(false)
+    const noResults = "No user has joined this event yet!";
 
     useEffect(() => {
         const fetchData = async () => {
@@ -103,44 +106,94 @@ function Event(props){
             <Header user_id= {state.user_id}/>
             <br/>
             {joinedMessage && <div className="registeredMessage"> {joinedMessage} </div>}
-            <h2 className="eventTitle" >{eventState.name}</h2>
-            <div className="generic-div">
-                <div className="card-body">
-                    <h3 >Description</h3>
-                    {eventState.description}
+            <Container fluid>
+                <div className="name-div">
+                    <h1>{eventState.name}</h1>
                 </div>
-            </div>
-
+                
+                <Row>
+                    <Col sm>
+                        <div className="name-div">
+                            <br />
+                            <h2>Description</h2>
+                            <div className="experiment-body-event-upper">
+                                {eventState.description}
+                            </div>
+                            
+                            <h2>Event Details</h2>
+                            <div className="experiment-body-event-lower">
+                                <Row> 
+                                    <Col sm={6}>
+                                        Location:
+                                    </Col>   
+                                    <Col sm={4} style={{color:'white'}}>
+                                        {eventState.location}
+                                    </Col>
+                                </Row>
+                                <br />
+                                <Row> 
+                                    <Col sm={6}>
+                                        Event Type:
+                                    </Col>   
+                                    <Col sm={4} style={{color:'white'}}>
+                                        {eventState.event_type}
+                                    </Col>
+                                </Row>
+                                <br />
+                                <Row> 
+                                    <Col sm={6}>
+                                        Date/Time:
+                                    </Col>   
+                                    <Col sm={4} style={{color:'white'}}>
+                                        {eventState.date}
+                                    </Col>
+                                </Row>
+                                <br />
+                                <Row> 
+                                    <Col sm={6}>
+                                        Remaining Spots:
+                                    </Col>   
+                                    <Col sm={4} style={{color:'white'}}>
+                                        {eventState.remainining_spots}
+                                    </Col>
+                                </Row>
+                                <br/>
+                                <div style={{color:'white'}}>
+                                    <b>This is a {eventState.scope} event.</b>
+                                </div>
+                                <br/>
+                            </div>
+                        </div>
+                    </Col>
+                    
+                    <Col sm>
+                        <div className="name-div">
+                            <br />
+                            <h2>Attendees</h2>
+                            <div className="experiment-body-event-attendees">
+                                {eventState.attendees.length===0 && <div className="registeredMessage"> {noResults} </div>}
+                                {eventState.attendees.map((item) => 
+                                    (
+                                        <ListGroup>
+                                            <li class="modified-list-attendees d-flex justify-content-between align-items-center" key={item.id} >
+                                                {item.name}
+                                            </li>
+                                        </ListGroup>
+                                    ))}
+                            </div>
+                        </div>
+                    </Col>
+                </Row>
+                
             <br/>
-            <h4 className="eventTitle">Event Details:</h4>
-            <div className="generic-div">
-                <div className="card-body">
-                    <b>Location:</b> {eventState.location}
-                    {<br/>}
-                    <b>Date/Time:</b> {eventState.date}
-                    <br/>
-                    <b>Event Type:</b> {eventState.event_type}
-                    {<br/>}
-                    <b>Remaining spots:</b> {eventState.remainining_spots}
-                    {<br/>}
-                    {<br/>}
-                    <b>Attendees:</b> {eventState.attendees.map((item) => (
-                            <li  key={item.id}>
-                                    {item.name}
-                            </li>))}
-                            {<br/>}
-                            {<br/>}
-                    This is a {eventState.scope} event
-
-                </div>
-            </div>
+            {showJoin && <Button variant="success" size="lg" onClick={handleJoin} className="joinEventButton"> Join Event </Button>}
+            {showEdit && <Button  variant="warning" size="lg" onClick={redirect} className="editEventButton"> Edit Event </Button>}    
+            <br/>
             <br/>
             {<button onClick={backToDashboard} className="backButton" > Go Back </button>}
             <br/>
-            {showJoin && <button onClick={handleJoin} className="joinEventButton"> Join Event </button>}
-            <br/>
-            {showEdit && <button  onClick={redirect} className="editEventButton"> Edit Event </button>}
-
+            
+            </Container>
             </div>
         )
 }

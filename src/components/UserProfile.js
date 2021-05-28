@@ -1,10 +1,11 @@
-import React, {useEffect, useState,useRef} from 'react'
+import React, {useEffect, useState} from 'react'
 import Header from './RegisterHeader'
 import axios from 'axios'
 import { useHistory } from "react-router-dom";
 import showPwdImg from '../show-password.svg';
 import hidePwdImg from '../hide-password.svg';
 import ReactStars from "react-rating-stars-component";
+import {Button, Container, Row, Col, Form, ListGroup} from 'react-bootstrap';
 
 
 
@@ -138,85 +139,143 @@ function UserProfile(props){
         
         <div>
             <Header user_id= {props.location.componentProps.user_id}/>
-
-            <div className="card col-12 col-lg-4 mt-2">
+            <Container fluid>
+                    <div className="name-div">
+                        <h1>
+                            &emsp;{state.name}
+                        </h1>
+                    </div>
+                    <br />
+            <div class="experiment-body">
                 {phEditMsg && <div className="editedMessage"> {phEditMsg} </div>}
                 {pwdEditMsg && <div className="editedMessage"> {pwdEditMsg} </div>}
-                <div>
-                    <h4>{state.name}</h4>
-                </div>
-                <br />
-                <div className="email-container">
-                    Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input id="email" value={state.email} onChange={handleChange} disabled />
-                </div>
-                <br />
-                <div className="pwd-container">
-                    Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input id="password"  type={isRevealPwd ? "text":"password"} placeholder="New Password" value={state.password} onChange={handleChange} />&nbsp;&nbsp;&nbsp;&nbsp;
-                    <img title={isRevealPwd ? "Hide Password":"Show Password"} src={isRevealPwd? hidePwdImg: showPwdImg} onClick={() => setIsRevealPwd(prevState  =>  !prevState)}/>
-                    <button onClick={handlePwdSubmit} className="editButton"> Edit </button>  
-                </div>
-                <br />
-                <div className="phone-container">
-                    Phone Number:&nbsp;&nbsp;
-                    <input id="phone"  placeholder="New Number" value={state.phone} onChange={handleChange} />&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button onClick={handlePhSubmit} className="editButton"> Edit </button>
-                </div>
-            
-            </div>
-            {<button onClick={backToDashboard} className="backButton" > Go Back </button>}
-            <div className ="card col-12 col-lg-4 mt-2">
-                <h4 className='center'>Ratings and Testimonials</h4>
-                <br></br>
-                <h4>Ratings:</h4>
-                <div>
-                <h5>Social Rating ({state.total_social_ratings}):</h5>
-                    {state.social_rating &&
-                <ReactStars
-                        count={5}
-                        size={25}
-                        value={state.social_rating}
-                        edit={false}
-                        emptyIcon={<i className="far fa-star"></i>}
-                        halfIcon={<i className="fa fa-star-half-alt"></i>}
-                        fullIcon={<i className="fa fa-star"></i>}
-                        activeColor="#ffd700"
-                />
-                    }
-                </div>
-                 <br></br>
-                 {state.event_ratings.map((item) => (
-                    (
-                        <div>
-                    <h5>{item.event_key} Rating ({item.total_ratings}):</h5>
                     
-                    <ReactStars
-                        count={5}
-                        size={25}
-                        value={item.rating}
-                        edit={false}
-                        emptyIcon={<i className="far fa-star"></i>}
-                        halfIcon={<i className="fa fa-star-half-alt"></i>}
-                        fullIcon={<i className="fa fa-star"></i>}
-                        activeColor="#ffd700"
-                />
-                <br></br>
-                 </div>
-                    )
-                 ))}
+                <br />
+                <Form>
+                    <Form.Group as={Row} controlId="formHorizontalEmail">
+                        <Form.Label column sm={2}>Email:</Form.Label>
+                            <Col sm={3}>
+                                <Form.Control size="lg" id="email" type="email" value={state.email} onChange={handleChange} readOnly />
+                            </Col>
+                    </Form.Group>
+                <br />
+                <Form.Group as={Row} controlId="formHorizontalEmail">
+                   <Form.Label column sm={2}>Password:</Form.Label>
+                    <Col sm={3}>
+                    <Form.Control size="lg" id="password"  type={isRevealPwd ? "text":"password"} placeholder="New Password" value={state.password} onChange={handleChange} />&nbsp;&nbsp;&nbsp;&nbsp;
+                    <img class="pwd-image-profile" title={isRevealPwd ? "Hide Password":"Show Password"} src={isRevealPwd? hidePwdImg: showPwdImg} onClick={() => setIsRevealPwd(prevState  =>  !prevState)}/>
+                    </Col>
+                    <Col sm={1}>
+                    <Button variant="outline-warning" size="md" onClick={handlePwdSubmit} className="editButton"> Update </Button>  
+                    </Col>
+                </Form.Group>
 
-                 <br></br>
-                <h4>Testimonials:</h4>
-                {state.reviews && state.reviews.map((item) => (
-                    <ul className="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center" key={item.id} >
-                                "{item}"
-                        </li>
-                    </ul>
-                    ))}
+                <Form.Group as={Row} controlId="formHorizontalNumber">
+                    <Form.Label column sm={2}>Phone Number:</Form.Label>
+                    <Col sm={3}>
+                    <Form.Control size="lg" id="phone"  placeholder="New Number" value={state.phone} onChange={handleChange} />
+                    </Col>
+                    <Col sm={1}>
+                    <Button variant="outline-warning" size="md" onClick={handlePhSubmit} className="editButton"> Update </Button>  
+                    </Col>
+                </Form.Group>
+                </Form>
             </div>
+            </Container>
+             
+            
+            <Container fluid>
+                <Row>
+                    <Col sm>
+                        <div className ="experiment-body-ratings">
+                            <h2>
+                                &emsp;Ratings:
+                            </h2>
+                            <br></br>
+                                
+                                    <div className="experiment-body-ratings-outer" >
+                                    <Form>
+                                    <Form.Group as={Row} controlId="formHorizontalEmail">
+                                    <Col sm={5}>
+                                    <Form.Label column="lg">Social:</Form.Label>
+                                    </Col>
+                                            <Col className="center" sm={3}>
+                                    {state.social_rating &&
+                                    <ReactStars
+                                        count={5}
+                                        size={35}
+                                        value={state.social_rating}
+                                        edit={false}
+                                        emptyIcon={<i className="far fa-star"></i>}
+                                        halfIcon={<i className="fa fa-star-half-alt"></i>}
+                                        fullIcon={<i className="fa fa-star"></i>}
+                                        activeColor="#1fc600"
+                                    />
+                                    }
+                                    </Col>
+                                                <Col sm={3}>
+                                                <Form.Label column="lg" lg={4}>({state.total_social_ratings})</Form.Label>
+                                            </Col>
+                                            </Form.Group>
+                                    </Form>
+                                    </div>
+                                <div className="experiment-body-ratings-inner">
+                                <Form>
+                                {state.event_ratings.map((item) => (
+                                    (
+                                        
+                                        <Form.Group as={Row} controlId="formHorizontalEmail">
+                                            <Col sm={5}>
+                                                <Form.Label column="lg" >{item.event_key}:</Form.Label>
+                                            </Col>
+                                            <Col className="center" sm={3}>
+                                                <ReactStars
+                                                    count={5}
+                                                    size={35}
+                                                    value={item.rating}
+                                                    edit={false}
+                                                    emptyIcon={<i className="far fa-star"></i>}
+                                                    halfIcon={<i className="fa fa-star-half-alt"></i>}
+                                                    fullIcon={<i className="fa fa-star"></i>}
+                                                    activeColor="#1fc600"
+                                                />
+                                            </Col>
+                                            <Col sm={3}>
+                                                <Form.Label column="lg" lg={3}>({item.total_ratings})</Form.Label>
+                                            </Col>
+                                                
+                                        </Form.Group>
+                                    )
+                                ))}
+                                </Form>
+                                </div>
+                        </div>
+                    </Col>
+                    <Col sm>
+
+                        <div className ="experiment-body-testimonials">
+                            <h2>
+                                &emsp;Testimonials:
+                            </h2>
+                            <div className ="experiment-body-testimonials-inner">
+                                {state.reviews && state.reviews.map((item) => 
+                                    (
+                                        <ListGroup>
+                                            <li class="modified-list-testimonials d-flex justify-content-between align-items-center" key={item.id} >
+                                                {item}
+                                            </li>
+                                        </ListGroup>
+                                    ))}
+                            </div>
+                        </div>
+
+                    </Col>
+                    
+                </Row>
+            </Container>
+            {<button onClick={backToDashboard} className="backButton" > Go Back </button>}
          </div>
+         
 
     )
 }
