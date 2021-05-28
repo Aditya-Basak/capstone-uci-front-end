@@ -173,7 +173,7 @@ function UserProfile(props){
                 <Form.Group as={Row} controlId="formHorizontalNumber">
                     <Form.Label column sm={2}>Phone Number:</Form.Label>
                     <Col sm={3}>
-                    <Form.Control size="lg" id="phone"  placeholder="New Number" value={state.phone} onChange={handleChange} />&nbsp;&nbsp;&nbsp;&nbsp;
+                    <Form.Control size="lg" id="phone"  placeholder="New Number" value={state.phone} onChange={handleChange} />
                     </Col>
                     <Col sm={1}>
                     <Button variant="outline-warning" size="md" onClick={handlePhSubmit} className="editButton"> Update </Button>  
