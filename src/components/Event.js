@@ -43,6 +43,7 @@ function Event(props){
     })
     const[showJoin, setShowJoin] = useState(false)
     const[showEdit, setShowEdit] = useState(false)
+    const noResults = "No user has joined this event yet!";
 
     useEffect(() => {
         const fetchData = async () => {
@@ -170,6 +171,7 @@ function Event(props){
                             <br />
                             <h2>Attendees</h2>
                             <div className="experiment-body-event-attendees">
+                                {eventState.attendees.length===0 && <div className="registeredMessage"> {noResults} </div>}
                                 {eventState.attendees.map((item) => 
                                     (
                                         <ListGroup>
