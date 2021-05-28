@@ -123,37 +123,37 @@ function Event(props){
                             <h2>Event Details</h2>
                             <div className="experiment-body-event-lower">
                                 <Row> 
-                                    <Col sm={5}>
+                                    <Col sm={6}>
                                         Location:
                                     </Col>   
-                                    <Col sm={7} style={{color:'white'}}>
+                                    <Col sm={4} style={{color:'white'}}>
                                         {eventState.location}
                                     </Col>
                                 </Row>
                                 <br />
                                 <Row> 
-                                    <Col sm={5}>
+                                    <Col sm={6}>
                                         Event Type:
                                     </Col>   
-                                    <Col sm={7} style={{color:'white'}}>
+                                    <Col sm={4} style={{color:'white'}}>
                                         {eventState.event_type}
                                     </Col>
                                 </Row>
                                 <br />
                                 <Row> 
-                                    <Col sm={5}>
+                                    <Col sm={6}>
                                         Date/Time:
                                     </Col>   
-                                    <Col sm={7} style={{color:'white'}}>
+                                    <Col sm={4} style={{color:'white'}}>
                                         {eventState.date}
                                     </Col>
                                 </Row>
                                 <br />
                                 <Row> 
-                                    <Col sm={5}>
+                                    <Col sm={6}>
                                         Remaining Spots:
                                     </Col>   
-                                    <Col sm={7} style={{color:'white'}}>
+                                    <Col sm={4} style={{color:'white'}}>
                                         {eventState.remainining_spots}
                                     </Col>
                                 </Row>
