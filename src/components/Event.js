@@ -39,7 +39,8 @@ function Event(props){
         event_type: "",
         remainining_spots: 0,
         scope: "",
-        attendees: []
+        attendees: [],
+        participation_type: ""
     })
     const[showJoin, setShowJoin] = useState(false)
     const[showEdit, setShowEdit] = useState(false)
@@ -71,7 +72,8 @@ function Event(props){
                 event_type: response.data.event_type,
                 remainining_spots: response.data.remainining_spots,
                 scope: response.data.scope,
-                attendees: response.data.attendees
+                attendees: response.data.attendees,
+                participation_type: response.data.participation_type
             })
         })
         .catch((err) => {
@@ -99,6 +101,24 @@ function Event(props){
                 setShowJoin(false)
             }
         })
+    }
+
+    async function handleLeave(){
+        await axios.put('http://localhost:8080/api/leave_event', {
+            },
+            {
+            params: {
+                user_id: state.user_id,
+                event_id: state.event_id
+            }
+        })
+        .then((response) => {
+            if(response.status === 200){
+                setJoinedMessage("You have now left this event");
+                setShowJoin(true)
+            }
+        })
+
     }
 
         return (
@@ -194,6 +214,7 @@ function Event(props){
                 
             <br/>
             {showJoin && <Button variant="success" size="lg" onClick={handleJoin} className="joinEventButton"> Join Event </Button>}
+            {!showJoin && eventState.participation_type=="attendee" &&  <Button variant="danger" size="lg" onClick={handleLeave} className="joinEventButton"> Leave Event </Button>}
             {showEdit && <Button  variant="warning" size="lg" onClick={redirect} className="editEventButton"> Edit Event </Button>}    
             <br/>
             <br/>
