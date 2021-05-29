@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import Header from './RegisterHeader'
-import { useHistory } from "react-router-dom";
+import { useHistory , Link} from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import axios from 'axios'
-import { Modal, Button } from 'react-bootstrap'
+import { Modal, Button, ListGroup } from 'react-bootstrap'
 
 function PastEvent(props){
 
@@ -163,14 +163,21 @@ function PastEvent(props){
 
         <div className={"pastEventTwo"}>
         <h4 className="eventTitle"> Rate Attendees:</h4> 
-                <div className="card-body">
+        <div className="experiment-body-event-attendees">
                 {eventState.attendees && eventState.attendees.map((item) => (
-                    <ul className="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center" key={item.id} >
-                                <b>{item.name}</b>
-                            <button type="button" class="btn btn-success" onClick={() => modalClick(item)} >Rate</button>
-                        </li>
-                    </ul>
+                            <ListGroup>
+                                <li class="modified-list-attendees d-flex justify-content-between align-items-center" key={item.id} >
+                                    <Link  to={{pathname: '/userProfile',
+                                                componentProps: {
+                                                    user_id: state.user_id,
+                                                    see_profile_user_id: item.id,
+                                                    show_own_profile: false
+                                                }}} className="custom-color" style={{ textDecoration: "none" }}>
+                                                {item.name}
+                                    </Link>
+                                    <Button type="button" class="btn btn-success" onClick={() => modalClick(item)} >Rate</Button>
+                                </li>
+                            </ListGroup>
                     ))}
                 </div>
                 </div>

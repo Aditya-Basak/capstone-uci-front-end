@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import Header from './RegisterHeader'
-import { useHistory } from "react-router-dom";
+import { useHistory , Link} from "react-router-dom";
 import axios from 'axios';
 import {Button, Container, Row, Col, Form, ListGroup} from 'react-bootstrap';
 
@@ -176,7 +176,14 @@ function Event(props){
                                     (
                                         <ListGroup>
                                             <li class="modified-list-attendees d-flex justify-content-between align-items-center" key={item.id} >
-                                                {item.name}
+                                            <Link  to={{pathname: '/userProfile',
+                                                    componentProps: {
+                                                        user_id: state.user_id,
+                                                        see_profile_user_id: item.id,
+                                                        show_own_profile: false
+                                                    }}} className="custom-color" style={{ textDecoration: "none" }}>
+                                                    {item.name}
+                                            </Link>
                                             </li>
                                         </ListGroup>
                                     ))}
