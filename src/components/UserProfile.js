@@ -24,10 +24,15 @@ function UserProfile(props){
         event_ratings: []
     })
     
-    useEffect(async () => {
+    useEffect(() => {
+        const fetchData = async () => {
+        var id_to_get = props.location.componentProps.user_id
+        if(!props.location.componentProps.show_own_profile){
+            id_to_get = props.location.componentProps.see_profile_user_id
+        }
         const result = await axios.get("http://localhost:8080/api/get_user_profile",{
             params: {
-                user_id: props.location.componentProps.user_id
+                user_id: id_to_get
             }
         });
         
@@ -39,7 +44,10 @@ function UserProfile(props){
                   social_rating: result.data.social_rating,
                   total_social_ratings: result.data.total_social_ratings,
                   event_ratings: result.data.event_ratings});
-    },[]);
+        }
+
+        fetchData();
+    },[props.location.componentProps.show_own_profile]);
 
     const[phEditMsg, setPhEditMsg] = useState('');
     const[pwdEditMsg, setPwdEditMsg] = useState('');
@@ -139,7 +147,7 @@ function UserProfile(props){
         
         <div>
             <Header user_id= {props.location.componentProps.user_id}/>
-            <Container fluid>
+            {props.location.componentProps.show_own_profile && <Container fluid>
                     <div className="name-div">
                         <h1>
                             &emsp;{state.name}
@@ -182,7 +190,15 @@ function UserProfile(props){
                 </Form>
             </div>
             </Container>
-             
+            }
+
+            {!props.location.componentProps.show_own_profile && 
+                <div className="name-div">
+                    <h1>
+                        {state.name}'s profile:
+                    </h1>
+                </div>
+            }
             
             <Container fluid>
                 <Row>
