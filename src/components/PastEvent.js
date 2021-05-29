@@ -30,8 +30,8 @@ function PastEvent(props){
         user_id: 0
     })
 
-    const[socialRating, setSocialRating] = useState(0)
-    const[eventRating, setEventRating] = useState(0)
+    const[socialRating, setSocialRating] = useState(1)
+    const[eventRating, setEventRating] = useState(1)
 
     const[testimonial, setTestimonial] = useState("")
 
@@ -65,7 +65,7 @@ function PastEvent(props){
         }
 
         fetchData();
-    }, []);
+    }, [showModal]);
 
     let history = useHistory();
     const backToDashboard = () => {
@@ -81,6 +81,13 @@ function PastEvent(props){
             name: item.name,
             user_id: item.id
         })
+    }
+
+    function handleEditRating(item){
+        setSocialRating(item.socialRating)
+        setEventRating(item.skillRating)
+        setTestimonial(item.review)
+        modalClick(item)
     }
 
     function modalClose(){
@@ -166,6 +173,7 @@ function PastEvent(props){
         <div className="experiment-body-event-attendees">
                 {eventState.attendees && eventState.attendees.map((item) => (
                             <ListGroup>
+                                {item.id != state.user_id && 
                                 <li class="modified-list-attendees d-flex justify-content-between align-items-center" key={item.id} >
                                     <Link  to={{pathname: '/userProfile',
                                                 componentProps: {
@@ -175,9 +183,12 @@ function PastEvent(props){
                                                 }}} className="custom-color" style={{ textDecoration: "none" }}>
                                                 {item.name}
                                     </Link>
-                                    <Button type="button" class="btn btn-success" onClick={() => modalClick(item)} >Rate</Button>
+                                    {item.rated && <Button type="button" class="btn btn-success" onClick={() => handleEditRating(item)} >Edit Rating</Button> }
+                                    {!item.rated && <Button type="button" class="btn btn-success" onClick={() => modalClick(item)} >Rate</Button> }
                                 </li>
+                                }
                             </ListGroup>
+                                            
                     ))}
                 </div>
                 </div>
@@ -198,6 +209,7 @@ function PastEvent(props){
                         count={5}
                         onChange={socialRatingChanged}
                         size={30}
+                        value={socialRating}
                         emptyIcon={<i className="far fa-star"></i>}
                         halfIcon={<i className="fa fa-star-half-alt"></i>}
                         fullIcon={<i className="fa fa-star"></i>}
@@ -209,6 +221,7 @@ function PastEvent(props){
                         count={5}
                         onChange={eventRatingChanged}
                         size={30}
+                        value={eventRating}
                         emptyIcon={<i className="far fa-star"></i>}
                         halfIcon={<i className="fa fa-star-half-alt"></i>}
                         fullIcon={<i className="fa fa-star"></i>}
@@ -218,7 +231,7 @@ function PastEvent(props){
                     <form>
                         <div class="form-group">
                         <h5>Testimonial:</h5>
-                            <textarea class="form-control" placeholder="Write a testimonial..." onChange={handleTestimonialChange}></textarea>
+                            <textarea class="form-control" placeholder="Write a testimonial..." value={testimonial} onChange={handleTestimonialChange}></textarea>
                         </div>
                     </form>
                     </Modal.Body>
