@@ -45,7 +45,8 @@ function RegisterHeader(props){
                     Welcome,&ensp;  
                     <Link to={{pathname: '/userProfile',
                                     componentProps: {
-                                        user_id: props.user_id
+                                        user_id: props.user_id,
+                                        show_own_profile: true
                                     }}} style={{ textDecoration: "none" }}>
                         {state.name}
                         </Link>
