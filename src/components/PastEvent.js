@@ -127,7 +127,7 @@ function PastEvent(props){
             .then(res => {
                 if(res.status === 200){
                     modalClose();
-                    alert("Ratings submitted successfully.");
+                    //alert("Ratings submitted successfully.");
                 }
             })
             .catch(error => {
