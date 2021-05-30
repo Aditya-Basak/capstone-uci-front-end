@@ -4,12 +4,18 @@ import axios from 'axios'
 import { useHistory } from "react-router-dom";
 import showPwdImg from '../show-password.svg';
 import hidePwdImg from '../hide-password.svg';
+import { css } from "@emotion/react";
 import ReactStars from "react-rating-stars-component";
 import {Button, Container, Row, Col, Form, ListGroup} from 'react-bootstrap';
+import ClipLoader from "react-spinners/ClipLoader";
 
-
+const override = css`
+  margin: auto;
+  margin-top: 20%;
+`;
 
 function UserProfile(props){
+    let [loading, setLoading] = useState(true);
 
     let history = useHistory();
     
@@ -44,6 +50,7 @@ function UserProfile(props){
                   social_rating: result.data.social_rating,
                   total_social_ratings: result.data.total_social_ratings,
                   event_ratings: result.data.event_ratings});
+                  setLoading(false)   
         }
 
         fetchData();
@@ -142,9 +149,18 @@ function UserProfile(props){
            });
        }
    }
+
+   if(loading){
+       return(
+        <div className="sweet-loading">
+        <Header user_id= {props.location.componentProps.user_id}/>
+        <ClipLoader color={"white"} loading={loading} css={override} size={150} />
+        </div>
+       )
+   }
     
     return (
-        
+       
         <div>
             <Header user_id= {props.location.componentProps.user_id}/>
             {props.location.componentProps.show_own_profile && <Container fluid>
