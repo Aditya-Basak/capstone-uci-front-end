@@ -286,9 +286,11 @@ function UserProfile(props){
                                 {state.reviews && state.reviews.map((item) => 
                                     (
                                         <ListGroup>
+                                            {item!== "" &&
                                             <li class="modified-list-testimonials d-flex justify-content-between align-items-center" key={item.id} >
                                                 {item}
                                             </li>
+                                            }
                                         </ListGroup>
                                     ))}
                             </div>
