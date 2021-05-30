@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import Header from './RegisterHeader'
 import axios from 'axios'
-import { useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import showPwdImg from '../show-password.svg';
 import hidePwdImg from '../hide-password.svg';
 import { css } from "@emotion/react";
@@ -15,9 +15,8 @@ const override = css`
 `;
 
 function UserProfile(props){
+    const componentParams = useParams();
     let [loading, setLoading] = useState(true);
-
-    let history = useHistory();
     
     const[state, setState] = useState({
         name: "",
@@ -31,10 +30,11 @@ function UserProfile(props){
     })
     
     useEffect(() => {
+        console.log(componentParams)
         const fetchData = async () => {
-        var id_to_get = props.location.componentProps.user_id
-        if(!props.location.componentProps.show_own_profile){
-            id_to_get = props.location.componentProps.see_profile_user_id
+        var id_to_get = componentParams.userId
+        if(componentParams.showEdit === "false"){
+            id_to_get = componentParams.seeUserId
         }
         const result = await axios.get("http://localhost:8080/api/get_user_profile",{
             params: {
@@ -54,18 +54,11 @@ function UserProfile(props){
         }
 
         fetchData();
-    },[props.location.componentProps.show_own_profile]);
+    },[componentParams.showEdit]);
 
     const[phEditMsg, setPhEditMsg] = useState('');
     const[pwdEditMsg, setPwdEditMsg] = useState('');
     const[isRevealPwd, setIsRevealPwd] = useState(false);
-
-    const backToDashboard = () => {
-        history.push({
-            pathname:  '/dashboard',
-            user_id: props.location.componentProps.user_id
-        })
-    }
 
     function handleChange (event) {
         setState({
@@ -89,7 +82,7 @@ function UserProfile(props){
             },
             {
                 params:{
-                    user_id: props.location.componentProps.user_id
+                    user_id: componentParams.userId
                 }
             })
             .then(res => {
@@ -134,7 +127,7 @@ function UserProfile(props){
            },
            {
                params:{
-                   user_id: props.location.componentProps.user_id
+                   user_id: componentParams.userId
                }
            })
            .then(res => {
@@ -153,7 +146,7 @@ function UserProfile(props){
    if(loading){
        return(
         <div className="sweet-loading">
-        <Header user_id= {props.location.componentProps.user_id}/>
+        <Header user_id= {componentParams.userId}/>
         <ClipLoader color={"white"} loading={loading} css={override} size={150} />
         </div>
        )
@@ -162,8 +155,8 @@ function UserProfile(props){
     return (
        
         <div>
-            <Header user_id= {props.location.componentProps.user_id}/>
-            {props.location.componentProps.show_own_profile && <Container fluid>
+            <Header user_id= {componentParams.userId}/>
+            {componentParams.showEdit === "true" && <Container fluid>
                     <div className="name-div">
                         <h1>
                             &emsp;{state.name}
@@ -208,7 +201,7 @@ function UserProfile(props){
             </Container>
             }
 
-            {!props.location.componentProps.show_own_profile && 
+            {componentParams.showEdit === "false" && 
                 <div className="name-div">
                     <h1>
                         {state.name}'s profile:
@@ -305,7 +298,6 @@ function UserProfile(props){
                     
                 </Row>
             </Container>
-            {<button onClick={backToDashboard} className="backButton" > Go Back </button>}
          </div>
          
 

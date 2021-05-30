@@ -2,11 +2,13 @@ import React, {useState, useEffect} from 'react'
 import Header from './RegisterHeader'
 import {Link} from 'react-router-dom';
 import axios from 'axios'
-import { useHistory } from "react-router-dom";
+import { useHistory , useParams} from "react-router-dom";
 import { Search } from 'react-bootstrap-icons';
 import {Button, Tab, Tabs, Container, Row, Col, Form, ListGroup} from 'react-bootstrap';
 
 function Dashboard(props){
+    const componentParams = useParams();
+    
     const[upcomingHostedEvents, setUpcomingHostedEvents] = useState([])
     const[upcomingJoinedEvents, setUpcomingJoinedEvents] = useState([])
     const[pastHostedEvents, setPastHostedEvents] = useState([])
@@ -22,7 +24,7 @@ function Dashboard(props){
         const fetchData = async () => {
         await axios.get('http://localhost:8080/api/get_user_events', {
             params:{
-                user_id: props.location.user_id
+                user_id: componentParams.userId
             }
         })
         .then((response) => {
@@ -42,10 +44,7 @@ function Dashboard(props){
     let history = useHistory();
     const redirect = () => {
         history.push({
-          pathname:  '/search',
-          user_id: props.location.user_id,
-          event_name: searchState.event_name,
-          location: searchState.location
+          pathname:  '/search' + "/" + componentParams.userId +"/"+ searchState.event_name + "/" + searchState.location
         })
     }
 
@@ -71,7 +70,7 @@ function Dashboard(props){
 
     return (
         <div>
-            <Header user_id= {props.location.user_id}/>
+            <Header user_id= {componentParams.userId}/>
             <br/>
             
             <div className="dashboard">
@@ -116,11 +115,7 @@ function Dashboard(props){
                     {upcomingHostedEvents && upcomingHostedEvents.map((item) => (
                         <ListGroup>
                             <li className="modified-list2 d-flex justify-content-between align-items-center" key={item.id} >
-                                <Link  to={{pathname: '/event',
-                                    componentProps: {
-                                    event_id: item.id,
-                                    user_id: props.location.user_id
-                                }}} className="custom-color">
+                                <Link  to={{pathname: '/event/' + componentParams.userId + "/" + item.id }} className="custom-color">
                                     {item.name}
                                 </Link>
                                 <span className="badge badge-info badge-pill">Hosting</span>
@@ -131,11 +126,7 @@ function Dashboard(props){
                     {upcomingJoinedEvents && upcomingJoinedEvents.map((item) => (
                         <ListGroup>
                             <li className="modified-list2 d-flex justify-content-between align-items-center" key={item.id} >
-                                <Link to={{pathname: '/event',
-                                    componentProps: {
-                                    event_id: item.id,
-                                    user_id: props.location.user_id
-                                }}} className="custom-color">
+                                <Link to={{pathname: '/event/' + componentParams.userId + "/" + item.id }} className="custom-color">
                                     {item.name}
                                 </Link>
                                 <span class="badge badge-info badge-pill">Attending</span>
@@ -153,11 +144,8 @@ function Dashboard(props){
                 {pastHostedEvents && pastHostedEvents.map((item) => (
                     <ListGroup>
                         <li className="modified-list2 d-flex justify-content-between align-items-center" key={item.id} >
-                            <Link to={{pathname: '/pastEvent',
-                                componentProps: {
-                                event_id: item.id,
-                                user_id: props.location.user_id
-                            }}} className="custom-color">
+                            <Link to={{pathname: '/pastEvent/' + componentParams.userId + "/" + item.id 
+                                }} className="custom-color">
                                 {item.name}
                             </Link>
                             <span class="badge badge-secondary badge-pill">Hosted</span>
@@ -168,11 +156,7 @@ function Dashboard(props){
                 {pastJoinedEvents && pastJoinedEvents.map((item) => (
                     <ListGroup>
                         <li className="modified-list2 d-flex justify-content-between align-items-center" key={item.id} >
-                            <Link to={{pathname: '/pastEvent',
-                                componentProps: {
-                                event_id: item.id,
-                                user_id: props.location.user_id
-                            }}} className="custom-color">
+                            <Link to={{pathname: '/pastEvent/' + componentParams.userId + "/" + item.id }} className="custom-color">
                                 {item.name}
                             </Link>
                             <span class="badge badge-secondary badge-pill">Attended</span>
@@ -184,10 +168,7 @@ function Dashboard(props){
             </div>
             }
             <br/>
-            <Link to={{pathname: '/createEvent',
-                                    componentProps: {
-                                    user_id: props.location.user_id
-                                }}} style={{ textDecoration: "none" }}>
+            <Link to={{pathname: '/createEvent/' + componentParams.userId}} style={{ textDecoration: "none" }}>
                 <Button variant="custom-dashboard" size="lg">Create New Event</Button>
             </Link>
             

@@ -43,11 +43,7 @@ function RegisterHeader(props){
                 <Navbar.Collapse className="justify-content-end">
                 <Navbar.Text>
                     Welcome,&ensp;  
-                    <Link to={{pathname: '/userProfile',
-                                    componentProps: {
-                                        user_id: props.user_id,
-                                        show_own_profile: true
-                                    }}} style={{ textDecoration: "none" }}>
+                    <Link to={{pathname: '/userProfile/' + props.user_id +  "/" + true}} style={{ textDecoration: "none" }}>
                         {state.name}
                         </Link>
                         &emsp; &emsp;
