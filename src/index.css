@@ -489,10 +489,36 @@ code {
   width: 10%;
 }
 
+.my-modal-borders {
+  background-color: #0d1722;
+  border-radius: 0%;
+  color: aqua;
+  
+}
+.my-modal-body
+{
+  text-align: left;
+  align-items: center;
+  background-color: #2a3d53;
+  color: #dfdd7e;
+  margin-top: 0px;
+  padding: 20px;
+  
+  font-size: 150%;
+  font-family: 'Mulish';
+}
 .search-icon{
   cursor: pointer;
 }
 
 .generic-div {
   background-color: #2a3d53;
+}
+
+.name-heading
+{
+  text-align: center;
+  color: bisque;
+  font-weight: bolder;
+  font-size: larger;
 }

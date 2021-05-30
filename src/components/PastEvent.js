@@ -3,7 +3,7 @@ import Header from './RegisterHeader'
 import { useHistory , Link} from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import axios from 'axios'
-import { Modal, Button, ListGroup } from 'react-bootstrap'
+import {Container, Row, Col, Modal, Button, ListGroup } from 'react-bootstrap'
 
 function PastEvent(props){
 
@@ -105,6 +105,8 @@ function PastEvent(props){
         setEventRating(newRating)
     };
 
+    const noResults = "Sorry. No one participated in this event.";
+
     function handleTestimonialChange (event) {
         setTestimonial(event.target.value)
     }
@@ -125,6 +127,7 @@ function PastEvent(props){
             .then(res => {
                 if(res.status === 200){
                     modalClose();
+                    alert("Ratings submitted successfully.");
                 }
             })
             .catch(error => {
@@ -136,76 +139,112 @@ function PastEvent(props){
         <div>
         <Header user_id= { props.location.componentProps.user_id}/>
         <br/>
-        <div className={"pastEvent"}>
-        
-        <br/>
-        <div className={"pastEventOne"}>
-        <h2 className="eventTitle" >{eventState.name}</h2>
-        <div className="card">
-            <div className="card-body">
-                <h3 >Description</h3>
-                {eventState.description}
+        <Container fluid>
+            <div className="name-div">
+                <h1>{eventState.name}</h1>
             </div>
-        </div>
+            <Row>
+                <Col sm>
+                    <div className="name-div">
+                        <br />
+                        <h2>Description</h2>
+                        <div className="experiment-body-event-upper">
+                            {eventState.description}
+                    </div>
 
-        <br/>
-        <h4 className="eventTitle">Event Details:</h4>
-        <div className="card">
-            <div className="card-body">
-                <b>Location:</b> {eventState.location}
-                {<br/>}
-                <b>Date/Time:</b> {eventState.date}
-                <br/>
-                <b>Event Type:</b> {eventState.event_type}
-                {<br/>}
-                {<br/>}
-                
-                This is a {eventState.scope} event
+                    <h2>Event Details</h2>
+                        <div className="experiment-body-event-lower">
+                            <Row> 
+                                <Col sm={6}>
+                                    Location:
+                                </Col>   
+                                <Col sm={4} style={{color:'white'}}>
+                                    {eventState.location}
+                                </Col>
+                            </Row>
+                            <br />
+                            <Row> 
+                                <Col sm={6}>
+                                    Event Type:
+                                </Col>   
+                                <Col sm={4} style={{color:'white'}}>
+                                    {eventState.event_type}
+                                </Col>
+                            </Row>
+                            <br />
+                            <Row> 
+                                <Col sm={6}>
+                                    Date/Time:
+                                </Col>   
+                                <Col sm={4} style={{color:'white'}}>
+                                    {eventState.date}
+                                </Col>
+                            </Row>
+                            <br />
+                            <Row> 
+                                <Col sm={6}>
+                                    Spots Unfilled:
+                                </Col>   
+                                <Col sm={4} style={{color:'white'}}>
+                                    {eventState.remainining_spots}
+                                </Col>
+                            </Row>
+                            <br/>
+                            <div style={{color:'white'}}>
+                                <b>This was a {eventState.scope} event.</b>
+                            </div>
+                            <br/>
+                        </div>
+                    </div>
+                </Col>        
 
-                </div>
-            </div>
+                <Col sm>
+                    <div className="name-div">
+                        <br />
+                        <h2>Attendees</h2>
+                        <div className="experiment-body-event-attendees">
+                            {eventState.attendees.length===0 && <div className="registeredMessage"> {noResults} </div>}
+                            {eventState.attendees && eventState.attendees.map((item) => 
+                                (
+                                    <ListGroup>
+                                        {item.id != state.user_id && 
+                                            <li class="modified-list-attendees d-flex justify-content-between align-items-center" key={item.id} >
+                                                <Link  to={{pathname: '/userProfile',
+                                                    componentProps: {
+                                                        user_id: state.user_id,
+                                                        see_profile_user_id: item.id,
+                                                        show_own_profile: false
+                                                    }}} className="custom-color" style={{ textDecoration: "none" }}>
+                                                    {item.name}
+                                                </Link>
+                                            {item.rated && <Button variant="success" onClick={() => handleEditRating(item)} >Edit Rating</Button> }
+                                            {!item.rated && <Button variant="success" onClick={() => modalClick(item)} >Rate</Button> }
+                                            </li>
+                                        }
+                                    </ListGroup>                                            
+                                ))}
+                        </div>
+                    </div>
+                </Col>
+            </Row>
+            
             <br/>
-        {<button onClick={backToDashboard} className="backButton" > Go Back </button>}
-        </div>
+            {<button onClick={backToDashboard} className="backButton" > Go Back </button>}   
+            <br/>
+        </Container>
+    
 
-        <div className={"pastEventTwo"}>
-        <h4 className="eventTitle"> Rate Attendees:</h4> 
-        <div className="experiment-body-event-attendees">
-                {eventState.attendees && eventState.attendees.map((item) => (
-                            <ListGroup>
-                                {item.id != state.user_id && 
-                                <li class="modified-list-attendees d-flex justify-content-between align-items-center" key={item.id} >
-                                    <Link  to={{pathname: '/userProfile',
-                                                componentProps: {
-                                                    user_id: state.user_id,
-                                                    see_profile_user_id: item.id,
-                                                    show_own_profile: false
-                                                }}} className="custom-color" style={{ textDecoration: "none" }}>
-                                                {item.name}
-                                    </Link>
-                                    {item.rated && <Button type="button" class="btn btn-success" onClick={() => handleEditRating(item)} >Edit Rating</Button> }
-                                    {!item.rated && <Button type="button" class="btn btn-success" onClick={() => modalClick(item)} >Rate</Button> }
-                                </li>
-                                }
-                            </ListGroup>
-                                            
-                    ))}
-                </div>
-                </div>
-        
-                </div>
+                <Modal  show={showModal} backdrop="static" onHide={modalClose} keyboard={false}>
 
-                <Modal show={showModal} onHide={modalClose}>
-
-                    <Modal.Header closeButton>
+                    <Modal.Header className="my-modal-borders" closeButton>
                         <Modal.Title >{eventState.name}</Modal.Title>
                     </Modal.Header>
 
-                    <Modal.Body>
-                    <h5 class="text-center">Rate {modalState.name} </h5>
+                    <Modal.Body className="my-modal-body">
+                    <h5 class="name-heading">Rate {modalState.name} </h5>
                     <br/>
                     <h5>Social Rating:</h5>
-                    <ReactStars
+                    <ReactStars 
                         count={5}
                         onChange={socialRatingChanged}
                         size={30}
@@ -213,31 +252,33 @@ function PastEvent(props){
                         emptyIcon={<i className="far fa-star"></i>}
                         halfIcon={<i className="fa fa-star-half-alt"></i>}
                         fullIcon={<i className="fa fa-star"></i>}
-                        activeColor="#ffd700"
+                        activeColor="#1fc600"
                     />
                     <br/>
                     <h5>{eventState.event_type} Rating:</h5>
-                    <ReactStars
+                    <ReactStars 
                         count={5}
                         onChange={eventRatingChanged}
                         size={30}
                         value={eventRating}
+                        
                         emptyIcon={<i className="far fa-star"></i>}
                         halfIcon={<i className="fa fa-star-half-alt"></i>}
                         fullIcon={<i className="fa fa-star"></i>}
-                        activeColor="#ffd700"
+                        activeColor="#1fc600"
                     />
                     <br/>
                     <form>
                         <div class="form-group">
                         <h5>Testimonial:</h5>
-                            <textarea class="form-control" placeholder="Write a testimonial..." value={testimonial} onChange={handleTestimonialChange}></textarea>
+                            <textarea class="form-control" placeholder="Write a testimonial...(Optional)" value={testimonial} onChange={handleTestimonialChange}></textarea>
                         </div>
                     </form>
                     </Modal.Body>
 
-                    <Modal.Footer>
+                    <Modal.Footer className="my-modal-borders">
                         <Button variant="success" onClick={handleRatingSubmit} >Submit Rating</Button>
+                        <Button variant="secondary" onClick={modalClose} >Cancel</Button>
                     </Modal.Footer>
 
                 </Modal>
