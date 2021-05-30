@@ -50,7 +50,6 @@ function Search(props){
             }
         })
         .then((response) => {
-            console.log(response);
             setSearchResults(response.data);
         })
         .catch((err) => {
@@ -114,6 +113,7 @@ function Search(props){
                                 }}} className="custom-color">
                                     {item.name}
                                 </Link>
+                                <span className="badge badge-info badge-pill">{item.location},  {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(item.time))}</span>
                             </li>
                         </ListGroup>
                     ))}
