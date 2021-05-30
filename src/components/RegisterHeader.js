@@ -29,7 +29,7 @@ function RegisterHeader(props){
         return(
             <Navbar className="color-nav" variant="dark">
                 <Navbar.Text> &emsp;</Navbar.Text>
-                <Navbar.Brand href="/">
+                <Navbar.Brand href={"/dashboard/" + props.user_id}>
                     <img 
                     src={app_logo}
                     width="120"
