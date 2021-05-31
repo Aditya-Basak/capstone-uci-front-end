@@ -18,13 +18,13 @@ function App() {
         <Switch>
           <Route path="/" component={Login} exact />
           <Route path="/register" component={Register} />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/event" component={Event} />
-          <Route path="/pastEvent" component={PastEvent} />
-          <Route path="/createEvent" component={CreateEvent} />
-          <Route path="/editEvent" component={EditEvent} />
-          <Route path="/userProfile" component={UserProfile} />
-          <Route path="/search" component={Search} />
+          <Route path="/dashboard/:userId" component={Dashboard} />
+          <Route path="/event/:userId/:eventId" component={Event} />
+          <Route path="/pastEvent/:userId/:eventId" component={PastEvent} />
+          <Route path="/createEvent/:userId" component={CreateEvent} />
+          <Route path="/editEvent/:userId/:eventId" component={EditEvent} />
+          <Route path="/userProfile/:userId/:seeUserId?/:showEdit" component={UserProfile} />
+          <Route path="/search/:userId/:eventName?/:location?/:eventType?/:date?" component={Search} />
         </Switch>
       </div>
     </BrowserRouter>

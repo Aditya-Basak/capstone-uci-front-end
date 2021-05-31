@@ -1,43 +1,65 @@
 import React, {useState, useEffect} from 'react'
 import Header from './RegisterHeader'
 import {Link} from 'react-router-dom';
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import axios from 'axios'
 import moment from 'moment';
 import {Button, Tab, Tabs, Container, Row, Col, Form, ListGroup} from 'react-bootstrap';
 
 
 function Search(props){
+    const componentParams = useParams();
+    let history = useHistory();
 
     const[state, setState] = useState({
-        event_name: props.location.event_name,
-        location: props.location.location,
-        event_type: null,
-        date: null
+        event_name: componentParams.eventName,
+        location: componentParams.location,
+        event_type: componentParams.eventType,
+        date: componentParams.date
     })
 
     const noResults = "No events found. Please update your search";
 
     function handleChange (event) {
+        console.log(state)
         setState({
             ...state,
             [event.target.id]: event.target.value
         }); 
     }
 
-    let history = useHistory();
-    const backToDashboard = () => {
-        history.push({
-            pathname:  '/dashboard',
-            user_id: props.location.user_id
-        })
-    }
-
     const[searchResults, setSearchResults] = useState([])
 
+    function update (){
+        console.log(state)
+
+        let path = '/search' + "/" + componentParams.userId
+
+        if(state.event_name != null && state.event_name!= ""){
+            path += "/"+ state.event_name
+        }
+
+        if(state.location != null && state.location!= ""){
+            path += "/"+ state.location
+        }
+
+        if(state.event_type != null && state.event_type!= ""){
+            path += "/"+ state.event_type
+        }
+
+        if(state.date != null && state.date!= ""){
+            path += "/"+ state.date
+        }
+        history.push({
+            pathname:  path
+        })
+        fetchData();
+    }
+
     async function fetchData (){
+        
         var dateConvert = null;
-        if(state.date !== null && state.date!== ""){
+        if(state.date != null && state.date!= ""){
             var temp = new Date(state.date);
             dateConvert = temp.getTime() + temp.getTimezoneOffset()*60*1000
         } 
@@ -64,7 +86,7 @@ function Search(props){
 
     return (
         <div>
-            <Header user_id= {props.location.user_id}/>
+            <Header user_id= {componentParams.userId}/>
 
             <Container fluid>
             <div class="experiment-body-search-upper">
@@ -94,7 +116,7 @@ function Search(props){
                     <Form.Control  input id="date"  type= "date" min={moment().format("YYYY-MM-DD")} value={state.date} onChange={handleChange} />
                     </Col>  
                 </Form.Row>
-                <Button variant="custom-search" onClick={fetchData} >Update</Button>
+                <Button variant="custom-search" onClick={update} >Update</Button>
             </Form>
             </div>
             </Container>
@@ -106,11 +128,7 @@ function Search(props){
                     {searchResults && searchResults.map((item) => (
                         <ListGroup>
                             <li class="modified-list2 d-flex justify-content-between align-items-center" key={item.id} >
-                                <Link to={{pathname: '/event',
-                                    componentProps: {
-                                    event_id: item.id,
-                                    user_id: props.location.user_id
-                                }}} className="custom-color">
+                                <Link to={{pathname: '/event/' + componentParams.userId + "/" + item.id }} className="custom-color">
                                     {item.name}
                                 </Link>
                                 <span className="badge badge-info badge-pill">{item.location},  {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(item.time))}</span>
@@ -119,7 +137,6 @@ function Search(props){
                     ))}
                 </div>
             </div>
-            <Button variant="outline-warning" size="lg" onClick={backToDashboard} className="backButton" > Go Back </Button>
         </div>
 
     )
