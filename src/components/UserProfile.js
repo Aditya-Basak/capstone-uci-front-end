@@ -8,6 +8,15 @@ import { css } from "@emotion/react";
 import ReactStars from "react-rating-stars-component";
 import {Button, Container, Row, Col, Form, ListGroup} from 'react-bootstrap';
 import ClipLoader from "react-spinners/ClipLoader";
+import S3FileUpload from 'react-s3';
+import defaultImage from './assets/blank-profile-no-tag.png'
+
+const config = {
+    bucketName: 'sportscon',
+    region: 'us-east-2',
+    accessKeyId: 'AKIAR7QPABLSRJKY2D4D',
+    secretAccessKey: '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'
+}
 
 const override = css`
   margin: auto;
@@ -17,6 +26,9 @@ const override = css`
 function UserProfile(props){
     const componentParams = useParams();
     let [loading, setLoading] = useState(true);
+
+    const[file, setFile] = useState(null)
+    const[S3File, setS3File] = useState(null)
     
     const[state, setState] = useState({
         name: "",
@@ -50,6 +62,14 @@ function UserProfile(props){
                   social_rating: result.data.social_rating,
                   total_social_ratings: result.data.total_social_ratings,
                   event_ratings: result.data.event_ratings});
+
+        if(result.data.account_details.image !== null){
+            setFile(result.data.account_details.image);
+        } 
+
+        if(result.data.account_details.image === null){
+            setFile(defaultImage)
+        }
                   setLoading(false)   
         }
 
@@ -59,12 +79,54 @@ function UserProfile(props){
     const[phEditMsg, setPhEditMsg] = useState('');
     const[pwdEditMsg, setPwdEditMsg] = useState('');
     const[isRevealPwd, setIsRevealPwd] = useState(false);
+    const[imageChanged, setImageChanged] = useState(false);
 
     function handleChange (event) {
         setState({
             ...state,
             [event.target.id]: event.target.value
         });
+    }
+
+    async function updateProfileImage(){
+        let uploadURL = null;
+        if(S3File!==null){
+            await S3FileUpload.uploadFile(S3File, config)
+            .then((data)=>{
+                uploadURL = data.location;
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+
+            await axios.put('http://localhost:8080/api/edit_user', {
+                name: state.name,
+                password: state.password,
+                phone: state.phone,
+                image: uploadURL
+            },
+            {
+                params:{
+                    user_id: props.location.componentProps.user_id
+                }
+            })
+            .then(res => {
+                if(res.status === 200){
+                    setPwdEditMsg("Profile image successfully changed.");
+                }
+            })
+            .catch(error => {
+                alert("Something went wrong. Retry modifying.\n"+error);
+                window.location = "/editUser";
+            });
+            setImageChanged(false)
+        }
+    }
+
+    function handleImageChange(event) {
+        setImageChanged(true)
+        setS3File(event.target.files[0])
+        setFile(URL.createObjectURL(event.target.files[0]))
     }
 
     async function handlePwdSubmit (event){
@@ -196,6 +258,11 @@ function UserProfile(props){
                     <Button variant="outline-warning" size="md" onClick={handlePhSubmit} className="editButton"> Update </Button>  
                     </Col>
                 </Form.Group>
+                <br></br>
+                <h4>Update your profile image:</h4>
+                <input type="file" onChange={handleImageChange}/>
+                <img className={"imgPreview"} src={file}/>
+                <Button variant="outline-warning" size="md" disabled={!imageChanged} onClick={updateProfileImage} className="editButton"> Update Image</Button> 
                 </Form>
             </div>
             </Container>
@@ -207,6 +274,19 @@ function UserProfile(props){
                         {state.name}'s profile:
                     </h1>
                 </div>
+            }
+
+            {componentParams.showEdit === "false" && 
+            <Container fluid>
+            <div class="experiment-body">
+
+            <h5>
+                Profile image:
+            </h5>
+            <img className={"imgPreview"} src={file}/>
+            </div>
+            </Container>
+
             }
             
             <Container fluid>
