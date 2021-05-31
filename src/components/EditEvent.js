@@ -3,7 +3,7 @@ import Header from './RegisterHeader'
 import moment from 'moment'
 import axios from 'axios'
 import { useHistory , useParams} from "react-router-dom";
-import {Button, Container, Row, Col, Form} from 'react-bootstrap';
+import {Alert, Button, Container, Row, Col, Form} from 'react-bootstrap';
 
 function EditEvent(props){
     const componentParams = useParams();
@@ -78,6 +78,10 @@ function EditEvent(props){
     },[]);
 
     const[editedMessage, setEditedMessage] = useState('');
+    const[alert1, setAlert1] = useState(false);
+    const[alert2, setAlert2] = useState(false);
+    const[alert3, setAlert3] = useState(false);
+    
 
     function handleChange (event) {
         setState({
@@ -90,15 +94,6 @@ function EditEvent(props){
     async function handleSubmit (event){
        // event.preventDefault();
         
-        console.log(state.name);
-        console.log(state.event_type);
-        console.log(state.description);
-        console.log(state.location);
-        console.log(state.date_field+"T"+state.time_field)
-        console.log(new Date(state.date_field+"T"+state.time_field).getTime());
-        console.log(state.limit);
-        console.log(state.scope);
-        
         if(state.name == "" || 
             state.event_type == "" ||
             state.description == "" ||
@@ -107,7 +102,7 @@ function EditEvent(props){
             state.time == "" ||
             state.limit == "" ||
             state.scope == "" )
-                alert("All the fields are REQUIRED.");
+                setAlert1(true);
         
         else{
             await axios.put('http://localhost:8080/api/edit_event', {
@@ -129,15 +124,11 @@ function EditEvent(props){
                 console.log(res);
                 if(res.status === 200){
                     setEditedMessage("Event has been edited!");
-                    alert("Event successfully modified.");
-                    history.push({
-                        pathname:  '/event/' + componentParams.userId + "/" + componentParams.eventId
-                    })
-                }
+                    setAlert3(true);
+                }    
             })
             .catch(error => {
-                alert("Something went wrong. Retry modifying.\n"+error);
-                window.location = "/editEvent";
+                setAlert2(true);
             });
         }
     }
@@ -145,6 +136,37 @@ function EditEvent(props){
         
         <div>
             <Header user_id= {componentParams.userId}/>
+
+            <Alert className="alert-body" show={alert1} variant="danger">
+                <Alert.Heading>None of the fields can be empty.</Alert.Heading>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => setAlert1(false)} variant="danger">
+                        Close
+                    </Button>
+                </div>
+            </Alert>
+
+            <Alert className="alert-body" show={alert2} variant="danger">
+                <Alert.Heading>Something went wrong. Retry creating.</Alert.Heading>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => {setAlert2(false); window.location = "/createEvent/"+componentParams.userId;}} variant="danger">
+                        Close
+                    </Button>
+                </div>
+            </Alert>
+
+            <Alert className="alert-body" show={alert3} variant="success">
+                <Alert.Heading>Event successfully modified.</Alert.Heading>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => {setAlert3(false); window.location = '/event/' + componentParams.userId + "/" + componentParams.eventId;}} variant="success">
+                        Close
+                    </Button>
+                </div>
+            </Alert>
+
             <Container fluid>
                     <br/><br/><br/>
             <div class="experiment-body">

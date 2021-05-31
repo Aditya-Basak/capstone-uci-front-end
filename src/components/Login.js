@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import showPwdImg from '../show-password.svg';
 import hidePwdImg from '../hide-password.svg';
 import app_logo from '../SportsCon_Light_Transparent.png'
-import {Button, Container, Image, Row, Col, Form} from 'react-bootstrap';
+import {Button, Alert, Row, Col, Form} from 'react-bootstrap';
 import background from './assets/background.png'
 
 function Login(props){
@@ -16,6 +16,7 @@ function Login(props){
     })
 
     const[isRevealPwd, setIsRevealPwd] = useState(false);
+    const[alert1, setAlert1] = useState(false);
 
     let history = useHistory();
 
@@ -43,8 +44,7 @@ function Login(props){
             }
         })
         .catch(error => {
-            alert("Wrong username/password.");
-            window.location = "/";
+            setAlert1(true);
         });
     }
    
@@ -58,12 +58,23 @@ function Login(props){
           backgroundSize: "cover",
           height: "110vh",
         }}
+        
       >
         
         <br></br>
-            <br></br>
-        
-            <div class="experiment-body-login2">
+        <Alert className="alert-body" show={alert1} variant="danger">
+            <Alert.Heading>Wrong Username/Password.</Alert.Heading>
+            <hr />
+            <div className="d-flex justify-content-end">
+                <Button onClick={() => {setAlert1(false); window.location = "/";}} variant="danger">
+                    Close
+                </Button>
+            </div>
+        </Alert>
+        <br></br>
+            
+        <div class="experiment-body-login2">
+            
             <Form>
                 <Form.Group as={Row}>
                     <Col sm={9}>
@@ -73,7 +84,7 @@ function Login(props){
                     </Col>
                 </Form.Group>
             </Form>
-
+            
             <a class="h4" >
                     Sports are meant to be played together. <br/>You are just one step away!
             </a>
