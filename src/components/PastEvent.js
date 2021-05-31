@@ -1,16 +1,17 @@
 import React, {useState, useEffect} from 'react'
 import Header from './RegisterHeader'
-import { useHistory , Link} from "react-router-dom";
+import { useHistory , Link, useParams} from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import axios from 'axios'
 import {Container, Row, Col, Modal, Button, ListGroup } from 'react-bootstrap'
 import defaultImage from './assets/blank-profile-no-tag.png'
 
 function PastEvent(props){
+    const componentParams = useParams();
 
     const[state, setState] = useState({
-        event_id: props.location.componentProps.event_id,
-        user_id: props.location.componentProps.user_id
+        event_id: componentParams.eventId,
+        user_id: componentParams.userId
     })
 
     const[eventState, setEventState] = useState({
@@ -68,13 +69,6 @@ function PastEvent(props){
         fetchData();
     }, [showModal]);
 
-    let history = useHistory();
-    const backToDashboard = () => {
-        history.push({
-            pathname:  '/dashboard',
-            user_id: state.user_id
-        })
-    }
 
     function modalClick (item) {
         setShowModal(true)
@@ -138,7 +132,7 @@ function PastEvent(props){
 
     return (
         <div>
-        <Header user_id= { props.location.componentProps.user_id}/>
+        <Header user_id= { state.user_id}/>
         <br/>
         <Container fluid>
             <div className="name-div">
@@ -210,6 +204,7 @@ function PastEvent(props){
                                     <ListGroup>
                                         {item.id != state.user_id && 
                                             <li class="modified-list-attendees d-flex justify-content-between align-items-center" key={item.id} >
+
                                                 {item.image=== null &&
                                                     <img className={"imgPreview"} src={defaultImage}/>
                                                 }
@@ -217,13 +212,8 @@ function PastEvent(props){
                                                     <img className={"imgPreview"} src={item.image}/>
                                                 }
                                                 
-                                                <Link  to={{pathname: '/userProfile',
-                                                    componentProps: {
-                                                        user_id: state.user_id,
-                                                        see_profile_user_id: item.id,
-                                                        show_own_profile: false
-                                                    }}} className="custom-color" style={{ textDecoration: "none" }}>
-                                                    {item.name}
+                                                <Link  to={{pathname: '/userProfile/' + state.user_id + "/" + item.id + "/" + false }} className="custom-color" style={{ textDecoration: "none" }}>
+                                                {item.name}
                                                 </Link>
                                             {item.rated && <Button variant="success" onClick={() => handleEditRating(item)} >Edit Rating</Button> }
                                             {!item.rated && <Button variant="success" onClick={() => modalClick(item)} >Rate</Button> }
@@ -235,10 +225,6 @@ function PastEvent(props){
                     </div>
                 </Col>
             </Row>
-            
-            <br/>
-            {<button onClick={backToDashboard} className="backButton" > Go Back </button>}   
-            <br/>
         </Container>
     
 
