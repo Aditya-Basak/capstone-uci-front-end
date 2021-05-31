@@ -64,13 +64,15 @@ function CreateEvent(props){
             .then(res => {
                 console.log(res);
                 if(res.status === 200){
-                    setCreatedMessage("Event has been created!");
+                    //setCreatedMessage("Event has been created!");
                     setAlert3(true);
-                    
+                    setTimeout(() => { window.location = "/dashboard/"+componentParams.userId; }, 3000);                
                 }
             })
             .catch(error => {
                 setAlert2(true);
+                setTimeout(() => {window.location = "/createEvent/"+componentParams.userId;}, 3000);  
+            
             });
         }
     }

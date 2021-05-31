@@ -100,6 +100,7 @@ function UserProfile(props){
             })
             .catch(error => {
                 setAlert6(true);
+                setTimeout(() => {window.location = '/userProfile/' + props.user_id +  "/" + true;}, 3000);
             });
         }
     }
@@ -144,6 +145,7 @@ function UserProfile(props){
            })
            .catch(error => {
                setAlert4(true);
+               setTimeout(() => {window.location = '/userProfile/' + props.user_id +  "/" + true;}, 3000);
            });
        }
    }

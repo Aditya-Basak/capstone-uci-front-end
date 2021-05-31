@@ -123,12 +123,14 @@ function EditEvent(props){
             .then(res => {
                 console.log(res);
                 if(res.status === 200){
-                    setEditedMessage("Event has been edited!");
+                    //setEditedMessage("Event has been edited!");
                     setAlert3(true);
+                    setTimeout(() => {window.location = '/event/' + componentParams.userId + "/" + componentParams.eventId;}, 3000);
                 }    
             })
             .catch(error => {
                 setAlert2(true);
+                setTimeout(() => {window.location = "/createEvent/"+componentParams.userId;}, 3000);
             });
         }
     }

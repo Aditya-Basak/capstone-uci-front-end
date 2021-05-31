@@ -45,6 +45,7 @@ function Login(props){
         })
         .catch(error => {
             setAlert1(true);
+            setTimeout(() => {window.location = "/";}, 3000);
         });
     }
    
