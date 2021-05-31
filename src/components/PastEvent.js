@@ -4,6 +4,7 @@ import { useHistory , Link} from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import axios from 'axios'
 import {Container, Row, Col, Modal, Button, ListGroup } from 'react-bootstrap'
+import defaultImage from './assets/blank-profile-no-tag.png'
 
 function PastEvent(props){
 
@@ -209,6 +210,13 @@ function PastEvent(props){
                                     <ListGroup>
                                         {item.id != state.user_id && 
                                             <li class="modified-list-attendees d-flex justify-content-between align-items-center" key={item.id} >
+                                                {item.image=== null &&
+                                                    <img className={"imgPreview"} src={defaultImage}/>
+                                                }
+                                                {item.image!== null &&
+                                                    <img className={"imgPreview"} src={item.image}/>
+                                                }
+                                                
                                                 <Link  to={{pathname: '/userProfile',
                                                     componentProps: {
                                                         user_id: state.user_id,

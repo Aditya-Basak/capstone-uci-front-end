@@ -55,6 +55,13 @@
 	width: 50%
 }
 
+.imgPreview{
+  text-align: center;
+  margin: 5px 15px;
+  height: 150px;
+  width: 150px;
+}
+
 .registerButton {
 	background-color:#4dc76e;
 	border-radius:15px;

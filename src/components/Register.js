@@ -1,9 +1,19 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import showPwdImg from '../show-password.svg';
 import hidePwdImg from '../hide-password.svg';
 import app_logo from '../SportsCon_Light_Transparent.png'
 import {Button, Container, Row, Col, Form} from 'react-bootstrap';
+import S3FileUpload from 'react-s3';
+import defaultImage from './assets/blank_profile.png'
+
+const config = {
+    bucketName: 'sportscon',
+    region: 'us-east-2',
+    accessKeyId: 'AKIAR7QPABLSRJKY2D4D',
+    secretAccessKey: '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'
+}
+
 function Register(props){
     const[state, setState] = useState({
         name: "",
@@ -11,6 +21,10 @@ function Register(props){
         password: "",
         phonenumber: "",
     })
+
+
+    const[file, setFile] = useState(defaultImage)
+    const[S3File, setS3File] = useState(null)
 
     const[registeredMessage, setRegisteredMessage] = useState('');
     const[isRevealPwd, setIsRevealPwd] = useState(false);
@@ -22,7 +36,24 @@ function Register(props){
         }); 
     }
 
+    function handleImageChange(event) {
+        setS3File(event.target.files[0])
+        setFile(URL.createObjectURL(event.target.files[0]))
+    }
+
     async function handleSubmit (event){
+        let uploadURL = null;
+        if(S3File!==null){
+            await S3FileUpload.uploadFile(S3File, config)
+            .then((data)=>{
+                uploadURL = data.location;
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+        }
+
+
         event.preventDefault();
         var validPhone = true;
        var i;
@@ -59,13 +90,13 @@ function Register(props){
                 alert("Invalid Email ID.");
         else if(state.name == "" || state.email == "" || state.password == "" || state.phone == "")
                     alert("All the fields are REQUIRED.");        
-        else{        
+        else{       
             await axios.post('http://localhost:8080/api/register_user', {
                 name: state.name,
                 email: state.email,
                 password: state.password,
-                phone: state.phonenumber
-            
+                phone: state.phonenumber,
+                image: uploadURL
             })
             .then(res => {
                 if(res.status === 200){
@@ -119,6 +150,10 @@ function Register(props){
                     <Form.Control size="lg" id="phonenumber" placeholder="10 digits. No special characters." value={state.phonenumber} onChange={handleChange} />
                     </Col>
                 </Form.Group>
+                <br/>
+                <h3>Upload your profile image:</h3>
+                <input type="file" onChange={handleImageChange}/>
+                <img className={"imgPreview"} src={file}/>
                 <br/>
             </Form>
             </div>
