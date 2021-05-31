@@ -2,10 +2,11 @@ import React, {useEffect, useState} from 'react'
 import Header from './RegisterHeader'
 import moment from 'moment'
 import axios from 'axios'
-import { useHistory } from "react-router-dom";
+import { useHistory , useParams} from "react-router-dom";
 import {Button, Container, Row, Col, Form} from 'react-bootstrap';
 
 function EditEvent(props){
+    const componentParams = useParams();
 
     let history = useHistory();
     
@@ -24,8 +25,8 @@ function EditEvent(props){
     useEffect(async () => {
         const result = await axios.get("http://localhost:8080/api/get_event",{
             params: {
-                user_id: props.location.user_id,
-                event_id: props.location.event_id
+                user_id: componentParams.userId,
+                event_id: componentParams.eventId
             }
         });
 
@@ -120,8 +121,8 @@ function EditEvent(props){
             },
             {
                 params:{
-                    user_id: props.location.user_id,
-                    event_id: props.location.event_id
+                    user_id: componentParams.userId,
+                    event_id: componentParams.eventId
                 }
             })
             .then(res => {
@@ -130,11 +131,7 @@ function EditEvent(props){
                     setEditedMessage("Event has been edited!");
                     alert("Event successfully modified.");
                     history.push({
-                        pathname:  '/event',
-                        componentProps: {
-                          event_id: props.location.event_id,
-                          user_id: props.location.user_id
-                        }
+                        pathname:  '/event/' + componentParams.userId + "/" + componentParams.eventId
                     })
                 }
             })
@@ -147,7 +144,7 @@ function EditEvent(props){
     return (
         
         <div>
-            <Header user_id= {props.location.user_id}/>
+            <Header user_id= {componentParams.userId}/>
             <Container fluid>
                     <br/><br/><br/>
             <div class="experiment-body">

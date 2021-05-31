@@ -2,10 +2,11 @@ import React, {useState} from 'react'
 import Header from './RegisterHeader'
 import moment from 'moment'
 import axios from 'axios'
-import { useHistory } from "react-router-dom";
+import { useHistory , useParams} from "react-router-dom";
 import {Button, Container, Row, Col, Form} from 'react-bootstrap';
 
 function CreateEvent(props){
+    const componentParams = useParams();
     let history = useHistory();
 
     const[state, setState] = useState({
@@ -62,7 +63,7 @@ function CreateEvent(props){
                 scope: state.scope
             },
             {
-                params: {user_id: props.location.componentProps.user_id}, 
+                params: {user_id: componentParams.userId}, 
             })
             .then(res => {
                 console.log(res);
@@ -70,8 +71,7 @@ function CreateEvent(props){
                     setCreatedMessage("Event has been created!");
                     alert("Event successfully created.");
                     history.push({
-                        pathname:  '/dashboard',
-                        user_id: props.location.componentProps.user_id
+                        pathname:  '/dashboard/' + componentParams.userId
                     })
                 }
             })
@@ -85,7 +85,7 @@ function CreateEvent(props){
     return (
         
             <div>
-                <Header user_id= {props.location.componentProps.user_id}/>
+                <Header user_id= {componentParams.userId}/>
                 <Container fluid>
                     <br/><br/><br/>
                 <div class="experiment-body">

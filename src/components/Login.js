@@ -38,8 +38,7 @@ function Login(props){
         .then(res => {
             if(res.status === 200){
                 history.push({
-                    pathname:  '/dashboard',
-                    user_id: res.data.id
+                    pathname:  '/dashboard/' + res.data.id
                   })
             }
         })

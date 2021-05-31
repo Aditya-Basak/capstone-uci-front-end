@@ -1,31 +1,23 @@
 import React, {useState, useEffect} from 'react'
 import Header from './RegisterHeader'
-import { useHistory , Link} from "react-router-dom";
+import { useHistory , Link, useParams} from "react-router-dom";
 import axios from 'axios';
 import {Button, Container, Row, Col, Form, ListGroup} from 'react-bootstrap';
 
 
 
 function Event(props){
+    const componentParams = useParams();
 
     const[state, setState] = useState({
-        event_id: props.location.componentProps.event_id,
-        user_id: props.location.componentProps.user_id
+        event_id: componentParams.eventId,
+        user_id: componentParams.userId
     })
 
     let history = useHistory();
     const redirect = () => {
         history.push({
-          pathname:  '/editEvent',
-          event_id: state.event_id,
-          user_id: state.user_id
-        })
-    }
-
-    const backToDashboard = () => {
-        history.push({
-            pathname:  '/dashboard',
-            user_id: state.user_id
+          pathname:  '/editEvent/' + state.user_id + "/" + state.event_id
         })
     }
     
@@ -39,7 +31,8 @@ function Event(props){
         event_type: "",
         remainining_spots: 0,
         scope: "",
-        attendees: []
+        attendees: [],
+        participation_type: ""
     })
     const[showJoin, setShowJoin] = useState(false)
     const[showEdit, setShowEdit] = useState(false)
@@ -56,13 +49,14 @@ function Event(props){
         .then((response) => {
             const date = new Date(response.data.time);
             let dateFormat = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(date)
-            {if(response.data.host.id != state.user_id && response.data.remainining_spots>0 && !response.data.attendees.some(item => item.id === state.user_id)){
+            {if(response.data.host.id != state.user_id && response.data.remainining_spots>0 && !response.data.attendees.some(item => item.id == state.user_id)){
                 setShowJoin(true)
             }}
 
-            if(response.data.host.id === state.user_id){
+            if(response.data.host.id == state.user_id){
                 setShowEdit(true)
             }
+
             setEventState({
                 name: response.data.name,
                 description: response.data.description,
@@ -71,7 +65,8 @@ function Event(props){
                 event_type: response.data.event_type,
                 remainining_spots: response.data.remainining_spots,
                 scope: response.data.scope,
-                attendees: response.data.attendees
+                attendees: response.data.attendees,
+                participation_type: response.data.participation_type
             })
         })
         .catch((err) => {
@@ -99,6 +94,24 @@ function Event(props){
                 setShowJoin(false)
             }
         })
+    }
+
+    async function handleLeave(){
+        await axios.put('http://localhost:8080/api/leave_event', {
+            },
+            {
+            params: {
+                user_id: state.user_id,
+                event_id: state.event_id
+            }
+        })
+        .then((response) => {
+            if(response.status === 200){
+                setJoinedMessage("You have now left this event");
+                setShowJoin(true)
+            }
+        })
+
     }
 
         return (
@@ -176,12 +189,7 @@ function Event(props){
                                     (
                                         <ListGroup>
                                             <li class="modified-list-attendees d-flex justify-content-between align-items-center" key={item.id} >
-                                            <Link  to={{pathname: '/userProfile',
-                                                    componentProps: {
-                                                        user_id: state.user_id,
-                                                        see_profile_user_id: item.id,
-                                                        show_own_profile: false
-                                                    }}} className="custom-color" style={{ textDecoration: "none" }}>
+                                            <Link  to={{pathname: '/userProfile/' + state.user_id + "/" + item.id + "/" + false  }} className="custom-color" style={{ textDecoration: "none" }}>
                                                     {item.name}
                                             </Link>
                                             </li>
@@ -194,10 +202,9 @@ function Event(props){
                 
             <br/>
             {showJoin && <Button variant="success" size="lg" onClick={handleJoin} className="joinEventButton"> Join Event </Button>}
+            {!showJoin && eventState.participation_type=="attendee" &&  <Button variant="danger" size="lg" onClick={handleLeave} className="joinEventButton"> Leave Event </Button>}
             {showEdit && <Button  variant="warning" size="lg" onClick={redirect} className="editEventButton"> Edit Event </Button>}    
             <br/>
-            <br/>
-            {<button onClick={backToDashboard} className="backButton" > Go Back </button>}
             <br/>
             
             </Container>
