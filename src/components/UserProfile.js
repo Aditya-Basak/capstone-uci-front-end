@@ -276,7 +276,7 @@ function UserProfile(props){
                 </div>
             }
 
-            {!props.location.componentProps.show_own_profile && 
+            {componentParams.showEdit === "false" && 
             <Container fluid>
             <div class="experiment-body">
 
