@@ -235,7 +235,7 @@ function Register(props){
                         <br/>
                         <Image className={"imgPreview"} src={file} rounded fluid/>
                         <input ref={inputRef} className="d-none" type="file" onChange={handleDisplayFileDetails} />
-      <Button className="file-div" variant="outline-warning" onClick={handleUpload}>Upload</Button>
+                        {/* <Button className="file-div" variant="outline-warning" onClick={handleUpload}>Upload</Button> */}
                 <Form.File variant="outline-warning" type="file" className="file-div" size="lg" onChange={handleImageChange}/>
                 </Form.Group>
                 </Form>
