@@ -166,6 +166,17 @@ code {
   font-family: 'Mulish';
 }
 
+.experiment-body-profile {
+  align-items: center;
+  background-color: #2a3d53;
+  margin: 40px;
+  margin-top: 0px;
+  padding: 10px;
+  border-radius: 20px;
+  font-size: 150%;
+  font-family: 'Mulish';
+}
+
 .experiment-body-dashboard{
   margin-left: 55px;
   margin-right: 55px;
@@ -213,7 +224,7 @@ code {
   margin-bottom: 10px;
   margin-top: 0px;
   background-color: #2a3d53;
-  padding: 20px;
+  padding: 10px;
   border-radius: 20px;
   font-size: 150%;
   font-family: 'Mulish';
@@ -251,7 +262,7 @@ code {
   margin-right: 40px;
   margin-top: 0px;
   background-color: #2a3d53;
-  padding: 20px;
+  padding: 10px;
   border-radius: 20px;
   font-size: 150%;
   font-family: 'Mulish';
@@ -411,7 +422,7 @@ code {
 .name-div h1 {
   text-align: left;
   padding-left: 70px;
-  padding-top: 20px;
+  padding-top: 15px;
   color :aqua;
 }
 
@@ -534,4 +545,13 @@ code {
   margin-right: 20px;
   height: 30px;
   width: 30px;
+}
+
+.alert-body {
+  font-weight: bolder;
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-top: 40px;
+  padding: 20px;
+  border-radius: 20px;
 }

@@ -3,7 +3,7 @@ import Header from './RegisterHeader'
 import { useHistory , Link, useParams} from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import axios from 'axios'
-import {Container, Row, Col, Modal, Button, ListGroup } from 'react-bootstrap'
+import {Alert, Container, Row, Col, Modal, Button, ListGroup } from 'react-bootstrap';
 import defaultImage from './assets/blank-profile-no-tag.png'
 
 function PastEvent(props){
@@ -36,7 +36,9 @@ function PastEvent(props){
     const[eventRating, setEventRating] = useState(1)
 
     const[testimonial, setTestimonial] = useState("")
-
+    const[alert2, setAlert2] = useState(false);
+    const[alert3, setAlert3] = useState(false);
+    
 
     useEffect(() => {
         const fetchData = async () => {
@@ -122,11 +124,12 @@ function PastEvent(props){
             .then(res => {
                 if(res.status === 200){
                     modalClose();
-                    //alert("Ratings submitted successfully.");
+                    setAlert3(true);
                 }
             })
             .catch(error => {
-                alert("Something went wrong, could not submit rating\n");
+                modalClose();
+                setAlert2(true);
             });
     }
 
@@ -134,6 +137,26 @@ function PastEvent(props){
         <div>
         <Header user_id= { state.user_id}/>
         <br/>
+        <Alert className="alert-body" show={alert2} variant="danger">
+            <Alert.Heading>Something went wrong. Could not submit ratings.</Alert.Heading>
+            <hr />
+            <div className="d-flex justify-content-end">
+                <Button onClick={() => {setAlert2(false);}} variant="danger">
+                    Close
+                </Button>
+            </div>
+        </Alert>
+
+        <Alert className="alert-body" show={alert3} variant="success">
+            <Alert.Heading>Ratings submitted successfully.</Alert.Heading>
+            <hr />
+            <div className="d-flex justify-content-end">
+                <Button onClick={() => {setAlert3(false);}} variant="success">
+                    Close
+                </Button>
+            </div>
+        </Alert>
+
         <Container fluid>
             <div className="name-div">
                 <h1>{eventState.name}</h1>
