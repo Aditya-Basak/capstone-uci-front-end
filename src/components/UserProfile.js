@@ -353,23 +353,50 @@ function UserProfile(props){
             {componentParams.showEdit === "false" && 
                 <div className="name-div">
                     <h1>
-                        {state.name}'s profile:
+                        &emsp;{state.name}'s profile:
                     </h1>
+                    <br/>
                 </div>
+                
             }
 
             {componentParams.showEdit === "false" && 
-            <Container fluid>
-            <Form>
-                            <Form.Group className="imgPreview">
-                                <Form.Label>&emsp;Profile Image:</Form.Label>
+                <div className="experiment-body-profile-others">
+                    <Container fluid>
+                        <Row>
+                            <Col sm>
                                 <br/>
-                                <Image className={"imgPreview"} src={file} rounded fluid/>
-                                <Form.File variant="outline-warning" type="file" className="file-div" size="lg" onChange={handleImageChange}/>
-                                <Button variant="outline-warning" size="md" disabled={!imageChanged} onClick={updateProfileImage} className="editButton"> Update Image</Button> 
-                        </Form.Group>
-                        </Form>
-            </Container>
+                                <br/>
+                                <Form>
+                                    <Form.Group as={Row} controlId="formHorizontalEmail">
+                                        <Form.Label column sm={4}>Email:</Form.Label>
+                                            <Col sm>
+                                                <Form.Control size="lg" id="email" type="email" value={state.email} readOnly />
+                                            </Col>
+                                    </Form.Group>
+                                    <br />
+                                    
+                                    <Form.Group as={Row} controlId="formHorizontalNumber">
+                                        <Form.Label column sm={4}>Phone Number:</Form.Label>
+                                        <Col sm>
+                                        <Form.Control size="lg" id="phone"  placeholder="New Number" value={state.phone} readOnly />
+                                        </Col>
+                                    </Form.Group>
+                                </Form>
+                            </Col>
+                            <Col sm>
+                            <Form>
+                                <Form.Group>
+                                    <Form.Label>&emsp;Profile Image:</Form.Label>
+                                    <br/>
+                                    <Image className={"imgPreview"} src={file} rounded fluid/>
+                                    
+                            </Form.Group>
+                            </Form>
+                            </Col>
+                        </Row>
+                    </Container>
+                </div>
 
             }
             

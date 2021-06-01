@@ -177,6 +177,21 @@ code {
   font-family: 'Mulish';
 }
 
+.experiment-body-profile-others {
+  align-items: center;
+  background-color: #2a3d53;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 40px;
+  margin-top: 0px;
+  padding: 10px;
+  padding-top: 30px;
+  border-radius: 20px;
+  font-size: 150%;
+  font-family: 'Mulish';
+}
+
+
 .experiment-body-dashboard{
   margin-left: 55px;
   margin-right: 55px;

@@ -188,6 +188,7 @@ function Event(props){
                                 {eventState.attendees.map((item) => 
                                     (
                                         <ListGroup>
+                                            {
                                             <li class="modified-list-attendees d-flex justify-content-between align-items-center" key={item.id} >
 
                                             {item.image=== null &&
@@ -201,6 +202,7 @@ function Event(props){
                                                     {item.name}
                                             </Link>
                                             </li>
+}
                                         </ListGroup>
                                     ))}
                             </div>
