@@ -114,7 +114,7 @@ function UserProfile(props){
             },
             {
                 params:{
-                    user_id: props.location.componentProps.user_id
+                    user_id: componentParams.userId
                 }
             })
             .then(res => {
@@ -360,13 +360,15 @@ function UserProfile(props){
 
             {componentParams.showEdit === "false" && 
             <Container fluid>
-            <div class="experiment-body">
-
-            <h5>
-                Profile image:
-            </h5>
-            <img className={"imgPreview"} src={file}/>
-            </div>
+            <Form>
+                            <Form.Group className="imgPreview">
+                                <Form.Label>&emsp;Profile Image:</Form.Label>
+                                <br/>
+                                <Image className={"imgPreview"} src={file} rounded fluid/>
+                                <Form.File variant="outline-warning" type="file" className="file-div" size="lg" onChange={handleImageChange}/>
+                                <Button variant="outline-warning" size="md" disabled={!imageChanged} onClick={updateProfileImage} className="editButton"> Update Image</Button> 
+                        </Form.Group>
+                        </Form>
             </Container>
 
             }
