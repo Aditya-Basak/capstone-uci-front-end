@@ -15,6 +15,8 @@ function Dashboard(props){
     const[pastJoinedEvents, setPastJoinedEvents] = useState([])
     const[showUpcoming, setShowUpcoming] = useState(true);
     const[showPast, setShowPast] = useState(false);
+    const noResults1 = "No upcoming events to show.";
+    const noResults2 = "No past events to show.";
     const[searchState, setSearchState] = useState({
         event_name: "",
         location: "",
@@ -112,6 +114,7 @@ function Dashboard(props){
             {showUpcoming &&
             <div className="experiment-body-dashboard">
                 <div >
+                {upcomingHostedEvents.length===0 && upcomingHostedEvents.length===0  && <div className="registeredMessage"> {noResults1} </div>}
                     {upcomingHostedEvents && upcomingHostedEvents.map((item) => (
                         <ListGroup>
                             <li className="modified-list2 d-flex justify-content-between align-items-center" key={item.id} >
@@ -141,6 +144,9 @@ function Dashboard(props){
             {showPast &&
             <div className="experiment-body-dashboard">
             <div>
+                
+                {pastHostedEvents.length===0 && pastHostedEvents.length===0  && <div className="registeredMessage"> {noResults2} </div>}
+
                 {pastHostedEvents && pastHostedEvents.map((item) => (
                     <ListGroup>
                         <li className="modified-list2 d-flex justify-content-between align-items-center" key={item.id} >
