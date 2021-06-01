@@ -76,7 +76,8 @@ function PastEvent(props){
         setShowModal(true)
         setModalState({
             name: item.name,
-            user_id: item.id
+            user_id: item.id,
+            image: item.image
         })
     }
 
@@ -260,7 +261,10 @@ function PastEvent(props){
                     <Modal.Body className="my-modal-body">
                     <h5 class="name-heading">Rate {modalState.name} </h5>
                     <br/>
-                    <h5>Social Rating:</h5>
+                    <Container>
+                        <Row>
+                            <Col sm>
+                            <h5>Social Rating:</h5>
                     <ReactStars 
                         count={5}
                         onChange={socialRatingChanged}
@@ -285,6 +289,18 @@ function PastEvent(props){
                         activeColor="#1fc600"
                     />
                     <br/>
+                            </Col>
+                            <Col sm>
+                            {modalState.image=== null &&
+                                                    <Image className={"modal-image"} src={defaultImage} roundedCircle/>
+                                                }
+                                                {modalState.image!== null &&
+                                                    <Image className={"modal-image"} src={modalState.image} roundedCircle/>
+                                                }
+                            </Col>
+                        </Row>
+                    </Container>
+                    
                     <form>
                         <div class="form-group">
                         <h5>Testimonial:</h5>

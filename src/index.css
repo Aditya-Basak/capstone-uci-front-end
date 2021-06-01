@@ -571,6 +571,16 @@ code {
   padding-bottom: 2px;
 }
 
+.modal-image{
+  margin-left: 10px;
+  margin-right: 20px;
+  margin-top: 15px;
+  height: 160px;
+  width: 160px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
 .alert-body {
   font-weight: bolder;
   margin-left: 20%;
