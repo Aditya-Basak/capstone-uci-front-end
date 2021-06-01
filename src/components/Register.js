@@ -3,7 +3,7 @@ import axios from 'axios'
 import showPwdImg from '../show-password.svg';
 import hidePwdImg from '../hide-password.svg';
 import app_logo from '../SportsCon_Light_Transparent.png'
-import {Button, Container, Row, Col, Form} from 'react-bootstrap';
+import {Alert, Button, Container, Row, Col, Form} from 'react-bootstrap';
 import S3FileUpload from 'react-s3';
 import defaultImage from './assets/blank_profile.png'
 
@@ -28,7 +28,12 @@ function Register(props){
 
     const[registeredMessage, setRegisteredMessage] = useState('');
     const[isRevealPwd, setIsRevealPwd] = useState(false);
-
+    const[alert1, setAlert1] = useState(false);
+    const[alert2, setAlert2] = useState(false);
+    const[alert3, setAlert3] = useState(false);
+    const[alert4, setAlert4] = useState(false);
+    const[alert5, setAlert5] = useState(false);
+ 
     function handleChange (event) {
         setState({
             ...state,
@@ -81,15 +86,15 @@ function Register(props){
             validEmail = true;
 
        if(state.phonenumber == "")
-               alert("New Phone Number cannot be empty.");
+            setAlert1(true);
        else if(state.phonenumber.length != 10)
-                alert("Phone Number should be numeric, 10 digits, and without any special characters.");
+            setAlert2(true);
         else if(validPhone == false)
-                alert("Phone Number cannot begin with zero or have special characters.");
+            setAlert3(true);
         else if(validEmail == false)
-                alert("Invalid Email ID.");
+            setAlert4(true);
         else if(state.name == "" || state.email == "" || state.password == "" || state.phone == "")
-                    alert("All the fields are REQUIRED.");        
+            setAlert5(true);               
         else{       
             await axios.post('http://localhost:8080/api/register_user', {
                 name: state.name,
@@ -109,12 +114,64 @@ function Register(props){
 
     return (
         <Container fluid>
+            <br/>
+        <Alert className="alert-body" show={alert1} variant="danger">
+                <Alert.Heading>New Phone Number cannot be empty.</Alert.Heading>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => setAlert1(false)} variant="danger">
+                        Close
+                    </Button>
+                </div>
+            </Alert>
+
+            <Alert className="alert-body" show={alert2} variant="danger">
+                <Alert.Heading>Phone Number should be numeric, 10 digits, and without any special characters.</Alert.Heading>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => setAlert2(false)} variant="danger">
+                        Close
+                    </Button>
+                </div>
+            </Alert>
+
+            <Alert className="alert-body" show={alert3} variant="danger">
+                <Alert.Heading>Phone Number cannot begin with zero or have special characters.</Alert.Heading>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => setAlert3(false)} variant="danger">
+                        Close
+                    </Button>
+                </div>
+            </Alert>
+
+            <Alert className="alert-body" show={alert4} variant="danger">
+                <Alert.Heading>Invalid Email ID.</Alert.Heading>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => setAlert4(false)} variant="danger">
+                        Close
+                    </Button>
+                </div>
+            </Alert>
+
+            <Alert className="alert-body" show={alert5} variant="danger">
+                <Alert.Heading>None of the fields can be empty.</Alert.Heading>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => setAlert5(false)} variant="danger">
+                        Close
+                    </Button>
+                </div>
+            </Alert>
+
         <div>
             <div class="logo">
                 <a href="/">
                     <img class="fit-logo"  src={app_logo}/>
                 </a>
             </div>
+
             
             <div class="experiment-body">
             <h2>

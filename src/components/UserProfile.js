@@ -6,7 +6,7 @@ import showPwdImg from '../show-password.svg';
 import hidePwdImg from '../hide-password.svg';
 import { css } from "@emotion/react";
 import ReactStars from "react-rating-stars-component";
-import {Button, Container, Row, Col, Form, ListGroup} from 'react-bootstrap';
+import {Alert, Button, Container, Row, Col, Form, ListGroup} from 'react-bootstrap';
 import ClipLoader from "react-spinners/ClipLoader";
 import S3FileUpload from 'react-s3';
 import defaultImage from './assets/blank-profile-no-tag.png'
@@ -25,6 +25,13 @@ const override = css`
 
 function UserProfile(props){
     const componentParams = useParams();
+    const[alert1, setAlert1] = useState(false);
+    const[alert2, setAlert2] = useState(false);
+    const[alert3, setAlert3] = useState(false);
+    const[alert4, setAlert4] = useState(false);
+    const[alert5, setAlert5] = useState(false);
+    const[alert6, setAlert6] = useState(false);
+
     let [loading, setLoading] = useState(true);
 
     const[file, setFile] = useState(null)
@@ -133,7 +140,7 @@ function UserProfile(props){
          event.preventDefault();
     
         if(state.password == "")
-                alert("New Password cannot be empty.");
+                setAlert5(true);
         
         else{
 
@@ -154,8 +161,8 @@ function UserProfile(props){
                 }
             })
             .catch(error => {
-                alert("Something went wrong. Retry modifying.\n"+error);
-                window.location = "/editUser";
+                setAlert6(true);
+                setTimeout(() => {window.location = '/userProfile/' + props.user_id +  "/" + true;}, 3000);
             });
         }
     }
@@ -175,13 +182,13 @@ function UserProfile(props){
 
         }
           
-       if(state.phone == "")
-               alert("New Phone Number cannot be empty.");
-       else if(state.phone.length != 10)
-                alert("Phone Number should be numeric, 10 digits, and without any special characters.");
+        if(state.phone == "")
+            setAlert1(true);
+        else if(state.phone.length != 10)
+            setAlert2(true);
         else if(valid == false)
-                alert("Phone Number cannot begin with zero or have special characters.");
-       else{
+            setAlert3(true);    
+        else{
            await axios.put('http://localhost:8080/api/edit_user', {
                name: state.name,
                password: state.password,
@@ -199,8 +206,8 @@ function UserProfile(props){
                }
            })
            .catch(error => {
-               alert("Something went wrong. Retry modifying.\n"+error);
-               window.location = "/editUser";
+               setAlert4(true);
+               setTimeout(() => {window.location = '/userProfile/' + props.user_id +  "/" + true;}, 3000);
            });
        }
    }
@@ -224,8 +231,69 @@ function UserProfile(props){
                             &emsp;{state.name}
                         </h1>
                     </div>
-                    <br />
-            <div class="experiment-body">
+            
+            <Alert className="alert-body" show={alert1} variant="danger">
+                <Alert.Heading>New Phone Number cannot be empty.</Alert.Heading>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => setAlert1(false)} variant="danger">
+                        Close
+                    </Button>
+                </div>
+            </Alert>
+
+            <Alert className="alert-body" show={alert2} variant="danger">
+                <Alert.Heading>Phone Number should be numeric, 10 digits, and without any special characters.</Alert.Heading>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => setAlert2(false)} variant="danger">
+                        Close
+                    </Button>
+                </div>
+            </Alert>
+
+            <Alert className="alert-body" show={alert3} variant="danger">
+                <Alert.Heading>Phone Number cannot begin with zero or have special characters.</Alert.Heading>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => setAlert3(false)} variant="danger">
+                        Close
+                    </Button>
+                </div>
+            </Alert>
+
+            <Alert className="alert-body" show={alert4} variant="danger">
+                <Alert.Heading>Something went wrong. Retry modifying.</Alert.Heading>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => {setAlert4(false); window.location = '/userProfile/' + props.user_id +  "/" + true;}} variant="danger">
+                        Close
+                    </Button>
+                </div>
+            </Alert>
+
+            <Alert className="alert-body" show={alert5} variant="danger">
+                <Alert.Heading>New Password cannot be empty.</Alert.Heading>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => setAlert5(false)} variant="danger">
+                        Close
+                    </Button>
+                </div>
+            </Alert>
+
+            <Alert className="alert-body" show={alert6} variant="danger">
+                <Alert.Heading>Something went wrong. Retry modifying.</Alert.Heading>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => {setAlert6(false); window.location = '/userProfile/' + props.user_id +  "/" + true;}} variant="danger">
+                        Close
+                    </Button>
+                </div>
+            </Alert>
+
+            <br />
+            <div class="experiment-body-profile">
                 {phEditMsg && <div className="editedMessage"> {phEditMsg} </div>}
                 {pwdEditMsg && <div className="editedMessage"> {pwdEditMsg} </div>}
                     
