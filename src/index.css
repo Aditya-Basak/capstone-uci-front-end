@@ -522,3 +522,9 @@ code {
   font-weight: bolder;
   font-size: larger;
 }
+
+.file-div{
+  margin-top: 10px;
+  align-items: center;
+  margin-left: 15%;
+}

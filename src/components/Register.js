@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import axios from 'axios'
 import showPwdImg from '../show-password.svg';
 import hidePwdImg from '../hide-password.svg';
 import app_logo from '../SportsCon_Light_Transparent.png'
-import {Button, Container, Row, Col, Form} from 'react-bootstrap';
+import {Button, Container, Row, Col, Form, Image} from 'react-bootstrap';
 import S3FileUpload from 'react-s3';
 import defaultImage from './assets/blank_profile.png'
 
@@ -22,6 +22,19 @@ function Register(props){
         phonenumber: "",
     })
 
+    const inputRef = useRef(null);
+
+    const handleUpload = () => {
+        inputRef.current?.click();
+
+        console.log(inputRef);
+      };
+
+    const handleDisplayFileDetails = () => {
+        
+        inputRef.current?.files &&
+        setS3File(inputRef.current.files[0]);
+      };
 
     const[file, setFile] = useState(defaultImage)
     const[S3File, setS3File] = useState(null)
@@ -120,42 +133,59 @@ function Register(props){
             <h2>
                     Enter your details to hop on board!<br/><br/>
             </h2>
+            <Container fluid>
+            <Row>
+                <Col sm>
             <Form>
                 {registeredMessage && <div className="registeredMessage"> {registeredMessage} </div>}
                 <Form.Group as={Row} controlId="formHorizontalName">
-                    <Form.Label column sm={2}>Name:</Form.Label>
-                    <Col sm={4}>
+                    <Form.Label column sm={4}>Name:</Form.Label>
+                    <Col sm>
                     <Form.Control size="lg" id="name"  placeholder="Your name." value={state.name} onChange={handleChange} />
                     </Col>
                 </Form.Group>
                 <br />
                 <Form.Group as={Row} controlId="formHorizontalEmail">
-                    <Form.Label column sm={2}>Email:</Form.Label>
-                    <Col sm={4}>
+                    <Form.Label column sm={4}>Email:</Form.Label>
+                    <Col sm>
                     <Form.Control size="lg" id="email" type="email" placeholder="your_id@example.com" value={state.email} onChange={handleChange} />
                     </Col>
                 </Form.Group>
                 <br/>
                 <Form.Group as={Row} controlId="formHorizontalEmail">
-                   <Form.Label column sm={2}>Password:</Form.Label>
-                    <Col sm={4}>
+                   <Form.Label column sm={4}>Password:</Form.Label>
+                    <Col sm>
                     <Form.Control size="lg" id="password" type={isRevealPwd ? "text":"password"} placeholder="Something you can remember!" value={state.password} onChange={handleChange} />
                     <img class ="pwd-image" title={isRevealPwd ? "Hide Password":"Show Password"} src={isRevealPwd? hidePwdImg: showPwdImg} onClick={() => setIsRevealPwd(prevState  =>  !prevState)} fluid/>
                     </Col>
                 </Form.Group>
                 
                 <Form.Group as={Row} controlId="formHorizontalNumber">
-                    <Form.Label column sm={2}>Phone Number:</Form.Label>
-                    <Col sm={4}>
+                    <Form.Label column sm={4}>Phone Number:</Form.Label>
+                    <Col sm>
                     <Form.Control size="lg" id="phonenumber" placeholder="10 digits. No special characters." value={state.phonenumber} onChange={handleChange} />
                     </Col>
                 </Form.Group>
                 <br/>
-                <h3>Upload your profile image:</h3>
-                <input type="file" onChange={handleImageChange}/>
-                <img className={"imgPreview"} src={file}/>
-                <br/>
+                
             </Form>
+            </Col>
+            <Col sm>
+            
+                <Form>
+                    <Form.Group className="imgPreview">
+                        <Form.Label>&emsp;Profile Image:</Form.Label>
+                        <br/>
+                        <Image className={"imgPreview"} src={file} rounded fluid/>
+                        <input ref={inputRef} className="d-none" type="file" onChange={handleDisplayFileDetails} />
+      <Button className="file-div" variant="outline-warning" onClick={handleUpload}>Upload</Button>
+                <Form.File variant="outline-warning" type="file" className="file-div" size="lg" onChange={handleImageChange}/>
+                </Form.Group>
+                </Form>
+                <br/>
+            </Col>
+            </Row>
+            </Container>
             </div>
             <Button variant="success"  size='lg' id="myBtn" onClick={handleSubmit} className="registerButton"> Register </Button>{' '}
          </div>
