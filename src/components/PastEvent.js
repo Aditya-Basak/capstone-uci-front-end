@@ -3,7 +3,7 @@ import Header from './RegisterHeader'
 import { useHistory , Link, useParams} from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import axios from 'axios'
-import {Alert, Container, Row, Col, Modal, Button, ListGroup } from 'react-bootstrap';
+import {Alert, Container, Row, Col, Modal, Button, ListGroup, Image } from 'react-bootstrap';
 import defaultImage from './assets/blank-profile-no-tag.png'
 
 function PastEvent(props){
@@ -229,10 +229,10 @@ function PastEvent(props){
                                             <li class="modified-list-attendees d-flex justify-content-between align-items-center" key={item.id} >
 
                                                 {item.image=== null &&
-                                                    <img className={"imgPreview"} src={defaultImage}/>
+                                                    <Image className={"event-image"} src={defaultImage} roundedCircle/>
                                                 }
                                                 {item.image!== null &&
-                                                    <img className={"imgPreview"} src={item.image}/>
+                                                    <Image className={"event-image"} src={item.image} roundedCircle/>
                                                 }
                                                 
                                                 <Link  to={{pathname: '/userProfile/' + state.user_id + "/" + item.id + "/" + false }} className="custom-color" style={{ textDecoration: "none" }}>

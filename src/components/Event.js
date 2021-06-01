@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Header from './RegisterHeader'
 import { useHistory , Link, useParams} from "react-router-dom";
 import axios from 'axios';
-import {Button, Container, Row, Col, Form, ListGroup} from 'react-bootstrap';
+import {Button, Container, Row, Col, Image, ListGroup} from 'react-bootstrap';
 import defaultImage from './assets/blank-profile-no-tag.png'
 
 
@@ -191,10 +191,10 @@ function Event(props){
                                             <li class="modified-list-attendees d-flex justify-content-between align-items-center" key={item.id} >
 
                                             {item.image=== null &&
-                                                    <img className={"imgPreview"} src={defaultImage}/>
+                                                    <Image className={"event-image"} src={defaultImage} roundedCircle/>
                                                 }
                                                 {item.image!== null &&
-                                                    <img className={"imgPreview"} src={item.image}/>
+                                                    <Image className={"event-image"} src={item.image} roundedCircle/>
                                                 }
 
                                             <Link  to={{pathname: '/userProfile/' + state.user_id + "/" + item.id + "/" + false  }} className="custom-color" style={{ textDecoration: "none" }}>

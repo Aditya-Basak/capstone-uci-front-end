@@ -6,7 +6,7 @@ import showPwdImg from '../show-password.svg';
 import hidePwdImg from '../hide-password.svg';
 import { css } from "@emotion/react";
 import ReactStars from "react-rating-stars-component";
-import {Alert, Button, Container, Row, Col, Form, ListGroup} from 'react-bootstrap';
+import {Alert, Button, Container, Row, Col, Form, ListGroup, Image} from 'react-bootstrap';
 import ClipLoader from "react-spinners/ClipLoader";
 import S3FileUpload from 'react-s3';
 import defaultImage from './assets/blank-profile-no-tag.png'
@@ -298,43 +298,57 @@ function UserProfile(props){
                 {pwdEditMsg && <div className="editedMessage"> {pwdEditMsg} </div>}
                     
                 <br />
-                <Form>
-                    <Form.Group as={Row} controlId="formHorizontalEmail">
-                        <Form.Label column sm={2}>Email:</Form.Label>
-                            <Col sm={3}>
-                                <Form.Control size="lg" id="email" type="email" value={state.email} onChange={handleChange} readOnly />
-                            </Col>
-                    </Form.Group>
-                <br />
-                <Form.Group as={Row} controlId="formHorizontalEmail">
-                   <Form.Label column sm={2}>Password:</Form.Label>
-                    <Col sm={3}>
-                    <Form.Control size="lg" id="password"  type={isRevealPwd ? "text":"password"} placeholder="New Password" value={state.password} onChange={handleChange} />&nbsp;&nbsp;&nbsp;&nbsp;
-                    <img class="pwd-image-profile" title={isRevealPwd ? "Hide Password":"Show Password"} src={isRevealPwd? hidePwdImg: showPwdImg} onClick={() => setIsRevealPwd(prevState  =>  !prevState)}/>
-                    </Col>
-                    <Col sm={1}>
-                    <Button variant="outline-warning" size="md" onClick={handlePwdSubmit} className="editButton"> Update </Button>  
-                    </Col>
-                </Form.Group>
+                <Container fluid>
+                    <Row>
+                        <Col sm>
+                            <br/>
+                            <Form>
+                                <Form.Group as={Row} controlId="formHorizontalEmail">
+                                    <Form.Label column sm={4}>Email:</Form.Label>
+                                        <Col sm={7}>
+                                            <Form.Control size="lg" id="email" type="email" value={state.email} onChange={handleChange} readOnly />
+                                        </Col>
+                                </Form.Group>
+                                <br />
+                                <Form.Group as={Row} controlId="formHorizontalEmail">
+                                <Form.Label column sm={4}>Password:</Form.Label>
+                                    <Col sm>
+                                    <Form.Control size="lg" id="password"  type={isRevealPwd ? "text":"password"} placeholder="New Password" value={state.password} onChange={handleChange} />&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <img class="pwd-image-profile" title={isRevealPwd ? "Hide Password":"Show Password"} src={isRevealPwd? hidePwdImg: showPwdImg} onClick={() => setIsRevealPwd(prevState  =>  !prevState)}/>
+                                    </Col>
+                                    <Col sm={1}>
+                                    <Button variant="outline-warning" size="md" onClick={handlePwdSubmit} className="editButton"> Update </Button>  
+                                    </Col>
+                                </Form.Group>
 
-                <Form.Group as={Row} controlId="formHorizontalNumber">
-                    <Form.Label column sm={2}>Phone Number:</Form.Label>
-                    <Col sm={3}>
-                    <Form.Control size="lg" id="phone"  placeholder="New Number" value={state.phone} onChange={handleChange} />
-                    </Col>
-                    <Col sm={1}>
-                    <Button variant="outline-warning" size="md" onClick={handlePhSubmit} className="editButton"> Update </Button>  
-                    </Col>
-                </Form.Group>
-                <br></br>
-                <h4>Update your profile image:</h4>
-                <input type="file" onChange={handleImageChange}/>
-                <img className={"imgPreview"} src={file}/>
-                <Button variant="outline-warning" size="md" disabled={!imageChanged} onClick={updateProfileImage} className="editButton"> Update Image</Button> 
-                </Form>
+                                <Form.Group as={Row} controlId="formHorizontalNumber">
+                                    <Form.Label column sm={4}>Phone Number:</Form.Label>
+                                    <Col sm>
+                                    <Form.Control size="lg" id="phone"  placeholder="New Number" value={state.phone} onChange={handleChange} />
+                                    </Col>
+                                    <Col sm={1}>
+                                    <Button variant="outline-warning" size="md" onClick={handlePhSubmit} className="editButton"> Update </Button>  
+                                    </Col>
+                                </Form.Group>
+                            </Form>
+                        </Col>
+                        <Col sm>
+                        <Form>
+                            <Form.Group className="imgPreview">
+                                <Form.Label>&emsp;Profile Image:</Form.Label>
+                                <br/>
+                                <Image className={"imgPreview"} src={file} rounded fluid/>
+                                <Form.File variant="outline-warning" type="file" className="file-div" size="lg" onChange={handleImageChange}/>
+                                <Button variant="outline-warning" size="md" disabled={!imageChanged} onClick={updateProfileImage} className="editButton"> Update Image</Button> 
+                        </Form.Group>
+                        </Form>
+                        </Col>
+                    </Row>
+                </Container>
             </div>
             </Container>
             }
+
 
             {componentParams.showEdit === "false" && 
                 <div className="name-div">

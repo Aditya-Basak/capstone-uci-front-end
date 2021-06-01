@@ -547,6 +547,15 @@ code {
   width: 30px;
 }
 
+.event-image{
+  margin-left: 10px;
+  margin-right: 20px;
+  height: 60px;
+  width: 60px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
 .alert-body {
   font-weight: bolder;
   margin-left: 20%;
