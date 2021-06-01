@@ -2,12 +2,14 @@ import React, {useEffect, useState, useRef} from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom';
 import app_logo from '../SportsCon_Light_Transparent.png'
-import {Nav, Navbar, NavDropdown, Row, Col} from 'react-bootstrap';
+import {Nav, Navbar, NavDropdown, Row, Col, Image} from 'react-bootstrap';
+import defaultImage from './assets/blank-profile-no-tag.png'
 
 function RegisterHeader(props){
 
     const[state, setState] = useState({
         name: "",
+        image: defaultImage,
         user_id: props.user_id,
     })
     
@@ -19,7 +21,8 @@ function RegisterHeader(props){
         });
         
         setState({name: result.data.account_details.name,
-                    user_id: result.data.account_details.user_id,});
+                    user_id: result.data.account_details.user_id,
+                    image:result.data.account_details.image});
     },[]);
 
     async function handleLogout (event){
@@ -46,7 +49,9 @@ function RegisterHeader(props){
                     <Link to={{pathname: '/userProfile/' + props.user_id +  "/" + true}} style={{ textDecoration: "none" }}>
                         {state.name}
                         </Link>
-                        &emsp; &emsp;
+                        <Link to={{pathname: '/userProfile/' + props.user_id +  "/" + true}} style={{ textDecoration: "none" }}>
+                        <Image className="navbar-image"  src={state.image?state.image:defaultImage} rounded></Image>
+                        </Link>
                 </Navbar.Text>
                     <NavDropdown title=" More Actions" id="navbarScrollingDropdown">
                     <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>

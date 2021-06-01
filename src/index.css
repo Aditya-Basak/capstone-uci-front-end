@@ -528,3 +528,10 @@ code {
   align-items: center;
   margin-left: 15%;
 }
+
+.navbar-image{
+  margin-left: 10px;
+  margin-right: 20px;
+  height: 30px;
+  width: 30px;
+}
