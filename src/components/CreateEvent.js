@@ -135,9 +135,15 @@ function CreateEvent(props){
                                 <option hidden value>Select an Option.</option>
                                 
                                 <option value="Soccer">Soccer</option>
-                                <option value="basketball">Basketball</option>
-                                <option value="football">Football</option>
-                                <option value="cricket">Cricket</option>
+                                <option value="Basketball">Basketball</option>
+                                <option value="Football">Football</option>
+                                <option value="Cricket">Cricket</option>
+                                <option value="Hockey">Hockey</option>
+                                <option value="Baseball">Baseball</option>
+                                <option value="Lacrosse">Lacrosse</option>
+                                <option value="Rugby">Rugby</option>
+                                <option value="Volleyball">Volleyball</option>
+                                <option value="Tennis">Tennis</option>
                             </Form.Control>
                         </Col>
                     </Form.Group>
