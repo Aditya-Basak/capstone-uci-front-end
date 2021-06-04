@@ -177,6 +177,21 @@ code {
   font-family: 'Mulish';
 }
 
+.experiment-body-profile-others {
+  align-items: center;
+  background-color: #2a3d53;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 40px;
+  margin-top: 0px;
+  padding: 10px;
+  padding-top: 30px;
+  border-radius: 20px;
+  font-size: 150%;
+  font-family: 'Mulish';
+}
+
+
 .experiment-body-dashboard{
   margin-left: 55px;
   margin-right: 55px;
@@ -532,6 +547,38 @@ code {
   color: bisque;
   font-weight: bolder;
   font-size: larger;
+}
+
+.file-div{
+  margin-top: 10px;
+  align-items: center;
+  margin-left: 15%;
+}
+
+.navbar-image{
+  margin-left: 10px;
+  margin-right: 20px;
+  height: 30px;
+  width: 30px;
+}
+
+.event-image{
+  margin-left: 10px;
+  margin-right: 20px;
+  height: 60px;
+  width: 60px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.modal-image{
+  margin-left: 10px;
+  margin-right: 20px;
+  margin-top: 15px;
+  height: 160px;
+  width: 160px;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 .alert-body {
