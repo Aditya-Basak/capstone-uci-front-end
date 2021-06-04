@@ -57,7 +57,7 @@ function Login(props){
         style={{
           backgroundImage: 'url('+background+')',
           backgroundSize: "cover",
-          height: "110vh",
+          height: "100vh",
         }}
         
       >
@@ -72,7 +72,8 @@ function Login(props){
                 </Button>
             </div>
         </Alert>
-        <br></br>
+        
+        <br/><br/><br/>
             
         <div class="experiment-body-login2">
             

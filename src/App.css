@@ -56,10 +56,13 @@
 }
 
 .imgPreview{
+align-self: center;
+align-items: center;
+display: inline-block;
   text-align: center;
   margin: 5px 15px;
-  height: 150px;
-  width: 150px;
+  height: 250px;
+  width: 250px;
 }
 
 .registerButton {
