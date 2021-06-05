@@ -121,7 +121,10 @@ function Dashboard(props){
                                 <Link  to={{pathname: '/event/' + componentParams.userId + "/" + item.id }} className="custom-color">
                                     {item.name}
                                 </Link>
+                                <ul class= "d-flex justify-content-center justify-content-md-end">
+                                <h6  style={{color:'white'}}>{item.location},  {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(item.time))}</h6>
                                 <span className="badge badge-info badge-pill">Hosting</span>
+                                </ul>
                             </li>
                         </ListGroup>
                         ))}
@@ -132,7 +135,10 @@ function Dashboard(props){
                                 <Link to={{pathname: '/event/' + componentParams.userId + "/" + item.id }} className="custom-color">
                                     {item.name}
                                 </Link>
+                                <ul class= "d-flex justify-content-center justify-content-md-end">
+                                <h6  style={{color:'white'}}>{item.location},  {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(item.time))}</h6>
                                 <span class="badge badge-info badge-pill">Attending</span>
+                                </ul>
                             </li>
                         </ListGroup>
                         ))}
@@ -154,7 +160,10 @@ function Dashboard(props){
                                 }} className="custom-color">
                                 {item.name}
                             </Link>
+                            <ul class= "d-flex justify-content-center justify-content-md-end">
+                            <h6  style={{color:'white'}}>{item.location},  {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(item.time))}</h6>
                             <span class="badge badge-secondary badge-pill">Hosted</span>
+                            </ul>
                         </li>
                     </ListGroup>
                     ))}
@@ -165,7 +174,10 @@ function Dashboard(props){
                             <Link to={{pathname: '/pastEvent/' + componentParams.userId + "/" + item.id }} className="custom-color">
                                 {item.name}
                             </Link>
+                            <ul class= "d-flex justify-content-center justify-content-md-end">
+                            <h6  style={{color:'white'}}>{item.location},  {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(item.time))}</h6>
                             <span class="badge badge-secondary badge-pill">Attended</span>
+                            </ul>
                         </li>
                     </ListGroup>
                     ))}
