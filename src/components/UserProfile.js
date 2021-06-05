@@ -482,7 +482,7 @@ function UserProfile(props){
                                         <ListGroup>
                                             {item!== "" &&
                                             <li class="modified-list-testimonials d-flex justify-content-between align-items-center" key={item.id} >
-                                                {item}
+                                                "{item}"
                                             </li>
                                             }
                                         </ListGroup>
