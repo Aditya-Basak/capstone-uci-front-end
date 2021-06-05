@@ -90,8 +90,10 @@ function Event(props){
         })
         .then((response) => {
             if(response.status === 200){
+                setShowJoin(false);
                 setJoinedMessage("You have joined this event!");
-                setShowJoin(false)
+                setTimeout(() => { setJoinedMessage("");}, 3000);
+                
             }
         })
     }
@@ -107,8 +109,10 @@ function Event(props){
         })
         .then((response) => {
             if(response.status === 200){
+                setShowJoin(true);
                 setJoinedMessage("You have now left this event");
-                setShowJoin(true)
+                setTimeout(() => { setJoinedMessage("");}, 3000);
+                
             }
         })
 
@@ -171,7 +175,8 @@ function Event(props){
                                     </Col>
                                 </Row>
                                 <br/>
-                                <div style={{color:'white'}}>
+                                <div className="event-visibility" style={{color:'white'}}>
+                
                                     <b>This is a {eventState.scope} event.</b>
                                 </div>
                                 <br/>
@@ -189,7 +194,7 @@ function Event(props){
                                     (
                                         <ListGroup>
                                             {
-                                            <li class="modified-list-attendees d-flex justify-content-between align-items-center" key={item.id} >
+                                            <li class="modified-list-attendees d-flex" key={item.id} >
 
                                             {item.image=== null &&
                                                     <Image className={"event-image"} src={defaultImage} roundedCircle/>
@@ -198,7 +203,7 @@ function Event(props){
                                                     <Image className={"event-image"} src={item.image} roundedCircle/>
                                                 }
 
-                                            <Link  to={{pathname: '/userProfile/' + state.user_id + "/" + item.id + "/" + false  }} className="custom-color" style={{ textDecoration: "none" }}>
+                                            <Link  to={{pathname: '/userProfile/' + state.user_id + "/" + item.id + "/" + false  }} className="custom-color-attendees" style={{ textDecoration: "none" }}>
                                                     {item.name}
                                             </Link>
                                             </li>

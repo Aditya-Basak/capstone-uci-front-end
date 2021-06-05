@@ -385,10 +385,16 @@ code {
   background: rgb(1, 5, 19)
 }
 
-.custom-color{
+.custom-color-attendees{
+  display: inline;
+  padding-left: 30px;
   color: #dfdd7e;
   font-family: 'Mulish';
   font-size: 90%;
+}
+
+.event-visibility{
+  padding-top: 15px;
 }
 .modified-list2{
 	background-color: #0d1722;
