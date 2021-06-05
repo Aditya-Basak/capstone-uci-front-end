@@ -151,7 +151,7 @@ function Register(props){
         <Container fluid>
             <br/>
         <Alert className="alert-body" show={alert1} variant="danger">
-                <Alert.Heading>New Phone Number cannot be empty.</Alert.Heading>
+                <Alert.Heading>Phone Number cannot be empty.</Alert.Heading>
                 <hr />
                 <div className="d-flex justify-content-end">
                     <Button onClick={() => setAlert1(false)} variant="danger">
