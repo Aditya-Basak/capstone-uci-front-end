@@ -337,10 +337,11 @@ code {
     margin-bottom: 20px;
     margin-top: 20px;
     background-color: #2a3d53;
-    padding: 20px;
+    padding: 30px;
     border-radius: 20px;
-    font-size: 150%;
+    font-size: 140%;
     font-family: 'Mulish';
+    overflow-y: scroll;
   }
 
   .experiment-body-event-lower {
