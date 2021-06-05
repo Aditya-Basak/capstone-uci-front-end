@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Header from './RegisterHeader'
 import { useHistory , Link, useParams} from "react-router-dom";
 import axios from 'axios';
-import {Button, Container, Row, Col, Image, ListGroup} from 'react-bootstrap';
+import {Alert, Button, Container, Row, Col, Image, ListGroup} from 'react-bootstrap';
 import defaultImage from './assets/blank-profile-no-tag.png'
 
 
@@ -22,6 +22,8 @@ function Event(props){
     }
     
     const[joinedMessage, setJoinedMessage] = useState('');
+    const[alert1, setAlert1] = useState(false);
+    const[alert2, setAlert2] = useState(false);
 
     const[eventState, setEventState] = useState({
         name: "",
@@ -91,8 +93,8 @@ function Event(props){
         .then((response) => {
             if(response.status === 200){
                 setShowJoin(false);
-                setJoinedMessage("You have joined this event!");
-                setTimeout(() => { setJoinedMessage("");}, 3000);
+                setAlert1(true);
+                setTimeout(() => { setAlert1(false);}, 3000);
                 
             }
         })
@@ -110,8 +112,8 @@ function Event(props){
         .then((response) => {
             if(response.status === 200){
                 setShowJoin(true);
-                setJoinedMessage("You have now left this event");
-                setTimeout(() => { setJoinedMessage("");}, 3000);
+                setAlert2(true);
+                setTimeout(() => { setAlert2(false);}, 3000);
                 
             }
         })
@@ -123,6 +125,25 @@ function Event(props){
             <Header user_id= {state.user_id}/>
             <br/>
             {joinedMessage && <div className="registeredMessage"> {joinedMessage} </div>}
+            <Alert className="alert-body" show={alert1} variant="success">
+                <Alert.Heading>You have joined this event.</Alert.Heading>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => setAlert1(false)} variant="success">
+                        Close
+                    </Button>
+                </div>
+            </Alert>
+
+            <Alert className="alert-body" show={alert2} variant="danger">
+                <Alert.Heading>You have now left this event.</Alert.Heading>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => setAlert2(false)} variant="danger">
+                        Close
+                    </Button>
+                </div>
+            </Alert>
             <Container fluid>
                 <div className="name-div">
                     <h1>{eventState.name}</h1>

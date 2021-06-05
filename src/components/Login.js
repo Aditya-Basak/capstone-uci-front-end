@@ -92,7 +92,7 @@ function Login(props){
             </a>
             <br></br>
             <br></br>
-            <br></br>
+            
             <Form>
                 <Form.Group as={Row} controlId="formHorizontalName">
                     <Col sm={4}>

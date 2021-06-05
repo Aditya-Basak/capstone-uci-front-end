@@ -99,7 +99,7 @@ function Register(props){
         }
         if(check1 == true && check2 == true)
             validEmail = true;
-        if(state.name == "" && state.email == "" && state.password == "" && state.phone == "")
+        if(state.name === "" && state.email === "" && state.password === "" && state.phonenumber === "")
             {
                 setAlert5(true);
                 setTimeout(() => { setAlert5(false);}, 3000);           
@@ -191,7 +191,7 @@ function Register(props){
             </Alert>
 
             <Alert className="alert-body" show={alert5} variant="danger">
-                <Alert.Heading>None of the fields can be empty.</Alert.Heading>
+                <Alert.Heading>All fields can not be empty.</Alert.Heading>
                 <hr />
                 <div className="d-flex justify-content-end">
                     <Button onClick={() => setAlert5(false)} variant="danger">

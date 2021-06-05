@@ -120,6 +120,7 @@ function UserProfile(props){
             .then(res => {
                 if(res.status === 200){
                     setPwdEditMsg("Profile image successfully changed.");
+                    setTimeout(() => {setPwdEditMsg("");}, 3000);
                 }
             })
             .catch(error => {

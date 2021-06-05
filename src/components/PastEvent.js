@@ -126,7 +126,7 @@ function PastEvent(props){
                 if(res.status === 200){
                     modalClose();
                     setAlert3(true);
-                    setTimeout(() => {window.location = '/pastEvent/' + state.user_id + "/" + state.event_id;}, 3000);
+                    setTimeout(() => {setAlert3(false);}, 3000);
                 }
             })
             .catch(error => {
