@@ -248,36 +248,54 @@ function PastEvent(props){
                                     <ListGroup>
 
                                         {item.id == state.user_id && 
-                                            <li class="modified-list-attendees d-flex justify-content-between align-items-center" key={item.id} >
-
-                                                {item.image=== null &&
-                                                    <Image className={"event-image"} src={defaultImage} roundedCircle/>
-                                                }
-                                                {item.image!== null &&
-                                                    <Image className={"event-image"} src={item.image} roundedCircle/>
-                                                }
+                                            <li class="modified-list-attendees d-flex" key={item.id} >
+                                                <Container>
+                                                    <Row>
+                                                        <Col sm = {2}>
+                                                            {item.image=== null &&
+                                                                <Image className={"event-image"} src={defaultImage} roundedCircle/>
+                                                            }
+                                                            {item.image!== null &&
+                                                                <Image className={"event-image"} src={item.image} roundedCircle/>
+                                                            }
+                                                        </Col>
                                                 
-                                                <Link  to={{pathname: '/userProfile/' + state.user_id + "/" + item.id + "/" + true }} className="custom-color" style={{ textDecoration: "none" }}>
-                                                {item.name}
-                                                </Link>
+                                                        <Col className = "modified-flex" sm ={7}>
+                                                            <Link  to={{pathname: '/userProfile/' + state.user_id + "/" + item.id + "/" + true }} className="custom-color-attendees" style={{ textDecoration: "none" }}>
+                                                                {item.name}
+                                                            </Link>
+                                                        </Col>
+                                                        </Row>
+                                                </Container>
                                             </li>
                                         }
 
                                         {item.id != state.user_id && 
-                                            <li class="modified-list-attendees d-flex justify-content-between align-items-center" key={item.id} >
-
-                                                {item.image=== null &&
+                                            <li class="modified-list-attendees d-flex " key={item.id} >
+                                                <Container>
+                                                    <Row>
+                                                        <Col sm = {2}>
+                                                        {item.image=== null &&
                                                     <Image className={"event-image"} src={defaultImage} roundedCircle/>
                                                 }
                                                 {item.image!== null &&
                                                     <Image className={"event-image"} src={item.image} roundedCircle/>
                                                 }
-                                                
-                                                <Link  to={{pathname: '/userProfile/' + state.user_id + "/" + item.id + "/" + false }} className="custom-color" style={{ textDecoration: "none" }}>
+                                                        </Col>
+                                                        <Col className = "modified-flex" sm ={7}>
+                                                        <Link  to={{pathname: '/userProfile/' + state.user_id + "/" + item.id + "/" + false }} className="custom-color-attendees" style={{ textDecoration: "none" }}>
                                                 {item.name}
                                                 </Link>
-                                            {item.rated && <Button variant="success" onClick={() => handleEditRating(item)} >Edit Rating</Button> }
-                                            {!item.rated && <Button variant="success" onClick={() => modalClick(item)} >Rate</Button> }
+                                                        </Col>
+                                                        <Col className = "modified-flex" sm = {3}>
+                                                
+                                                    {item.rated && <Button variant="success" onClick={() => handleEditRating(item)} >Edit Rating</Button> }
+                                                    {!item.rated && <Button variant="success" onClick={() => modalClick(item)} >Rate</Button> }
+                                                
+                                                        </Col>
+                                                    </Row>
+                                                </Container>
+                                                
                                             </li>
                                         }
                                     </ListGroup>                                            

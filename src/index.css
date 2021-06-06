@@ -319,8 +319,8 @@ code {
   background-color: #0d1722;
   padding-top: 10px;
   padding-bottom: 10px;
-  padding-left: 35px;
-  padding-right: 35px;
+  padding-left: 0px;
+  padding-right: 10px;
   font-family: 'Mulish';
   margin: 10px;
   margin-left:5px;
@@ -388,6 +388,7 @@ code {
 .custom-color-attendees{
   display: inline;
   padding-left: 30px;
+  
   color: #dfdd7e;
   font-family: 'Mulish';
   font-size: 90%;
@@ -595,4 +596,11 @@ code {
   margin-top: 40px;
   padding: 20px;
   border-radius: 20px;
+}
+
+.modified-flex{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
 }
