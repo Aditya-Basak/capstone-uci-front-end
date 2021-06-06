@@ -197,7 +197,7 @@ function PastEvent(props){
                                 <Col sm={6}>
                                     Location:
                                 </Col>   
-                                <Col sm={4} style={{color:'white'}}>
+                                <Col sm={5} style={{color:'white'}}>
                                     {eventState.location}
                                 </Col>
                             </Row>
@@ -206,7 +206,7 @@ function PastEvent(props){
                                 <Col sm={6}>
                                     Event Type:
                                 </Col>   
-                                <Col sm={4} style={{color:'white'}}>
+                                <Col sm={5} style={{color:'white'}}>
                                     {eventState.event_type}
                                 </Col>
                             </Row>
@@ -215,7 +215,7 @@ function PastEvent(props){
                                 <Col sm={6}>
                                     Date/Time:
                                 </Col>   
-                                <Col sm={4} style={{color:'white'}}>
+                                <Col sm={5} style={{color:'white'}}>
                                     {eventState.date}
                                 </Col>
                             </Row>
@@ -224,7 +224,7 @@ function PastEvent(props){
                                 <Col sm={6}>
                                     Spots Unfilled:
                                 </Col>   
-                                <Col sm={4} style={{color:'white'}}>
+                                <Col sm={5} style={{color:'white'}}>
                                     {eventState.remainining_spots}
                                 </Col>
                             </Row>
