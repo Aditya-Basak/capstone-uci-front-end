@@ -5,6 +5,13 @@ import axios from 'axios'
 import { useHistory , useParams} from "react-router-dom";
 import { Search } from 'react-bootstrap-icons';
 import {Button, Tab, Tabs, Container, Row, Col, Form, ListGroup} from 'react-bootstrap';
+import ClipLoader from "react-spinners/ClipLoader";
+import { css } from "@emotion/react";
+
+const override = css`
+  margin: auto;
+  margin-top: 20%;
+`;
 
 function Dashboard(props){
     const componentParams = useParams();
@@ -21,6 +28,7 @@ function Dashboard(props){
         event_name: "",
         location: "",
     })
+    let [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -38,6 +46,7 @@ function Dashboard(props){
         .catch((err) => {
             console.log(err);
         }) 
+        setLoading(false); 
     };
         fetchData();
 
@@ -70,6 +79,16 @@ function Dashboard(props){
         }); 
     }
 
+    
+    if(loading){
+        return(
+         <div className="sweet-loading">
+         <Header user_id= {componentParams.userId}/>
+         <ClipLoader color={"aqua"} loading={loading} css={override} size={110} />
+         </div>
+        )
+    }
+    
     return (
         <div>
             <Header user_id= {componentParams.userId}/>

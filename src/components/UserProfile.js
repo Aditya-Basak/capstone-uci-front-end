@@ -220,7 +220,7 @@ function UserProfile(props){
        return(
         <div className="sweet-loading">
         <Header user_id= {componentParams.userId}/>
-        <ClipLoader color={"white"} loading={loading} css={override} size={150} />
+        <ClipLoader color={"aqua"} loading={loading} css={override} size={110} />
         </div>
        )
    }

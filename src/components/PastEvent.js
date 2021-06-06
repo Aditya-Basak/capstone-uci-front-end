@@ -4,7 +4,14 @@ import { useHistory , Link, useParams} from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import axios from 'axios'
 import {Alert, Container, Row, Col, Modal, Button, ListGroup, Image } from 'react-bootstrap';
+import ClipLoader from "react-spinners/ClipLoader";
+import { css } from "@emotion/react";
 import defaultImage from './assets/blank-profile-no-tag.png'
+
+const override = css`
+  margin: auto;
+  margin-top: 20%;
+`;
 
 function PastEvent(props){
     const componentParams = useParams();
@@ -13,6 +20,8 @@ function PastEvent(props){
         event_id: componentParams.eventId,
         user_id: componentParams.userId
     })
+
+    let [loading, setLoading] = useState(true);
 
     const[eventState, setEventState] = useState({
         name: "",
@@ -66,6 +75,7 @@ function PastEvent(props){
         .catch((err) => {
             console.log(err);
         }) 
+        setLoading(false);
         }
 
         fetchData();
@@ -135,6 +145,15 @@ function PastEvent(props){
             });
     }
 
+    if(loading){
+        return(
+         <div className="sweet-loading">
+         <Header user_id= {componentParams.userId}/>
+         <ClipLoader color={"aqua"} loading={loading} css={override} size={110} />
+         </div>
+        )
+    }
+    
     return (
         <div>
         <Header user_id= { state.user_id}/>

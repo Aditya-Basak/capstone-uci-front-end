@@ -3,8 +3,14 @@ import Header from './RegisterHeader'
 import { useHistory , Link, useParams} from "react-router-dom";
 import axios from 'axios';
 import {Alert, Button, Container, Row, Col, Image, ListGroup} from 'react-bootstrap';
+import ClipLoader from "react-spinners/ClipLoader";
+import { css } from "@emotion/react";
 import defaultImage from './assets/blank-profile-no-tag.png'
 
+const override = css`
+  margin: auto;
+  margin-top: 20%;
+`;
 
 function Event(props){
     const componentParams = useParams();
@@ -39,6 +45,7 @@ function Event(props){
     const[showJoin, setShowJoin] = useState(false)
     const[showEdit, setShowEdit] = useState(false)
     const noResults = "No user has joined this event yet!";
+    let [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -74,6 +81,7 @@ function Event(props){
         .catch((err) => {
             console.log(err);
         }) 
+        setLoading(false); 
         }
 
         fetchData();
@@ -118,6 +126,14 @@ function Event(props){
             }
         })
 
+    }
+    if(loading){
+        return(
+         <div className="sweet-loading">
+         <Header user_id= {state.user_id}/>
+         <ClipLoader color={"aqua"} loading={loading} css={override} size={110} />
+         </div>
+        )
     }
 
         return (

@@ -5,12 +5,18 @@ import { useHistory, useParams } from "react-router-dom";
 import axios from 'axios'
 import moment from 'moment';
 import {Button, Tab, Tabs, Container, Row, Col, Form, ListGroup} from 'react-bootstrap';
+import ClipLoader from "react-spinners/ClipLoader";
+import { css } from "@emotion/react";
 
+const override = css`
+  margin: auto;
+  margin-top: 20%;
+`;
 
 function Search(props){
     const componentParams = useParams();
     let history = useHistory();
-
+    let [loading, setLoading] = useState(true);
     const[state, setState] = useState({
         event_name: componentParams.eventName,
         location: componentParams.location,
@@ -76,7 +82,8 @@ function Search(props){
         })
         .catch((err) => {
             console.log(err);
-        }) 
+        })
+        setLoading(false); 
     };
     
 
@@ -84,6 +91,15 @@ function Search(props){
         fetchData();
     }, [])
 
+    if(loading){
+        return(
+         <div className="sweet-loading">
+         <Header user_id= {componentParams.userId}/>
+         <ClipLoader color={"aqua"} loading={loading} css={override} size={110} />
+         </div>
+        )
+    }
+    
     return (
         <div>
             <Header user_id= {componentParams.userId}/>
