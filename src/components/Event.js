@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Header from './RegisterHeader'
 import { useHistory , Link, useParams} from "react-router-dom";
 import axios from 'axios';
-import {Button, Container, Row, Col, Image, ListGroup} from 'react-bootstrap';
+import {Alert, Button, Container, Row, Col, Image, ListGroup} from 'react-bootstrap';
 import defaultImage from './assets/blank-profile-no-tag.png'
 
 
@@ -22,6 +22,8 @@ function Event(props){
     }
     
     const[joinedMessage, setJoinedMessage] = useState('');
+    const[alert1, setAlert1] = useState(false);
+    const[alert2, setAlert2] = useState(false);
 
     const[eventState, setEventState] = useState({
         name: "",
@@ -90,8 +92,10 @@ function Event(props){
         })
         .then((response) => {
             if(response.status === 200){
-                setJoinedMessage("You have joined this event!");
-                setShowJoin(false)
+                setShowJoin(false);
+                setAlert1(true);
+                setTimeout(() => { setAlert1(false);}, 3000);
+                
             }
         })
     }
@@ -107,8 +111,10 @@ function Event(props){
         })
         .then((response) => {
             if(response.status === 200){
-                setJoinedMessage("You have now left this event");
-                setShowJoin(true)
+                setShowJoin(true);
+                setAlert2(true);
+                setTimeout(() => { setAlert2(false);}, 3000);
+                
             }
         })
 
@@ -119,6 +125,25 @@ function Event(props){
             <Header user_id= {state.user_id}/>
             <br/>
             {joinedMessage && <div className="registeredMessage"> {joinedMessage} </div>}
+            <Alert className="alert-body" show={alert1} variant="success">
+                <Alert.Heading>You have joined this event.</Alert.Heading>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => setAlert1(false)} variant="success">
+                        Close
+                    </Button>
+                </div>
+            </Alert>
+
+            <Alert className="alert-body" show={alert2} variant="danger">
+                <Alert.Heading>You have now left this event.</Alert.Heading>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => setAlert2(false)} variant="danger">
+                        Close
+                    </Button>
+                </div>
+            </Alert>
             <Container fluid>
                 <div className="name-div">
                     <h1>{eventState.name}</h1>
@@ -171,7 +196,8 @@ function Event(props){
                                     </Col>
                                 </Row>
                                 <br/>
-                                <div style={{color:'white'}}>
+                                <div className="event-visibility" style={{color:'white'}}>
+                
                                     <b>This is a {eventState.scope} event.</b>
                                 </div>
                                 <br/>
@@ -188,21 +214,37 @@ function Event(props){
                                 {eventState.attendees.map((item) => 
                                     (
                                         <ListGroup>
-                                            {
-                                            <li class="modified-list-attendees d-flex justify-content-between align-items-center" key={item.id} >
 
-                                            {item.image=== null &&
+                                        {item.id == state.user_id && 
+                                            <li class="modified-list-attendees d-flex" key={item.id} >
+                                                {item.image=== null &&
+                                                    <Image className={"event-image"} src={defaultImage} roundedCircle/>
+                                                }
+                                                {item.image!== null &&
+                                                    <Image className={"event-image"} src={item.image} roundedCircle/>
+                                                }
+                                                
+                                                <Link  to={{pathname: '/userProfile/' + state.user_id + "/" + item.id + "/" + true }} className="custom-color" style={{ textDecoration: "none" }}>
+                                                {item.name}
+                                                </Link>
+                                            </li>
+                                        }
+
+                                        {item.id != state.user_id && 
+                                            <li class="modified-list-attendees d-flex" key={item.id} >
+
+                                                {item.image=== null &&
                                                     <Image className={"event-image"} src={defaultImage} roundedCircle/>
                                                 }
                                                 {item.image!== null &&
                                                     <Image className={"event-image"} src={item.image} roundedCircle/>
                                                 }
 
-                                            <Link  to={{pathname: '/userProfile/' + state.user_id + "/" + item.id + "/" + false  }} className="custom-color" style={{ textDecoration: "none" }}>
+                                            <Link  to={{pathname: '/userProfile/' + state.user_id + "/" + item.id + "/" + false  }} className="custom-color-attendees" style={{ textDecoration: "none" }}>
                                                     {item.name}
                                             </Link>
                                             </li>
-}
+                                        }
                                         </ListGroup>
                                     ))}
                             </div>

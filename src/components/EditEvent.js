@@ -21,6 +21,8 @@ function EditEvent(props){
         limit: "",
         scope: "",
     })
+
+    const[minimumAttendees, setMinimumAttendees] = useState(1);
      
     useEffect(async () => {
         const result = await axios.get("http://localhost:8080/api/get_event",{
@@ -66,7 +68,6 @@ function EditEvent(props){
                 var t_field = hours + ":" + minutes;
         }
         
-        
         setState({name: result.data.name,
                 event_type: result.data.event_type,
                 description: result.data.description,
@@ -75,6 +76,8 @@ function EditEvent(props){
                 date_field: d_field,
                 time_field: t_field,
                 scope:result.data.scope});
+
+        setMinimumAttendees((result.data.limit - result.data.remainining_spots))
     },[]);
 
     const[editedMessage, setEditedMessage] = useState('');
@@ -233,7 +236,7 @@ function EditEvent(props){
                     <Form.Group as={Row} controlId="formHorizontalName">
                     <Form.Label column sm={2}>Attendees Limit:</Form.Label>
                         <Col sm={6}>
-                        <Form.Control size="lg" id="limit" type="number" placeholder="Number of slots your event has." min="1" value={state.limit} onChange={handleChange} />
+                        <Form.Control size="lg" id="limit" type="number" placeholder="Number of slots your event has." min={minimumAttendees} value={state.limit} onChange={handleChange} />
                         </Col>
                     </Form.Group>
                 <br />

@@ -46,6 +46,8 @@ function Register(props){
     const[alert3, setAlert3] = useState(false);
     const[alert4, setAlert4] = useState(false);
     const[alert5, setAlert5] = useState(false);
+    const[alert6, setAlert6] = useState(false);
+    const[alert7, setAlert7] = useState(false);
  
     function handleChange (event) {
         setState({
@@ -97,17 +99,36 @@ function Register(props){
         }
         if(check1 == true && check2 == true)
             validEmail = true;
-
-       if(state.phonenumber == "")
+        if(state.name === "" && state.email === "" && state.password === "" && state.phonenumber === "")
+            {
+                setAlert5(true);
+                setTimeout(() => { setAlert5(false);}, 3000);           
+            }     
+        else if(state.phonenumber == "")
+        {
             setAlert1(true);
+            setTimeout(() => { setAlert1(false);}, 3000);
+        }
        else if(state.phonenumber.length != 10)
+       {
             setAlert2(true);
+            setTimeout(() => { setAlert2(false);}, 3000);
+        }
         else if(validPhone == false)
+        {
             setAlert3(true);
+            setTimeout(() => { setAlert3(false);}, 3000);
+        }
         else if(validEmail == false)
+        {
             setAlert4(true);
-        else if(state.name == "" || state.email == "" || state.password == "" || state.phone == "")
-            setAlert5(true);               
+            setTimeout(() => { setAlert4(false);}, 3000);
+        }
+        else if(state.password == "")
+        {
+            setAlert6(true);
+                setTimeout(() => { setAlert6(false);}, 3000);
+        }
         else{       
             await axios.post('http://localhost:8080/api/register_user', {
                 name: state.name,
@@ -118,8 +139,9 @@ function Register(props){
             })
             .then(res => {
                 if(res.status === 200){
-                    setRegisteredMessage(state.name + " has been registered!");
+                    setAlert7(true);
                     document.getElementById("myBtn").disabled = true;
+                    setTimeout(() => {window.location = '/';}, 3000);
                 }
             })
         }
@@ -129,7 +151,7 @@ function Register(props){
         <Container fluid>
             <br/>
         <Alert className="alert-body" show={alert1} variant="danger">
-                <Alert.Heading>New Phone Number cannot be empty.</Alert.Heading>
+                <Alert.Heading>Phone Number cannot be empty.</Alert.Heading>
                 <hr />
                 <div className="d-flex justify-content-end">
                     <Button onClick={() => setAlert1(false)} variant="danger">
@@ -169,10 +191,30 @@ function Register(props){
             </Alert>
 
             <Alert className="alert-body" show={alert5} variant="danger">
-                <Alert.Heading>None of the fields can be empty.</Alert.Heading>
+                <Alert.Heading>All fields can not be empty.</Alert.Heading>
                 <hr />
                 <div className="d-flex justify-content-end">
                     <Button onClick={() => setAlert5(false)} variant="danger">
+                        Close
+                    </Button>
+                </div>
+            </Alert>
+
+            <Alert className="alert-body" show={alert6} variant="danger">
+                <Alert.Heading>Password cannot be empty.</Alert.Heading>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => setAlert6(false)} variant="danger">
+                        Close
+                    </Button>
+                </div>
+            </Alert>
+
+            <Alert className="alert-body" show={alert7} variant="success">
+                <Alert.Heading>{state.name} has been successfully registered.</Alert.Heading>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => {setAlert7(false); window.location ="/";}} variant="success">
                         Close
                     </Button>
                 </div>

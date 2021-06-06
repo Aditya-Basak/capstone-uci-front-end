@@ -79,7 +79,7 @@ function Login(props){
             
             <Form>
                 <Form.Group as={Row}>
-                    <Col sm={9}>
+                    <Col sm>
                 <a href="/">
                     <img class="fit-logo-login2"  src={app_logo}/>
                 </a>
@@ -92,7 +92,7 @@ function Login(props){
             </a>
             <br></br>
             <br></br>
-            <br></br>
+            
             <Form>
                 <Form.Group as={Row} controlId="formHorizontalName">
                     <Col sm={4}>

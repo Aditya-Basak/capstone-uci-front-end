@@ -120,6 +120,7 @@ function UserProfile(props){
             .then(res => {
                 if(res.status === 200){
                     setPwdEditMsg("Profile image successfully changed.");
+                    setTimeout(() => {setPwdEditMsg("");}, 3000);
                 }
             })
             .catch(error => {
@@ -156,8 +157,10 @@ function UserProfile(props){
             })
             .then(res => {
                 if(res.status === 200){
-                    setPwdEditMsg("Password successfully changed.");
                     setPhEditMsg("");
+                    setPwdEditMsg("Password successfully changed.");
+                    setTimeout(() => {setPwdEditMsg("");}, 3000);
+                    
                 }
             })
             .catch(error => {
@@ -201,8 +204,9 @@ function UserProfile(props){
            })
            .then(res => {
                if(res.status === 200){
-                   setPhEditMsg("Phone Number successfully changed.");
                    setPwdEditMsg("");
+                   setPhEditMsg("Phone Number successfully changed.");
+                   setTimeout(() => {setPhEditMsg("");}, 3000);
                }
            })
            .catch(error => {
@@ -479,7 +483,7 @@ function UserProfile(props){
                                         <ListGroup>
                                             {item!== "" &&
                                             <li class="modified-list-testimonials d-flex justify-content-between align-items-center" key={item.id} >
-                                                {item}
+                                                "{item}"
                                             </li>
                                             }
                                         </ListGroup>
