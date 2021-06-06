@@ -24,7 +24,7 @@ function App() {
           <Route path="/createEvent/:userId" component={CreateEvent} />
           <Route path="/editEvent/:userId/:eventId" component={EditEvent} />
           <Route path="/userProfile/:userId/:seeUserId?/:showEdit" component={UserProfile} />
-          <Route path="/search/:userId/:eventName?/:location?/:eventType?/:date?" component={Search} />
+          <Route path="/search/:userId" component={Search} />
         </Switch>
       </div>
     </BrowserRouter>
