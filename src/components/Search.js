@@ -5,6 +5,7 @@ import { useHistory, useParams } from "react-router-dom";
 import axios from 'axios'
 import moment from 'moment';
 import {Button, Tab, Tabs, Container, Row, Col, Form, ListGroup} from 'react-bootstrap';
+import configData from '../config.json'
 
 
 function Search(props){
@@ -63,7 +64,7 @@ function Search(props){
             var temp = new Date(state.date);
             dateConvert = temp.getTime() + temp.getTimezoneOffset()*60*1000
         } 
-        await axios.get('http://localhost:8080/api/search_event', {
+        await axios.get(configData.SERVER_URL + '/api/search_event', {
             params:{
                 event_type: state.event_type,
                 location: state.location,

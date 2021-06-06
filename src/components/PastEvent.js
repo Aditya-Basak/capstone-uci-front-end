@@ -5,6 +5,7 @@ import ReactStars from "react-rating-stars-component";
 import axios from 'axios'
 import {Alert, Container, Row, Col, Modal, Button, ListGroup, Image } from 'react-bootstrap';
 import defaultImage from './assets/blank-profile-no-tag.png'
+import configData from '../config.json'
 
 function PastEvent(props){
     const componentParams = useParams();
@@ -42,7 +43,7 @@ function PastEvent(props){
 
     useEffect(() => {
         const fetchData = async () => {
-            await axios.get('http://localhost:8080/api/get_event', {
+            await axios.get(configData.SERVER_URL + '/api/get_event', {
             params:{
                 user_id: state.user_id,
                 event_id: state.event_id
@@ -110,7 +111,7 @@ function PastEvent(props){
     }
 
     async function handleRatingSubmit(){
-        await axios.post('http://localhost:8080/api/rate_user', {
+        await axios.post(configData.SERVER_URL + '/api/rate_user', {
                 event_id: state.event_id,
                 social_rating: socialRating,
                 skill_rating: eventRating,

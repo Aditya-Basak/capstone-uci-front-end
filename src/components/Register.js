@@ -6,6 +6,7 @@ import app_logo from '../SportsCon_Light_Transparent.png'
 import {Alert, Button, Container, Row, Col, Form, Image} from 'react-bootstrap';
 import S3FileUpload from 'react-s3';
 import defaultImage from './assets/blank_profile.png'
+import configData from '../config.json'
 
 const config = {
     bucketName: 'sportscon',
@@ -109,7 +110,7 @@ function Register(props){
         else if(state.name == "" || state.email == "" || state.password == "" || state.phone == "")
             setAlert5(true);               
         else{       
-            await axios.post('http://localhost:8080/api/register_user', {
+            await axios.post(configData.SERVER_URL + '/api/register_user', {
                 name: state.name,
                 email: state.email,
                 password: state.password,
