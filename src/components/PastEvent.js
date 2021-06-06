@@ -126,6 +126,7 @@ function PastEvent(props){
                 if(res.status === 200){
                     modalClose();
                     setAlert3(true);
+                    setTimeout(() => {setAlert3(false);}, 3000);
                 }
             })
             .catch(error => {

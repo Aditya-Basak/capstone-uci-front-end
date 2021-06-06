@@ -73,7 +73,7 @@ code {
 
 .fit-logo-login2 {
   position: relative;
-  float: right;
+  float: center;
   height: auto;
   width: 50%;
   margin-top: 30px;
@@ -117,7 +117,7 @@ code {
   float:left;
   height: 30px;
   width: auto;
-  margin-left: 198%;
+  margin-left: 195%;
   cursor: pointer;
   bottom:50%;
 }
@@ -337,10 +337,11 @@ code {
     margin-bottom: 20px;
     margin-top: 20px;
     background-color: #2a3d53;
-    padding: 20px;
+    padding: 30px;
     border-radius: 20px;
-    font-size: 150%;
+    font-size: 140%;
     font-family: 'Mulish';
+    overflow-y: scroll;
   }
 
   .experiment-body-event-lower {
@@ -384,10 +385,16 @@ code {
   background: rgb(1, 5, 19)
 }
 
-.custom-color{
+.custom-color-attendees{
+  display: inline;
+  padding-left: 30px;
   color: #dfdd7e;
   font-family: 'Mulish';
   font-size: 90%;
+}
+
+.event-visibility{
+  padding-top: 15px;
 }
 .modified-list2{
 	background-color: #0d1722;
@@ -420,9 +427,9 @@ code {
   align-items: center;
   text-align: center;
   background-color: #2a3d53;
-  margin: 450px;
+  margin: 500px;
   margin-top: 10px;
-  padding: 20px;
+  padding: 10px;
   border-radius: 20px;
   font-size: 150%;
   font-family: 'Mulish';
