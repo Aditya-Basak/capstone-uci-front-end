@@ -4,6 +4,7 @@ import { useHistory , Link, useParams} from "react-router-dom";
 import axios from 'axios';
 import {Alert, Button, Container, Row, Col, Image, ListGroup} from 'react-bootstrap';
 import defaultImage from './assets/blank-profile-no-tag.png'
+import configData from '../config.json'
 
 
 function Event(props){
@@ -42,7 +43,7 @@ function Event(props){
 
     useEffect(() => {
         const fetchData = async () => {
-            await axios.get('http://localhost:8080/api/get_event', {
+            await axios.get(configData.SERVER_URL + '/api/get_event', {
             params:{
                 user_id: state.user_id,
                 event_id: state.event_id
@@ -82,7 +83,7 @@ function Event(props){
     async function handleJoin (event){
         event.preventDefault();
 
-        await axios.post('http://localhost:8080/api/join_event', {
+        await axios.post(configData.SERVER_URL + '/api/join_event', {
             },
             {
             params: {
@@ -101,7 +102,7 @@ function Event(props){
     }
 
     async function handleLeave(){
-        await axios.put('http://localhost:8080/api/leave_event', {
+        await axios.put(configData.SERVER_URL + '/api/leave_event', {
             },
             {
             params: {

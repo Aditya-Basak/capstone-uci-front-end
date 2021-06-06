@@ -7,6 +7,7 @@ import hidePwdImg from '../hide-password.svg';
 import app_logo from '../SportsCon_Light_Transparent.png'
 import {Button, Alert, Row, Col, Form} from 'react-bootstrap';
 import background from './assets/background.png'
+import configData from '../config.json'
 
 function Login(props){
 
@@ -30,7 +31,7 @@ function Login(props){
     async function handleSubmit (event){
         event.preventDefault();
 
-        await axios.get('http://localhost:8080/api/login_user', {
+        await axios.get(configData.SERVER_URL + '/api/login_user', {
             params: {
             email: state.email,
             password: state.password
