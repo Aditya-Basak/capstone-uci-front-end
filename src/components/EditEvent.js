@@ -133,7 +133,7 @@ function EditEvent(props){
             })
             .catch(error => {
                 setAlert2(true);
-                setTimeout(() => {window.location = "/createEvent/"+componentParams.userId;}, 3000);
+                setTimeout(() => {window.location = '/editEvent/' + componentParams.userId + "/" + componentParams.eventId;}, 3000);
             });
         }
     }
@@ -156,7 +156,7 @@ function EditEvent(props){
                 <Alert.Heading>Something went wrong. Retry creating.</Alert.Heading>
                 <hr />
                 <div className="d-flex justify-content-end">
-                    <Button onClick={() => {setAlert2(false); window.location = "/createEvent/"+componentParams.userId;}} variant="danger">
+                    <Button onClick={() => {setAlert2(false); window.location = '/editEvent/' + componentParams.userId + "/" + componentParams.eventId;}} variant="danger">
                         Close
                     </Button>
                 </div>
