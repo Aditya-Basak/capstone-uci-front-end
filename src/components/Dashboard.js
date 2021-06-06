@@ -5,6 +5,7 @@ import axios from 'axios'
 import { useHistory , useParams} from "react-router-dom";
 import { Search } from 'react-bootstrap-icons';
 import {Button, Tab, Tabs, Container, Row, Col, Form, ListGroup} from 'react-bootstrap';
+import configData from '../config.json'
 
 function Dashboard(props){
     const componentParams = useParams();
@@ -24,7 +25,7 @@ function Dashboard(props){
 
     useEffect(() => {
         const fetchData = async () => {
-        await axios.get('http://localhost:8080/api/get_user_events', {
+        await axios.get(configData.SERVER_URL + '/api/get_user_events', {
             params:{
                 user_id: componentParams.userId
             }

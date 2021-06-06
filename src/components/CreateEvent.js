@@ -4,6 +4,7 @@ import moment from 'moment'
 import axios from 'axios'
 import { useHistory , useParams} from "react-router-dom";
 import {Button, Container, Row, Col, Form, Alert} from 'react-bootstrap';
+import configData from '../config.json'
 
 function CreateEvent(props){
     const componentParams = useParams();
@@ -49,7 +50,7 @@ function CreateEvent(props){
                 setAlert1(true);
         
         else{
-            await axios.post('http://localhost:8080/api/create_event', {
+            await axios.post(configData.SERVER_URL + '/api/create_event', {
                 name: state.name,
                 event_type: state.event_type,
                 description: state.description,

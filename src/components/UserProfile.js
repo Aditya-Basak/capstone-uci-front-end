@@ -10,6 +10,7 @@ import {Alert, Button, Container, Row, Col, Form, ListGroup, Image} from 'react-
 import ClipLoader from "react-spinners/ClipLoader";
 import S3FileUpload from 'react-s3';
 import defaultImage from './assets/blank-profile-no-tag.png'
+import configData from '../config.json'
 
 const config = {
     bucketName: 'sportscon',
@@ -55,7 +56,7 @@ function UserProfile(props){
         if(componentParams.showEdit === "false"){
             id_to_get = componentParams.seeUserId
         }
-        const result = await axios.get("http://localhost:8080/api/get_user_profile",{
+        const result = await axios.get(configData.SERVER_URL + '/api/get_user_profile',{
             params: {
                 user_id: id_to_get
             }
@@ -106,7 +107,7 @@ function UserProfile(props){
                 console.log(err)
             })
 
-            await axios.put('http://localhost:8080/api/edit_user', {
+            await axios.put(configData.SERVER_URL + '/api/edit_user', {
                 name: state.name,
                 password: state.password,
                 phone: state.phone,
@@ -153,7 +154,7 @@ function UserProfile(props){
         
         else{
 
-            await axios.put('http://localhost:8080/api/edit_user', {
+            await axios.put(configData.SERVER_URL + '/api/edit_user', {
                 name: state.name,
                 password: state.password,
                 phone: state.phone,
@@ -200,7 +201,7 @@ function UserProfile(props){
         else if(valid == false)
             setAlert3(true);    
         else{
-           await axios.put('http://localhost:8080/api/edit_user', {
+           await axios.put(configData.SERVER_URL + '/api/edit_user', {
                name: state.name,
                password: state.password,
                phone: state.phone,

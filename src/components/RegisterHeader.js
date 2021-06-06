@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import app_logo from '../SportsCon_Light_Transparent.png'
 import defaultImage from './assets/blank-profile-no-tag.png'
 import {Nav, Navbar, NavDropdown, Modal, Button, Image} from 'react-bootstrap';
+import configData from '../config.json'
 
 function RegisterHeader(props){
 
@@ -15,7 +16,7 @@ function RegisterHeader(props){
     const[showModal, setShowModal] = useState(false)
 
     useEffect(async () => {
-        const result = await axios.get("http://localhost:8080/api/get_user_profile",{
+        const result = await axios.get(configData.SERVER_URL + '/api/get_user_profile',{
             params: {
                 user_id: props.user_id
             }
