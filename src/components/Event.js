@@ -231,7 +231,7 @@ function Event(props){
                                         }
 
                                         {item.id != state.user_id && 
-                                            <li class="modified-list-attendees d-flex justify-content-between align-items-center" key={item.id} >
+                                            <li class="modified-list-attendees d-flex" key={item.id} >
 
                                                 {item.image=== null &&
                                                     <Image className={"event-image"} src={defaultImage} roundedCircle/>
