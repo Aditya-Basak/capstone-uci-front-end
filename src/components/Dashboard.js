@@ -50,17 +50,14 @@ function Dashboard(props){
         })
     }
 
-    function handleSelect() {
-        if(showPast)
-        {
+    function handleSelect(event) {
+        if(event === "upcoming"){
             setShowPast(false);
             setShowUpcoming(true);
-        }
-        else
-        {
+        } else{
             setShowPast(true);
             setShowUpcoming(false);
-        }
+        } 
     }
     
     function handleChange (event) {
