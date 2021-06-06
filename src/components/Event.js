@@ -131,7 +131,6 @@ function Event(props){
     if(loading){
         return(
          <div className="sweet-loading">
-         <Header user_id= {state.user_id}/>
          <ClipLoader color={"aqua"} loading={loading} css={override} size={110} />
          </div>
         )
