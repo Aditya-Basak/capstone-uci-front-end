@@ -214,10 +214,26 @@ function Event(props){
                                 {eventState.attendees.map((item) => 
                                     (
                                         <ListGroup>
-                                            {
-                                            <li class="modified-list-attendees d-flex" key={item.id} >
 
-                                            {item.image=== null &&
+                                        {item.id == state.user_id && 
+                                            <li class="modified-list-attendees d-flex" key={item.id} >
+                                                {item.image=== null &&
+                                                    <Image className={"event-image"} src={defaultImage} roundedCircle/>
+                                                }
+                                                {item.image!== null &&
+                                                    <Image className={"event-image"} src={item.image} roundedCircle/>
+                                                }
+                                                
+                                                <Link  to={{pathname: '/userProfile/' + state.user_id + "/" + item.id + "/" + true }} className="custom-color" style={{ textDecoration: "none" }}>
+                                                {item.name}
+                                                </Link>
+                                            </li>
+                                        }
+
+                                        {item.id != state.user_id && 
+                                            <li class="modified-list-attendees d-flex justify-content-between align-items-center" key={item.id} >
+
+                                                {item.image=== null &&
                                                     <Image className={"event-image"} src={defaultImage} roundedCircle/>
                                                 }
                                                 {item.image!== null &&
@@ -228,7 +244,7 @@ function Event(props){
                                                     {item.name}
                                             </Link>
                                             </li>
-}
+                                        }
                                         </ListGroup>
                                     ))}
                             </div>
