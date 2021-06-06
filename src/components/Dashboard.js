@@ -47,7 +47,8 @@ function Dashboard(props){
     let history = useHistory();
     const redirect = () => {
         history.push({
-          pathname:  '/search' + "/" + componentParams.userId +"/"+ searchState.event_name + "/" + searchState.location
+          pathname:  '/search' + "/" + componentParams.userId,
+          search: '?eventName='+ searchState.event_name + "&location=" + searchState.location
         })
     }
 
