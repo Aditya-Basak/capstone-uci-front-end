@@ -132,10 +132,18 @@ function UserProfile(props){
     }
 
     function handleImageChange(event) {
-        setImageChanged(true)
-        setS3File(event.target.files[0])
-        setFile(URL.createObjectURL(event.target.files[0]))
+        if(event.target.files.length!=0){
+            setImageChanged(true)
+            setS3File(event.target.files[0])
+            setFile(URL.createObjectURL(event.target.files[0]))
+        }
     }
+
+    const triggerFileInput = React.useRef(null);
+
+    const handleImageUploadClick = event => {
+        triggerFileInput.current.click();
+    };
 
     async function handlePwdSubmit (event){
          event.preventDefault();
@@ -342,7 +350,9 @@ function UserProfile(props){
                                 <Form.Label>&emsp;Profile Image:</Form.Label>
                                 <br/>
                                 <Image className={"imgPreview"} src={file} rounded fluid/>
-                                <Form.File variant="outline-warning" type="file" className="file-div" size="lg" onChange={handleImageChange}/>
+                                <Button className="file-div" variant="outline-warning" onClick={handleImageUploadClick}>Upload</Button> 
+                                <input variant="outline-warning" ref={triggerFileInput} type="file" className="file-div" size="lg" style={{display: 'none'}} onChange={handleImageChange}/>
+                                <br></br>
                                 <Button variant="outline-warning" size="md" disabled={!imageChanged} onClick={updateProfileImage} className="editButton"> Update Image</Button> 
                         </Form.Group>
                         </Form>

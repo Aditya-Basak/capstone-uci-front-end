@@ -22,20 +22,6 @@ function Register(props){
         phonenumber: "",
     })
 
-    const inputRef = useRef(null);
-
-    const handleUpload = () => {
-        inputRef.current?.click();
-
-        console.log(inputRef);
-      };
-
-    const handleDisplayFileDetails = () => {
-        
-        inputRef.current?.files &&
-        setS3File(inputRef.current.files[0]);
-      };
-
     const[file, setFile] = useState(defaultImage)
     const[S3File, setS3File] = useState(null)
 
@@ -57,9 +43,17 @@ function Register(props){
     }
 
     function handleImageChange(event) {
-        setS3File(event.target.files[0])
-        setFile(URL.createObjectURL(event.target.files[0]))
+        if(event.target.files.length!=0){
+            setS3File(event.target.files[0])
+            setFile(URL.createObjectURL(event.target.files[0]))
+        }
     }
+
+    const triggerFileInput = React.useRef(null);
+
+    const handleImageUploadClick = event => {
+        triggerFileInput.current.click();
+    };
 
     async function handleSubmit (event){
         let uploadURL = null;
@@ -276,9 +270,8 @@ function Register(props){
                         <Form.Label>&emsp;Profile Image:</Form.Label>
                         <br/>
                         <Image className={"imgPreview"} src={file} rounded fluid/>
-                        <input ref={inputRef} className="d-none" type="file" onChange={handleDisplayFileDetails} />
-                        {/* <Button className="file-div" variant="outline-warning" onClick={handleUpload}>Upload</Button> */}
-                <Form.File variant="outline-warning" type="file" className="file-div" size="lg" onChange={handleImageChange}/>
+                        <Button className="file-div" variant="outline-warning" onClick={handleImageUploadClick}>Upload</Button> 
+                        <input variant="outline-warning" ref={triggerFileInput} type="file" className="file-div" size="lg" style={{display: 'none'}} onChange={handleImageChange}/>
                 </Form.Group>
                 </Form>
                 <br/>
