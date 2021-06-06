@@ -10,6 +10,7 @@ import {Alert, Button, Container, Row, Col, Form, ListGroup, Image} from 'react-
 import ClipLoader from "react-spinners/ClipLoader";
 import S3FileUpload from 'react-s3';
 import defaultImage from './assets/blank-profile-no-tag.png'
+import configData from '../config.json'
 
 const config = {
     bucketName: 'sportscon',
@@ -59,7 +60,7 @@ function UserProfile(props){
         if(componentParams.showEdit === "false"){
             id_to_get = componentParams.seeUserId
         }
-        const result = await axios.get("http://localhost:8080/api/get_user_profile",{
+        const result = await axios.get(configData.SERVER_URL + '/api/get_user_profile',{
             params: {
                 user_id: id_to_get
             }
@@ -110,7 +111,7 @@ function UserProfile(props){
                 console.log(err)
             })
 
-            await axios.put('http://localhost:8080/api/edit_user', {
+            await axios.put(configData.SERVER_URL + '/api/edit_user', {
                 name: state.name,
                 password: state.password,
                 phone: state.phone,
@@ -136,10 +137,18 @@ function UserProfile(props){
     }
 
     function handleImageChange(event) {
-        setImageChanged(true)
-        setS3File(event.target.files[0])
-        setFile(URL.createObjectURL(event.target.files[0]))
+        if(event.target.files.length!=0){
+            setImageChanged(true)
+            setS3File(event.target.files[0])
+            setFile(URL.createObjectURL(event.target.files[0]))
+        }
     }
+
+    const triggerFileInput = React.useRef(null);
+
+    const handleImageUploadClick = event => {
+        triggerFileInput.current.click();
+    };
 
     async function handlePwdSubmit (event){
          event.preventDefault();
@@ -149,7 +158,7 @@ function UserProfile(props){
         
         else{
 
-            await axios.put('http://localhost:8080/api/edit_user', {
+            await axios.put(configData.SERVER_URL + '/api/edit_user', {
                 name: state.name,
                 password: state.password,
                 phone: state.phone,
@@ -195,7 +204,7 @@ function UserProfile(props){
         else if(valid == false)
             setAlert3(true);    
         else{
-           await axios.put('http://localhost:8080/api/edit_user', {
+           await axios.put(configData.SERVER_URL + '/api/edit_user', {
                name: state.name,
                password: state.password,
                phone: state.phone,
@@ -384,7 +393,9 @@ function UserProfile(props){
                                 <Form.Label>&emsp;Profile Image:</Form.Label>
                                 <br/>
                                 <Image className={"imgPreview"} src={file} rounded fluid/>
-                                <Form.File variant="outline-warning" type="file" className="file-div" size="lg" onChange={handleImageChange}/>
+                                <Button className="file-div" variant="outline-warning" onClick={handleImageUploadClick}>Upload</Button> 
+                                <input variant="outline-warning" ref={triggerFileInput} type="file" className="file-div" size="lg" style={{display: 'none'}} onChange={handleImageChange}/>
+                                <br></br>
                                 <Button variant="outline-warning" size="md" disabled={!imageChanged} onClick={updateProfileImage} className="editButton"> Update Image</Button> 
                         </Form.Group>
                         </Form>

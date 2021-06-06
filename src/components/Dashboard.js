@@ -5,6 +5,7 @@ import axios from 'axios'
 import { useHistory , useParams} from "react-router-dom";
 import { Search } from 'react-bootstrap-icons';
 import {Button, Tab, Tabs, Container, Row, Col, Form, ListGroup} from 'react-bootstrap';
+import configData from '../config.json'
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/react";
 
@@ -32,7 +33,7 @@ function Dashboard(props){
 
     useEffect(() => {
         const fetchData = async () => {
-        await axios.get('http://localhost:8080/api/get_user_events', {
+        await axios.get(configData.SERVER_URL + '/api/get_user_events', {
             params:{
                 user_id: componentParams.userId
             }
@@ -59,17 +60,14 @@ function Dashboard(props){
         })
     }
 
-    function handleSelect() {
-        if(showPast)
-        {
+    function handleSelect(event) {
+        if(event === "upcoming"){
             setShowPast(false);
             setShowUpcoming(true);
-        }
-        else
-        {
+        } else{
             setShowPast(true);
             setShowUpcoming(false);
-        }
+        } 
     }
     
     function handleChange (event) {
@@ -140,7 +138,10 @@ function Dashboard(props){
                                 <Link  to={{pathname: '/event/' + componentParams.userId + "/" + item.id }} className="custom-color">
                                     {item.name}
                                 </Link>
+                                <ul class= "d-flex justify-content-center justify-content-md-end">
+                                <h6  style={{color:'white'}}>{item.location},  {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(item.time))}</h6>
                                 <span className="badge badge-info badge-pill">Hosting</span>
+                                </ul>
                             </li>
                         </ListGroup>
                         ))}
@@ -151,7 +152,10 @@ function Dashboard(props){
                                 <Link to={{pathname: '/event/' + componentParams.userId + "/" + item.id }} className="custom-color">
                                     {item.name}
                                 </Link>
+                                <ul class= "d-flex justify-content-center justify-content-md-end">
+                                <h6  style={{color:'white'}}>{item.location},  {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(item.time))}</h6>
                                 <span class="badge badge-info badge-pill">Attending</span>
+                                </ul>
                             </li>
                         </ListGroup>
                         ))}
@@ -173,7 +177,10 @@ function Dashboard(props){
                                 }} className="custom-color">
                                 {item.name}
                             </Link>
+                            <ul class= "d-flex justify-content-center justify-content-md-end">
+                            <h6  style={{color:'white'}}>{item.location},  {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(item.time))}</h6>
                             <span class="badge badge-secondary badge-pill">Hosted</span>
+                            </ul>
                         </li>
                     </ListGroup>
                     ))}
@@ -184,7 +191,10 @@ function Dashboard(props){
                             <Link to={{pathname: '/pastEvent/' + componentParams.userId + "/" + item.id }} className="custom-color">
                                 {item.name}
                             </Link>
+                            <ul class= "d-flex justify-content-center justify-content-md-end">
+                            <h6  style={{color:'white'}}>{item.location},  {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(item.time))}</h6>
                             <span class="badge badge-secondary badge-pill">Attended</span>
+                            </ul>
                         </li>
                     </ListGroup>
                     ))}

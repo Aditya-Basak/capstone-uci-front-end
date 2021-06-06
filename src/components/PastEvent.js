@@ -7,6 +7,7 @@ import {Alert, Container, Row, Col, Modal, Button, ListGroup, Image } from 'reac
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/react";
 import defaultImage from './assets/blank-profile-no-tag.png'
+import configData from '../config.json'
 
 const override = css`
   margin: auto;
@@ -51,7 +52,7 @@ function PastEvent(props){
 
     useEffect(() => {
         const fetchData = async () => {
-            await axios.get('http://localhost:8080/api/get_event', {
+            await axios.get(configData.SERVER_URL + '/api/get_event', {
             params:{
                 user_id: state.user_id,
                 event_id: state.event_id
@@ -120,7 +121,7 @@ function PastEvent(props){
     }
 
     async function handleRatingSubmit(){
-        await axios.post('http://localhost:8080/api/rate_user', {
+        await axios.post(configData.SERVER_URL + '/api/rate_user', {
                 event_id: state.event_id,
                 social_rating: socialRating,
                 skill_rating: eventRating,

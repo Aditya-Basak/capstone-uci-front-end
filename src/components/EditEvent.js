@@ -4,6 +4,7 @@ import moment from 'moment'
 import axios from 'axios'
 import { useHistory , useParams} from "react-router-dom";
 import {Alert, Button, Container, Row, Col, Form} from 'react-bootstrap';
+import configData from '../config.json'
 
 function EditEvent(props){
     const componentParams = useParams();
@@ -25,7 +26,7 @@ function EditEvent(props){
     const[minimumAttendees, setMinimumAttendees] = useState(1);
      
     useEffect(async () => {
-        const result = await axios.get("http://localhost:8080/api/get_event",{
+        const result = await axios.get(configData.SERVER_URL + '/api/get_event',{
             params: {
                 user_id: componentParams.userId,
                 event_id: componentParams.eventId
@@ -108,7 +109,7 @@ function EditEvent(props){
                 setAlert1(true);
         
         else{
-            await axios.put('http://localhost:8080/api/edit_event', {
+            await axios.put(configData.SERVER_URL + '/api/edit_event', {
                 name: state.name,
                 event_type: state.event_type,
                 description: state.description,
