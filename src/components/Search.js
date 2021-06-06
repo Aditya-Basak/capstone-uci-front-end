@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import Header from './RegisterHeader'
 import {Link} from 'react-router-dom';
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams, useLocation } from "react-router-dom";
 import axios from 'axios'
 import moment from 'moment';
 import {Button, Tab, Tabs, Container, Row, Col, Form, ListGroup} from 'react-bootstrap';
@@ -18,17 +18,22 @@ function Search(props){
     const componentParams = useParams();
     let history = useHistory();
     let [loading, setLoading] = useState(true);
+
+    const locationSearch = useLocation();
+
+    let eventNameString = new URLSearchParams(locationSearch.search).get('eventName');
+    let locationString = new URLSearchParams(locationSearch.search).get('location');
+
     const[state, setState] = useState({
-        event_name: componentParams.eventName,
-        location: componentParams.location,
-        event_type: componentParams.eventType,
-        date: componentParams.date
+        event_name: eventNameString,
+        location: locationString,
+        event_type: "",
+        date: ""
     })
 
     const noResults = "No events found. Please update your search";
 
     function handleChange (event) {
-        console.log(state)
         setState({
             ...state,
             [event.target.id]: event.target.value
@@ -37,34 +42,8 @@ function Search(props){
 
     const[searchResults, setSearchResults] = useState([])
 
-    function update (){
-        console.log(state)
-
-        let path = '/search' + "/" + componentParams.userId
-
-        if(state.event_name != null && state.event_name!= ""){
-            path += "/"+ state.event_name
-        }
-
-        if(state.location != null && state.location!= ""){
-            path += "/"+ state.location
-        }
-
-        if(state.event_type != null && state.event_type!= ""){
-            path += "/"+ state.event_type
-        }
-
-        if(state.date != null && state.date!= ""){
-            path += "/"+ state.date
-        }
-        history.push({
-            pathname:  path
-        })
-        fetchData();
-    }
 
     async function fetchData (){
-        
         var dateConvert = null;
         if(state.date != null && state.date!= ""){
             var temp = new Date(state.date);
@@ -138,7 +117,7 @@ function Search(props){
                     <Form.Control  input id="date"  type= "date" min={moment().format("YYYY-MM-DD")} value={state.date} onChange={handleChange} />
                     </Col>  
                 </Form.Row>
-                <Button variant="custom-search" onClick={update} >Update</Button>
+                <Button variant="custom-search" onClick={fetchData} >Update</Button>
             </Form>
             </div>
             </Container>
