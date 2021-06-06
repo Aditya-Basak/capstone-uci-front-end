@@ -14,14 +14,12 @@ function Search(props){
 
     let eventNameString = new URLSearchParams(locationSearch.search).get('eventName');
     let locationString = new URLSearchParams(locationSearch.search).get('location');
-    let eventTypeString = new URLSearchParams(locationSearch.search).get('eventType');
-    let dateString = new URLSearchParams(locationSearch.search).get('date');
 
     const[state, setState] = useState({
         event_name: eventNameString,
         location: locationString,
-        event_type: eventTypeString,
-        date: dateString
+        event_type: "",
+        date: ""
     })
 
     const noResults = "No events found. Please update your search";
