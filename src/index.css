@@ -117,7 +117,7 @@ code {
   float:left;
   height: 30px;
   width: auto;
-  margin-left: 198%;
+  margin-left: 195%;
   cursor: pointer;
   bottom:50%;
 }
@@ -427,7 +427,7 @@ code {
   align-items: center;
   text-align: center;
   background-color: #2a3d53;
-  margin: 450px;
+  margin: 500px;
   margin-top: 10px;
   padding: 10px;
   border-radius: 20px;
