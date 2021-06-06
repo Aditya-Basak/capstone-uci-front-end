@@ -128,6 +128,7 @@ function UserProfile(props){
                 alert("Something went wrong. Retry modifying.\n"+error);
                 window.location = "/editUser";
             });
+            setFile(uploadURL)
             setImageChanged(false)
         }
     }
@@ -158,6 +159,7 @@ function UserProfile(props){
                 name: state.name,
                 password: state.password,
                 phone: state.phone,
+                image: file
             },
             {
                 params:{
@@ -205,6 +207,7 @@ function UserProfile(props){
                name: state.name,
                password: state.password,
                phone: state.phone,
+               image: file
            },
            {
                params:{
