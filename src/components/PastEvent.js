@@ -4,8 +4,15 @@ import { useHistory , Link, useParams} from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import axios from 'axios'
 import {Alert, Container, Row, Col, Modal, Button, ListGroup, Image } from 'react-bootstrap';
+import ClipLoader from "react-spinners/ClipLoader";
+import { css } from "@emotion/react";
 import defaultImage from './assets/blank-profile-no-tag.png'
 import configData from '../config.json'
+
+const override = css`
+  margin: auto;
+  margin-top: 20%;
+`;
 
 function PastEvent(props){
     const componentParams = useParams();
@@ -14,6 +21,8 @@ function PastEvent(props){
         event_id: componentParams.eventId,
         user_id: componentParams.userId
     })
+
+    let [loading, setLoading] = useState(true);
 
     const[eventState, setEventState] = useState({
         name: "",
@@ -67,6 +76,7 @@ function PastEvent(props){
         .catch((err) => {
             console.log(err);
         }) 
+        setLoading(false);
         }
 
         fetchData();
@@ -136,6 +146,14 @@ function PastEvent(props){
             });
     }
 
+    if(loading){
+        return(
+         <div className="sweet-loading">
+         <ClipLoader color={"aqua"} loading={loading} css={override} size={110} />
+         </div>
+        )
+    }
+    
     return (
         <div>
         <Header user_id= { state.user_id}/>
@@ -179,7 +197,7 @@ function PastEvent(props){
                                 <Col sm={6}>
                                     Location:
                                 </Col>   
-                                <Col sm={4} style={{color:'white'}}>
+                                <Col sm={5} style={{color:'white'}}>
                                     {eventState.location}
                                 </Col>
                             </Row>
@@ -188,7 +206,7 @@ function PastEvent(props){
                                 <Col sm={6}>
                                     Event Type:
                                 </Col>   
-                                <Col sm={4} style={{color:'white'}}>
+                                <Col sm={5} style={{color:'white'}}>
                                     {eventState.event_type}
                                 </Col>
                             </Row>
@@ -197,7 +215,7 @@ function PastEvent(props){
                                 <Col sm={6}>
                                     Date/Time:
                                 </Col>   
-                                <Col sm={4} style={{color:'white'}}>
+                                <Col sm={5} style={{color:'white'}}>
                                     {eventState.date}
                                 </Col>
                             </Row>
@@ -206,7 +224,7 @@ function PastEvent(props){
                                 <Col sm={6}>
                                     Spots Unfilled:
                                 </Col>   
-                                <Col sm={4} style={{color:'white'}}>
+                                <Col sm={5} style={{color:'white'}}>
                                     {eventState.remainining_spots}
                                 </Col>
                             </Row>
@@ -230,36 +248,54 @@ function PastEvent(props){
                                     <ListGroup>
 
                                         {item.id == state.user_id && 
-                                            <li class="modified-list-attendees d-flex justify-content-between align-items-center" key={item.id} >
-
-                                                {item.image=== null &&
-                                                    <Image className={"event-image"} src={defaultImage} roundedCircle/>
-                                                }
-                                                {item.image!== null &&
-                                                    <Image className={"event-image"} src={item.image} roundedCircle/>
-                                                }
+                                            <li class="modified-list-attendees d-flex" key={item.id} >
+                                                <Container>
+                                                    <Row>
+                                                        <Col sm = {2}>
+                                                            {item.image=== null &&
+                                                                <Image className={"event-image"} src={defaultImage} roundedCircle/>
+                                                            }
+                                                            {item.image!== null &&
+                                                                <Image className={"event-image"} src={item.image} roundedCircle/>
+                                                            }
+                                                        </Col>
                                                 
-                                                <Link  to={{pathname: '/userProfile/' + state.user_id + "/" + item.id + "/" + true }} className="custom-color" style={{ textDecoration: "none" }}>
-                                                {item.name}
-                                                </Link>
+                                                        <Col className = "modified-flex" sm ={7}>
+                                                            <Link  to={{pathname: '/userProfile/' + state.user_id + "/" + item.id + "/" + true }} className="custom-color-attendees" style={{ textDecoration: "none" }}>
+                                                                {item.name}
+                                                            </Link>
+                                                        </Col>
+                                                        </Row>
+                                                </Container>
                                             </li>
                                         }
 
                                         {item.id != state.user_id && 
-                                            <li class="modified-list-attendees d-flex justify-content-between align-items-center" key={item.id} >
-
-                                                {item.image=== null &&
+                                            <li class="modified-list-attendees d-flex " key={item.id} >
+                                                <Container>
+                                                    <Row>
+                                                        <Col sm = {2}>
+                                                        {item.image=== null &&
                                                     <Image className={"event-image"} src={defaultImage} roundedCircle/>
                                                 }
                                                 {item.image!== null &&
                                                     <Image className={"event-image"} src={item.image} roundedCircle/>
                                                 }
-                                                
-                                                <Link  to={{pathname: '/userProfile/' + state.user_id + "/" + item.id + "/" + false }} className="custom-color" style={{ textDecoration: "none" }}>
+                                                        </Col>
+                                                        <Col className = "modified-flex" sm ={7}>
+                                                        <Link  to={{pathname: '/userProfile/' + state.user_id + "/" + item.id + "/" + false }} className="custom-color-attendees" style={{ textDecoration: "none" }}>
                                                 {item.name}
                                                 </Link>
-                                            {item.rated && <Button variant="success" onClick={() => handleEditRating(item)} >Edit Rating</Button> }
-                                            {!item.rated && <Button variant="success" onClick={() => modalClick(item)} >Rate</Button> }
+                                                        </Col>
+                                                        <Col className = "modified-flex" sm = {3}>
+                                                
+                                                    {item.rated && <Button variant="success" onClick={() => handleEditRating(item)} >Edit Rating</Button> }
+                                                    {!item.rated && <Button variant="success" onClick={() => modalClick(item)} >Rate</Button> }
+                                                
+                                                        </Col>
+                                                    </Row>
+                                                </Container>
+                                                
                                             </li>
                                         }
                                     </ListGroup>                                            

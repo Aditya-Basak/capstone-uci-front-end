@@ -32,6 +32,10 @@ function UserProfile(props){
     const[alert4, setAlert4] = useState(false);
     const[alert5, setAlert5] = useState(false);
     const[alert6, setAlert6] = useState(false);
+    const[alert7, setAlert7] = useState(false);
+    const[alert8, setAlert8] = useState(false);
+    const[alert9, setAlert9] = useState(false);
+    const[alert10, setAlert10] = useState(false);
 
     let [loading, setLoading] = useState(true);
 
@@ -120,13 +124,13 @@ function UserProfile(props){
             })
             .then(res => {
                 if(res.status === 200){
-                    setPwdEditMsg("Profile image successfully changed.");
-                    setTimeout(() => {setPwdEditMsg("");}, 3000);
+                    setAlert9(true);
+                    setTimeout(() => {setAlert9(false);}, 3000);
                 }
             })
             .catch(error => {
-                alert("Something went wrong. Retry modifying.\n"+error);
-                window.location = "/editUser";
+                setAlert10(true);
+                setTimeout(() => {setAlert10(false);}, 3000);
             });
             setImageChanged(false)
         }
@@ -166,9 +170,8 @@ function UserProfile(props){
             })
             .then(res => {
                 if(res.status === 200){
-                    setPhEditMsg("");
-                    setPwdEditMsg("Password successfully changed.");
-                    setTimeout(() => {setPwdEditMsg("");}, 3000);
+                    setAlert7(true);
+                    setTimeout(() => {setAlert7(false);}, 3000);
                     
                 }
             })
@@ -213,9 +216,8 @@ function UserProfile(props){
            })
            .then(res => {
                if(res.status === 200){
-                   setPwdEditMsg("");
-                   setPhEditMsg("Phone Number successfully changed.");
-                   setTimeout(() => {setPhEditMsg("");}, 3000);
+                   setAlert8(true);
+                   setTimeout(() => {setAlert8(false);}, 3000);
                }
            })
            .catch(error => {
@@ -228,8 +230,8 @@ function UserProfile(props){
    if(loading){
        return(
         <div className="sweet-loading">
-        <Header user_id= {componentParams.userId}/>
-        <ClipLoader color={"white"} loading={loading} css={override} size={150} />
+        
+        <ClipLoader color={"aqua"} loading={loading} css={override} size={110} />
         </div>
        )
    }
@@ -300,6 +302,46 @@ function UserProfile(props){
                 <hr />
                 <div className="d-flex justify-content-end">
                     <Button onClick={() => {setAlert6(false); window.location = '/userProfile/' + props.user_id +  "/" + true;}} variant="danger">
+                        Close
+                    </Button>
+                </div>
+            </Alert>
+
+            <Alert className="alert-body" show={alert7} variant="success">
+                <Alert.Heading>Password updated successfully.</Alert.Heading>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => setAlert7(false)} variant="success">
+                        Close
+                    </Button>
+                </div>
+            </Alert>
+
+            <Alert className="alert-body" show={alert8} variant="success">
+                <Alert.Heading>Phone Number updated successfully.</Alert.Heading>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => setAlert8(false)} variant="success">
+                        Close
+                    </Button>
+                </div>
+            </Alert>
+
+            <Alert className="alert-body" show={alert9} variant="success">
+                <Alert.Heading>Profile Image updated successfully.</Alert.Heading>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => setAlert9(false)} variant="success">
+                        Close
+                    </Button>
+                </div>
+            </Alert>
+
+            <Alert className="alert-body" show={alert10} variant="danger">
+                <Alert.Heading>Something went wrong. Retry modifying.</Alert.Heading>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => setAlert10(false)} variant="danger">
                         Close
                     </Button>
                 </div>
