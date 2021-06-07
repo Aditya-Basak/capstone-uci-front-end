@@ -128,11 +128,23 @@ function Search(props){
                     
                     {searchResults && searchResults.map((item) => (
                         <ListGroup>
-                            <li class="modified-list2 d-flex justify-content-between align-items-center" key={item.id} >
+                            <li class="modified-list d-flex justify-content-between align-items-center" key={item.id} >
+                            <Container fluid>
+                                <Row  className="modified-container">
+                                    <Col className="modified-flex-dashboard" sm>
                                 <Link to={{pathname: '/event/' + componentParams.userId + "/" + item.id }} className="custom-color">
                                     {item.name}
                                 </Link>
-                                <span className="badge badge-info badge-pill">{item.location},  {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(item.time))}</span>
+                                </Col>
+                                <Col  sm = {3}   style={{color:'white'}}>
+                                        {item.location}
+                                    </Col>
+                                    <Col sm= {4} className="modified-flex-search">
+                                    {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(item.time))}
+                                    </Col>
+                               
+                                </Row>
+                            </Container> 
                             </li>
                         </ListGroup>
                     ))}
