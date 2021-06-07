@@ -396,10 +396,15 @@ function UserProfile(props){
                                 <Form.Label>&emsp;Profile Image:</Form.Label>
                                 <br/>
                                 <Image className={"imgPreview"} src={file} rounded fluid/>
+                                <Row className="test-row">
+                                <Col sm>
                                 <Button className="file-div" variant="outline-warning" onClick={handleImageUploadClick}>Upload</Button> 
                                 <input variant="outline-warning" ref={triggerFileInput} type="file" className="file-div" size="lg" style={{display: 'none'}} onChange={handleImageChange}/>
-                                <br></br>
-                                <Button variant="outline-warning" size="md" disabled={!imageChanged} onClick={updateProfileImage} className="editButton"> Update Image</Button> 
+                                </Col>
+                                <Col sm>
+                                <Button className="file-div2" variant="outline-warning" size="md" disabled={!imageChanged} onClick={updateProfileImage}> Update Image</Button> 
+                                </Col>
+                                </Row>
                         </Form.Group>
                         </Form>
                         </Col>

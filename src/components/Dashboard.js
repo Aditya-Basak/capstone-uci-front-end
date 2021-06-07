@@ -132,17 +132,28 @@ function Dashboard(props){
             {showUpcoming &&
             <div className="experiment-body-dashboard">
                 <div >
-                {upcomingHostedEvents.length===0 && upcomingHostedEvents.length===0  && <div className="registeredMessage"> {noResults1} </div>}
+                {upcomingHostedEvents.length===0 && upcomingJoinedEvents.length===0  && <div className="registeredMessage"> {noResults1} </div>}
                     {upcomingHostedEvents && upcomingHostedEvents.map((item) => (
                         <ListGroup>
                             <li className="modified-list2 d-flex justify-content-between align-items-center" key={item.id} >
+                            <Container fluid>
+                                <Row  className="modified-container">
+                                    <Col className="modified-flex-dashboard" sm>
                                 <Link  to={{pathname: '/event/' + componentParams.userId + "/" + item.id }} className="custom-color">
                                     {item.name}
                                 </Link>
-                                <ul class= "d-flex justify-content-center justify-content-md-end">
-                                <h6  style={{color:'white'}}>{item.location},  {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(item.time))}</h6>
-                                <span className="badge badge-info badge-pill">Hosting</span>
-                                </ul>
+                                </Col>
+                                <Col  sm = {3}   style={{color:'white'}}>
+                                        {item.location}
+                                    </Col>
+                                    <Col sm= {4}>
+                                    {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(item.time))}
+                                    </Col>
+                                    <Col sm = {1}>
+                                    <span class="badge badge-info badge-pill">Hosting</span>
+                                    </Col>
+                                </Row>
+                            </Container>
                             </li>
                         </ListGroup>
                         ))}
@@ -150,13 +161,24 @@ function Dashboard(props){
                     {upcomingJoinedEvents && upcomingJoinedEvents.map((item) => (
                         <ListGroup>
                             <li className="modified-list2 d-flex justify-content-between align-items-center" key={item.id} >
+                            <Container fluid>
+                                <Row  className="modified-container">
+                                    <Col className="modified-flex-dashboard" sm>
                                 <Link to={{pathname: '/event/' + componentParams.userId + "/" + item.id }} className="custom-color">
                                     {item.name}
                                 </Link>
-                                <ul class= "d-flex justify-content-center justify-content-md-end">
-                                <h6  style={{color:'white'}}>{item.location},  {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(item.time))}</h6>
-                                <span class="badge badge-info badge-pill">Attending</span>
-                                </ul>
+                                </Col>
+                                <Col  sm = {3}   style={{color:'white'}}>
+                                        {item.location}
+                                    </Col>
+                                    <Col sm= {4}>
+                                    {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(item.time))}
+                                    </Col>
+                                    <Col sm = {1}>
+                                    <span class="badge badge-info badge-pill">Attending</span>
+                                    </Col>
+                                </Row>
+                            </Container>                    
                             </li>
                         </ListGroup>
                         ))}
@@ -169,19 +191,32 @@ function Dashboard(props){
             <div className="experiment-body-dashboard">
             <div>
                 
-                {pastHostedEvents.length===0 && pastHostedEvents.length===0  && <div className="registeredMessage"> {noResults2} </div>}
+                {pastHostedEvents.length===0 && pastJoinedEvents.length===0  && <div className="registeredMessage"> {noResults2} </div>}
 
                 {pastHostedEvents && pastHostedEvents.map((item) => (
                     <ListGroup>
-                        <li className="modified-list2 d-flex justify-content-between align-items-center" key={item.id} >
-                            <Link to={{pathname: '/pastEvent/' + componentParams.userId + "/" + item.id 
-                                }} className="custom-color">
-                                {item.name}
-                            </Link>
-                            <ul class= "d-flex justify-content-center justify-content-md-end">
-                            <h6  style={{color:'white'}}>{item.location},  {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(item.time))}</h6>
-                            <span class="badge badge-secondary badge-pill">Hosted</span>
-                            </ul>
+                        <li className="modified-list2 d-flex  align-items-center" key={item.id} >
+                            <Container fluid>
+                                <Row  className="modified-container">
+                                    <Col className="modified-flex-dashboard" sm>
+                                    <Link to={{pathname: '/pastEvent/' + componentParams.userId + "/" + item.id 
+                                                }} className="custom-color">
+                                                {item.name}
+                                    </Link>
+                                    </Col>
+                                    <Col  sm = {3}   style={{color:'white'}}>
+                                        {item.location}
+                                    </Col>
+                                    <Col sm= {4}>
+                                    {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(item.time))}
+                                    </Col>
+                                    <Col sm = {1}>
+                                    <span class="badge badge-secondary badge-pill">Hosted</span>
+                                    </Col>
+                                </Row>
+                            </Container>
+                            
+                            
                         </li>
                     </ListGroup>
                     ))}
@@ -189,13 +224,24 @@ function Dashboard(props){
                 {pastJoinedEvents && pastJoinedEvents.map((item) => (
                     <ListGroup>
                         <li className="modified-list2 d-flex justify-content-between align-items-center" key={item.id} >
+                        <Container fluid>
+                                <Row  className="modified-container">
+                                    <Col className="modified-flex-dashboard" sm>
                             <Link to={{pathname: '/pastEvent/' + componentParams.userId + "/" + item.id }} className="custom-color">
                                 {item.name}
                             </Link>
-                            <ul class= "d-flex justify-content-center justify-content-md-end">
-                            <h6  style={{color:'white'}}>{item.location},  {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(item.time))}</h6>
-                            <span class="badge badge-secondary badge-pill">Attended</span>
-                            </ul>
+                            </Col>
+                            <Col  sm = {3}   style={{color:'white'}}>
+                                        {item.location}
+                                    </Col>
+                                    <Col sm= {4}>
+                                    {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(item.time))}
+                                    </Col>
+                                    <Col sm = {1}>
+                                    <span class="badge badge-secondary badge-pill">Attended</span>
+                                    </Col>
+                                    </Row>
+                            </Container>
                         </li>
                     </ListGroup>
                     ))}
