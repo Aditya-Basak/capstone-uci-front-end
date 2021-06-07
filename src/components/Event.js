@@ -246,7 +246,7 @@ function Event(props){
                                                         </Col>
                                                         <Col className = "modified-flex" sm ={7}>
                                                 
-                                                <Link  to={{pathname: '/userProfile/' + state.user_id + "/" + item.id + "/" + true }} className="custom-color" style={{ textDecoration: "none" }}>
+                                                <Link  to={{pathname: '/userProfile/' + state.user_id + "/" + item.id + "/" + true }} className="custom-color-attendees" style={{ textDecoration: "none" }}>
                                                 {item.name}
                                                 </Link>
                                                 </Col>
