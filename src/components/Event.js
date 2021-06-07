@@ -3,9 +3,15 @@ import Header from './RegisterHeader'
 import { useHistory , Link, useParams} from "react-router-dom";
 import axios from 'axios';
 import {Alert, Button, Container, Row, Col, Image, ListGroup} from 'react-bootstrap';
+import ClipLoader from "react-spinners/ClipLoader";
+import { css } from "@emotion/react";
 import defaultImage from './assets/blank-profile-no-tag.png'
 import configData from '../config.json'
 
+const override = css`
+  margin: auto;
+  margin-top: 20%;
+`;
 
 function Event(props){
     const componentParams = useParams();
@@ -40,6 +46,7 @@ function Event(props){
     const[showJoin, setShowJoin] = useState(false)
     const[showEdit, setShowEdit] = useState(false)
     const noResults = "No user has joined this event yet!";
+    let [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -75,6 +82,7 @@ function Event(props){
         .catch((err) => {
             console.log(err);
         }) 
+        setLoading(false); 
         }
 
         fetchData();
@@ -119,6 +127,13 @@ function Event(props){
             }
         })
 
+    }
+    if(loading){
+        return(
+         <div className="sweet-loading">
+         <ClipLoader color={"aqua"} loading={loading} css={override} size={110} />
+         </div>
+        )
     }
 
         return (
@@ -165,7 +180,7 @@ function Event(props){
                                     <Col sm={6}>
                                         Location:
                                     </Col>   
-                                    <Col sm={4} style={{color:'white'}}>
+                                    <Col sm={5} style={{color:'white'}}>
                                         {eventState.location}
                                     </Col>
                                 </Row>
@@ -174,7 +189,7 @@ function Event(props){
                                     <Col sm={6}>
                                         Event Type:
                                     </Col>   
-                                    <Col sm={4} style={{color:'white'}}>
+                                    <Col sm={5} style={{color:'white'}}>
                                         {eventState.event_type}
                                     </Col>
                                 </Row>
@@ -183,7 +198,7 @@ function Event(props){
                                     <Col sm={6}>
                                         Date/Time:
                                     </Col>   
-                                    <Col sm={4} style={{color:'white'}}>
+                                    <Col sm={5} style={{color:'white'}}>
                                         {eventState.date}
                                     </Col>
                                 </Row>
@@ -192,7 +207,7 @@ function Event(props){
                                     <Col sm={6}>
                                         Remaining Spots:
                                     </Col>   
-                                    <Col sm={4} style={{color:'white'}}>
+                                    <Col sm={5} style={{color:'white'}}>
                                         {eventState.remainining_spots}
                                     </Col>
                                 </Row>
@@ -218,32 +233,48 @@ function Event(props){
 
                                         {item.id == state.user_id && 
                                             <li class="modified-list-attendees d-flex" key={item.id} >
-                                                {item.image=== null &&
+                                                <Container>
+                                                    <Row>
+                                                        <Col sm = {2}>
+                                                        {item.image=== null &&
                                                     <Image className={"event-image"} src={defaultImage} roundedCircle/>
                                                 }
                                                 {item.image!== null &&
                                                     <Image className={"event-image"} src={item.image} roundedCircle/>
                                                 }
+
+                                                        </Col>
+                                                        <Col className = "modified-flex" sm ={7}>
                                                 
                                                 <Link  to={{pathname: '/userProfile/' + state.user_id + "/" + item.id + "/" + true }} className="custom-color" style={{ textDecoration: "none" }}>
                                                 {item.name}
                                                 </Link>
+                                                </Col>
+                                                        </Row>
+                                                </Container>
                                             </li>
                                         }
 
                                         {item.id != state.user_id && 
                                             <li class="modified-list-attendees d-flex" key={item.id} >
-
-                                                {item.image=== null &&
+                                                <Container>
+                                                    <Row>
+                                                        <Col sm = {2}>
+                                                        {item.image=== null &&
                                                     <Image className={"event-image"} src={defaultImage} roundedCircle/>
                                                 }
                                                 {item.image!== null &&
                                                     <Image className={"event-image"} src={item.image} roundedCircle/>
                                                 }
-
+                                                        </Col>
+                                                
+                                                        <Col className = "modified-flex" sm ={7}>
                                             <Link  to={{pathname: '/userProfile/' + state.user_id + "/" + item.id + "/" + false  }} className="custom-color-attendees" style={{ textDecoration: "none" }}>
                                                     {item.name}
                                             </Link>
+                                            </Col>
+                                                        </Row>
+                                                </Container>
                                             </li>
                                         }
                                         </ListGroup>
