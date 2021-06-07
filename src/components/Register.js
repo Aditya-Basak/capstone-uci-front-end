@@ -143,7 +143,7 @@ function Register(props){
     }
 
     return (
-        <Container fluid>
+        <Container className="register-page" fluid>
             <br/>
         <Alert className="alert-body" show={alert1} variant="danger">
                 <Alert.Heading>Phone Number cannot be empty.</Alert.Heading>

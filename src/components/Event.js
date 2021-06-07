@@ -211,7 +211,7 @@ function Event(props){
                                         {eventState.remainining_spots}
                                     </Col>
                                 </Row>
-                                <br/>
+                                
                                 <div className="event-visibility" style={{color:'white'}}>
                 
                                     <b>This is a {eventState.scope} event.</b>
