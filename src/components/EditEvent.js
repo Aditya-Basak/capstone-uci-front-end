@@ -154,7 +154,7 @@ function EditEvent(props){
             </Alert>
 
             <Alert className="alert-body" show={alert2} variant="danger">
-                <Alert.Heading>Something went wrong. Retry editting.</Alert.Heading>
+                <Alert.Heading>Something went wrong. Retry editing.</Alert.Heading>
                 <hr />
                 <div className="d-flex justify-content-end">
                     <Button onClick={() => {setAlert2(false); window.location = '/editEvent/' + componentParams.userId + "/" + componentParams.eventId;}} variant="danger">
