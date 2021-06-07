@@ -132,6 +132,7 @@ function UserProfile(props){
                 setAlert10(true);
                 setTimeout(() => {setAlert10(false);}, 3000);
             });
+            setFile(uploadURL)
             setImageChanged(false)
         }
     }
@@ -162,6 +163,7 @@ function UserProfile(props){
                 name: state.name,
                 password: state.password,
                 phone: state.phone,
+                image: file
             },
             {
                 params:{
@@ -208,6 +210,7 @@ function UserProfile(props){
                name: state.name,
                password: state.password,
                phone: state.phone,
+               image: file
            },
            {
                params:{
