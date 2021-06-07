@@ -132,7 +132,7 @@ function Dashboard(props){
             {showUpcoming &&
             <div className="experiment-body-dashboard">
                 <div >
-                {upcomingHostedEvents.length===0 && upcomingHostedEvents.length===0  && <div className="registeredMessage"> {noResults1} </div>}
+                {upcomingHostedEvents.length===0 && upcomingJoinedEvents.length===0  && <div className="registeredMessage"> {noResults1} </div>}
                     {upcomingHostedEvents && upcomingHostedEvents.map((item) => (
                         <ListGroup>
                             <li className="modified-list2 d-flex justify-content-between align-items-center" key={item.id} >
@@ -191,7 +191,7 @@ function Dashboard(props){
             <div className="experiment-body-dashboard">
             <div>
                 
-                {pastHostedEvents.length===0 && pastHostedEvents.length===0  && <div className="registeredMessage"> {noResults2} </div>}
+                {pastHostedEvents.length===0 && pastJoinedEvents.length===0  && <div className="registeredMessage"> {noResults2} </div>}
 
                 {pastHostedEvents && pastHostedEvents.map((item) => (
                     <ListGroup>
