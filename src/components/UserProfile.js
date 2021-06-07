@@ -399,7 +399,7 @@ function UserProfile(props){
                                 <input variant="outline-warning" ref={triggerFileInput} type="file" className="file-div" size="lg" style={{display: 'none'}} onChange={handleImageChange}/>
                                 </Col>
                                 <Col sm>
-                                <Button className="file-div2" variant="outline-success" size="md" disabled={!imageChanged} onClick={updateProfileImage}> Update Image</Button> 
+                                <Button className="file-div2" variant="outline-warning" size="md" disabled={!imageChanged} onClick={updateProfileImage}> Update Image</Button> 
                                 </Col>
                                 </Row>
                         </Form.Group>
