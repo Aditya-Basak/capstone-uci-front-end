@@ -168,6 +168,7 @@ code {
 
 .experiment-body-profile {
   align-items: center;
+  min-height: 45vh;
   background-color: #2a3d53;
   margin: 40px;
   margin-top: 0px;
@@ -574,10 +575,21 @@ code {
 
 .file-div{
   margin-top: 10px;
+  margin-bottom: 10px;
   align-items: center;
-  margin-left: 5%;
+  margin-left: 5px;
 }
 
+.file-div2{
+  margin-top: 10px;
+  margin-right: -16px;
+  margin-bottom: 10px;
+  align-items: center;
+  
+}
+.test-row{
+  margin-left: 5%;
+}
 .navbar-image{
   margin-left: 10px;
   margin-right: 20px;
